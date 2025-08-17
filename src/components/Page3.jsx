@@ -82,7 +82,7 @@ const Page3 = () => {
   };
 
   return (
-    <div className="w-full h-[100vh] flex flex-col bg-gray-100 relative z-10 -mt-[50px]">
+    <div className="w-full h-[115vh] flex flex-col bg-gray-100 relative z-10 -mt-[50px]">
       {/* Navigation Controls Overlay */}
       <div className="absolute inset-0 flex items-center justify-between px-8 pointer-events-none z-20">
         <button
@@ -104,7 +104,7 @@ const Page3 = () => {
       </div>
 
       <Carousel
-        className="w-full h-full"
+        className="w-full h-[115vh]"
         thumbnails={thumbnails}
         onSlideChange={handleImageChange}
         initialSlide={currentImageIndex}
@@ -153,11 +153,6 @@ const Page3 = () => {
                         }}
                         className="drop-shadow-lg rounded-xl"
                       />
-                      {isTransitioning && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gray-100/50">
-                          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                        </div>
-                      )}
                     </div>
                   </div>
                   {/* Div 2 - Description */}
@@ -230,11 +225,6 @@ const Page3 = () => {
                             }}
                             className="drop-shadow-lg rounded-xl"
                           />
-                          {isTransitioning && (
-                            <div className="absolute inset-0 flex items-center justify-center bg-gray-100/50">
-                              <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                            </div>
-                          )}
                         </div>
                       </span>
                       <span className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-[Fredoka] font-normal text-black">

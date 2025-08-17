@@ -1,7 +1,7 @@
 export const productCategories = [
   {
     category: "Lassi",
-    thumbnailGap: 10,
+    thumbnailGap: 0,
     items: [
       {
         title: "Probiotic lassi",
@@ -238,7 +238,7 @@ export const productCategories = [
   },
   {
     category: "Buttermilk",
-    thumbnailGap: 40,
+    thumbnailGap: 0,
     items: [
       {
         title: "Buttermilk Plain 400ml",
@@ -257,13 +257,12 @@ export const productCategories = [
           }
         },
         thumbnailStyle: {
-          width: 300, height: 200,
+          width: 320, height: 200,
           responsive: {
             xs: { width: 300, height: 200 },
             sm: { width: 300, height: 200 },
             md: { width: 300, height: 200 },
             lg: { width: 300, height: 200 },
-            xl: { width: 300, height: 200 }
           }
         },
         selectedScale: 1.4,
@@ -315,26 +314,23 @@ export const productCategories = [
             sm: { width: 450, height: 260, top: -120, marginBottom: 0 },
             md: { width: 450, height: 260, top: -120, marginBottom: 0 },
             lg: { width: 450, height: 260, top: -120, marginBottom: 0 },
-            xl: { width: 450, height: 260, top: -120, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
-          width: 205, height: 105,
+          width: 300, height: 105,
           responsive: {
             xs: { width: 205, height: 105 },
             sm: { width: 205, height: 105 },
             md: { width: 205, height: 105 },
             lg: { width: 205, height: 105 },
-            xl: { width: 205, height: 105 }
           }
         },
-        selectedScale: 1.5,
+        selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 50 },
           sm: { bottom: 50 },
           md: { bottom: 50 },
           lg: { bottom: 50 },
-          xl: { bottom: 50 }
         },
         decorativeImages: {
           image1: {
@@ -381,7 +377,7 @@ export const productCategories = [
           }
         },
         thumbnailStyle: {
-          width: 300, height: 105,
+          width: 300, height: 175,
           responsive: {
             xs: { width: 300, height: 105 },
             sm: { width: 300, height: 105 },
@@ -439,13 +435,12 @@ export const productCategories = [
         subtext3: "Low-fat, probiotic-packed goodness",
         colorbg: "#61b4e1",
         imgStyle: {
-          width: 400, height: 220, top: 40, marginBottom: 0,
+          width: 400, height: 220, top: 0, marginBottom: 0,
           responsive: {
             xs: { width: 400, height: 220, top: 40, marginBottom: 0 },
             sm: { width: 400, height: 220, top: 40, marginBottom: 0 },
             md: { width: 400, height: 220, top: 40, marginBottom: 0 },
-            lg: { width: 400, height: 220, top: 40, marginBottom: 0 },
-            xl: { width: 400, height: 220, top: 40, marginBottom: 0 }
+            xl: { width: 430, height: 220, top: 0, marginBottom: 0 }
           }
         },
         thumbnailStyle: {

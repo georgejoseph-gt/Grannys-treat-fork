@@ -37,18 +37,18 @@ const Footer = () => {
             11, Dewas Naka, Niranjanpur, Indore, Madhya Pradesh 452010
           </p>
 
-          <p className="flex sm:justify-center md:justify-start items-center gap-2">
+          <div className="flex sm:justify-center md:justify-start items-center gap-2">
             <img
               src="/assets/BG/phone.svg"
               alt="Phone"
               className="w-5 h-5 sm:w-6 sm:h-6"
             />
             <h1 className=" text-[#285192]  px-3 py-1 text-lg sm:text-base font-semibold">
-              +91 7024221305
+              +91 7024221305
             </h1>
-          </p>
+          </div>
 
-          <p className="flex sm:justify-center md:justify-start items-center gap-2">
+          <div className="flex sm:justify-center md:justify-start items-center gap-2">
             <img
               src="/assets/BG/gmail.svg"
               alt="Email"
@@ -57,7 +57,7 @@ const Footer = () => {
             <h1 className=" text-[#285192]  px-3 py-1 text-lg sm:text-base font-semibold">
               info@grannystreat.in
             </h1>
-          </p>
+          </div>
         </div>
 
       </div>

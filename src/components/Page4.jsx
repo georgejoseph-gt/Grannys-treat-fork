@@ -14,7 +14,7 @@ const Page4 = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 3500); // change slide every 5 seconds
+    }, 4000); 
     return () => clearInterval(interval);
   }, [images.length]);
 
@@ -39,7 +39,7 @@ const Page4 = () => {
               className=" md:h-[630px] h-auto object-cover transition-opacity duration-700 rounded-2xl"
             />
             <div className="flex space-x-2 mt-4 w-full justify-center ">
-              {images.map((_, idx) => (
+              {images.map((_, idx) => ( 
                 <button
                   key={idx}
                   className={`w-3 h-3 rounded-full transition-colors duration-300 focus:outline-none ${

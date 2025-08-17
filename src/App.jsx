@@ -21,7 +21,7 @@ const App = () => {
   };
 
   return (
-    <div className="overflow-x-hidden w-full">
+    <div className="overflow-x-hidden w-full select-none">
       <div ref={homeRef}>
         <Page1 
           scrollToRef={scrollToRef}

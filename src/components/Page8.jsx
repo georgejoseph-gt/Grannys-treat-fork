@@ -1,33 +1,82 @@
 import { useEffect, useState } from "react";
 
+/**
+ * Page8 — Instagram gallery (improved error handling)
+ *
+ * Important:
+ *  - Do NOT embed a long-lived access token in client code for production.
+ *  - Use import.meta.env.VITE_INSTA_ACCESS_TOKEN for local dev, and prefer a server-side proxy in production.
+ */
+
+const FALLBACK_SVG =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'><rect width='100%' height='100%' fill='#e6eef6'/><text x='50%' y='50%' font-size='20' dominant-baseline='middle' text-anchor='middle' fill='#6b7f96'>Image unavailable</text></svg>`
+  );
+
 const Page8 = () => {
   const [thumbnails, setThumbnails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    try {
-      // const accessToken = import.meta.env.VITE_INSTA_ACCESS_TOKEN;
-       const accessToken = 'IGAAd2GoR0Qz5BZAFBiSHJmWkU5V0RDajQyanpKUERBb1VtUXZAJczR2UG80YXdIU1AtUFRLSWVRNUJPLUxKcXEtcDZART1hrck02TnJBaEt4N1RGeV9NX0U1Nmk5MkU3cmhRT0E1V2tvZAS15ajJlTGFaWVBrYUtTUzMtZAk9taEw1NAZDZD';
+    setLoading(true);
+    setError(null);
 
-      console.log("access : ", accessToken);
+    try {
+      // Prefer using an env var instead of hardcoding:
+      const accessToken = import.meta.env.VITE_INSTA_ACCESS_TOKEN;
+      // const accessToken = "YOUR_TOKEN_HERE"; // temporary dev fallback (not recommended)
+
       if (!accessToken) {
-        console.error("Instagram access token is not defined");
-        return;
+        throw new Error(
+          "Instagram access token not provided. Set VITE_INSTA_ACCESS_TOKEN."
+        );
       }
 
-      const response = await fetch(
-        `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&access_token=${accessToken}`
-      );
+      const url =
+        `https://graph.instagram.com/me/media` +
+        `?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp` +
+        `&access_token=${accessToken}`;
+
+      const response = await fetch(url);
+
+      // <-- important: check response.ok to catch 4xx/5xx and avoid trying to parse a non-JSON error body
+      if (!response.ok) {
+        // read body text for debug (if any)
+        const text = await response.text().catch(() => "");
+        throw new Error(
+          `Instagram API error: ${response.status} ${response.statusText} ${text}`
+        );
+      }
 
       const data = await response.json();
-      setThumbnails(data?.data?.slice(0, 6)); // Get 6 images
+
+      // If API returns an object with data array
+      const mediaArray = Array.isArray(data?.data) ? data.data : [];
+      setThumbnails(mediaArray.slice(0, 6));
     } catch (err) {
       console.error("Error fetching Instagram data:", err);
+      setError(err.message || "Unknown error");
+      setThumbnails([]); // ensure safe UI
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Helper to pick image src safely
+  const getImageSrc = (item) => {
+    if (!item) return FALLBACK_SVG;
+    // Videos often have thumbnail_url; images use media_url
+    if (item.media_type === "VIDEO")
+      return item.thumbnail_url || item.media_url || FALLBACK_SVG;
+    return item.media_url || item.thumbnail_url || FALLBACK_SVG;
+  };
+
   return (
     <div className="min-h-screen w-full bg-[#d2eef9] relative">
       <div className=" w-[85%] mx-auto p-8">
@@ -35,13 +84,31 @@ const Page8 = () => {
           Be a part of our Instagram community
         </h3>
 
+        {loading && (
+          <div className="text-center mb-8 text-sm text-gray-600">
+            Loading...
+          </div>
+        )}
+        {error && (
+          <div className="text-center mb-8 text-sm text-red-600">
+            Could not load Instagram images: {error}
+          </div>
+        )}
+
         <div className="flex flex-col lg:flex-row gap-4 justify-center">
           {/* Column 1: Single large image */}
           <div className="lg:w-[450px]">
-            {thumbnails[0] && (
+            {thumbnails[0] ? (
               <img
-                src={thumbnails[0]?.thumbnail_url || thumbnails[0]?.media_url}
-                alt={thumbnails[0]?.caption}
+                src={getImageSrc(thumbnails[0])}
+                alt={thumbnails[0]?.caption || "Instagram image"}
+                className="w-full h-[516px] border-8 border-white object-cover rounded-3xl shadow-lg"
+                onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+              />
+            ) : (
+              <img
+                src={FALLBACK_SVG}
+                alt="placeholder"
                 className="w-full h-[516px] border-8 border-white object-cover rounded-3xl shadow-lg"
               />
             )}
@@ -51,17 +118,32 @@ const Page8 = () => {
           <div className="lg:w-[80%]">
             {/* Row 1: Two larger images */}
             <div className="flex gap-4 mb-4 h-[250px]">
-              {thumbnails[1] && (
+              {thumbnails[1] ? (
                 <img
-                  src={thumbnails[1].thumbnail_url || thumbnails[1].media_url}
-                  alt={thumbnails[1].caption}
+                  src={getImageSrc(thumbnails[1])}
+                  alt={thumbnails[1]?.caption || "Instagram image"}
+                  className="w-1/2 object-cover border-8 border-white rounded-3xl shadow-lg"
+                  onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                />
+              ) : (
+                <img
+                  src={FALLBACK_SVG}
+                  alt="placeholder"
                   className="w-1/2 object-cover border-8 border-white rounded-3xl shadow-lg"
                 />
               )}
-              {thumbnails[2] && (
+
+              {thumbnails[2] ? (
                 <img
-                  src={thumbnails[2].thumbnail_url || thumbnails[2].media_url}
-                  alt={thumbnails[2].caption}
+                  src={getImageSrc(thumbnails[2])}
+                  alt={thumbnails[2]?.caption || "Instagram image"}
+                  className="w-2/3 object-cover border-8 border-white rounded-3xl shadow-lg"
+                  onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                />
+              ) : (
+                <img
+                  src={FALLBACK_SVG}
+                  alt="placeholder"
                   className="w-2/3 object-cover border-8 border-white rounded-3xl shadow-lg"
                 />
               )}
@@ -69,30 +151,19 @@ const Page8 = () => {
 
             {/* Row 2: Three smaller images */}
             <div className="flex gap-4 h-[250px]">
-              {thumbnails[3] && (
-                <img
-                  key={thumbnails[3].id}
-                  src={thumbnails[3].thumbnail_url || thumbnails[3].media_url}
-                  alt={thumbnails[3].caption}
-                  className="w-[30%] object-cover border-8 border-white rounded-3xl shadow-lg"
-                />
-              )}
-              {thumbnails[4] && (
-                <img
-                  key={thumbnails[4].id}
-                  src={thumbnails[4].thumbnail_url || thumbnails[4].media_url}
-                  alt={thumbnails[4].caption}
-                  className="w-[40%] object-cover border-8 border-white rounded-3xl shadow-lg"
-                />
-              )}
-              {thumbnails[5] && (
-                <img
-                  key={thumbnails[5].id}
-                  src={thumbnails[5].thumbnail_url || thumbnails[5].media_url}
-                  alt={thumbnails[5].caption}
-                  className="w-[30%] object-cover border-8 border-white rounded-3xl shadow-lg"
-                />
-              )}
+              {[3, 4, 5].map((i, idx) => (
+                <div
+                  key={thumbnails[i]?.id || `placeholder-${idx}`}
+                  className={idx === 1 ? "w-[40%]" : "w-[30%]"}
+                >
+                  <img
+                    src={getImageSrc(thumbnails[i])}
+                    alt={thumbnails[i]?.caption || "Instagram image"}
+                    className="w-full h-full object-cover border-8 border-white rounded-3xl shadow-lg"
+                    onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
