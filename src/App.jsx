@@ -49,7 +49,7 @@ const App = () => {
           <Page6 />
         </div>
       </div>
-      <Page7 />
+      {/* <Page7 /> */}
       <Page8 />
       <Page9 />
     </div>

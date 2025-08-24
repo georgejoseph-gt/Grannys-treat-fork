@@ -73,8 +73,14 @@ const Page2 = () => {
       <motion.img
         src="/assets/BG/strawberry_page2.svg"
         alt="Decorative strawberry illustration"
-        animate={{ scale: scrollDir === "down" ? 1.1 : 0.9 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        animate={{
+          scale: scrollDir === "down" ? [1.1, 1.2, 1.1] : [0.9, 0.8, 0.9],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
         className="absolute w-[clamp(180px,22vw,285px)] h-auto aspect-square
         top-[20%] sm:top-[12%] md:top-[18%] lg:top-[22%] xl:top-[50px]
         left-[2%] sm:left-[6%] md:left-[10%] lg:left-[12%] xl:left-[186.63px]
@@ -84,8 +90,15 @@ const Page2 = () => {
       <motion.img
         src="/assets/BG/blueberry_page2.svg"
         alt="Decorative blueberry illustration"
-        animate={{ scale: scrollDir === "down" ? 1.05 : 0.95 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        animate={{
+          scale: scrollDir === "down" ? [1.05, 1.15, 1.05] : [0.95, 0.85, 0.95],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1.5,
+        }}
         className="absolute w-[clamp(180px,28vw,375px)] h-auto aspect-square
         top-[5%] md:top-[42%] lg:top-[36%] xl:top-[220px]
         right-[2%] sm:right-[6%] md:right-[10%] lg:right-[12%] xl:right-[186.63px]
