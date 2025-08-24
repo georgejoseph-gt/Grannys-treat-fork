@@ -42,7 +42,7 @@ const Page6 = () => {
       top-[8%] sm:top-[12%] md:top-[20%]  
       left-[2%] sm:left-[6%] md:left-[10%] lg:left-[4%]
        opacity-30 pointer-events-none select-none z-0 rotate-30"
-       
+
       />
     </div>
   );

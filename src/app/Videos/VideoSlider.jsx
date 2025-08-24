@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import VideoCard from "./VideoCard";
 import { videos } from "./videoData";
+import "./VideoSlider.css";
 
 const VideoSlider = () => {
   const [playingId, setPlayingId] = useState(null);
