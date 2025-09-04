@@ -260,7 +260,7 @@ const VideoCard = ({
       </div>
 
       {/* Enhanced footer with gradient and better typography */}
-      <div className="flex-1 bg-gradient-to-br from-white to-gray-50 p-4 flex flex-col justify-center">
+      {/* <div className="flex-1 bg-gradient-to-br from-white to-gray-50 p-4 flex flex-col justify-center">
         <div className="text-center">
           <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-3"></div>
           <p className="text-xl font-[Fredoka] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#285192] to-[#4a90e2]">
@@ -268,7 +268,7 @@ const VideoCard = ({
           </p>
           <p className="text-sm text-gray-500 mt-1 font-medium">Tap to play</p>
         </div>
-      </div>
+      </div> */}
 
       {/* Subtle border accent */}
       <div className="absolute inset-0 rounded-2xl border border-gray-100 pointer-events-none"></div>

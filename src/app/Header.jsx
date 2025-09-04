@@ -18,7 +18,6 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             {/* <img
-              src="/assets/logo.png"
               alt="logo"
               className="w-[clamp(3rem,8vw,7.5rem)] h-auto"
             /> */}

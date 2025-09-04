@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 
-/**
- * Page8 — Instagram gallery (improved error handling)
- *
- * Important:
- *  - Do NOT embed a long-lived access token in client code for production.
- *  - Use import.meta.env.VITE_INSTA_ACCESS_TOKEN for local dev, and prefer a server-side proxy in production.
- */
+const INSTA_ACCESS_TOKEN = 'IGAAKbe6ZAFyLdBZAE9uRFFRU3A2WnhBWnBmaFJsVzMxWkV4RDlCVFkxeHZAFeUhnU2RQMGNoUU1NNmNCdEItM1pHNUhxTDZArdE5qVDRSdGFZAb1Q1SEZA0N2U3RkRJZAFh3NS1LYUZAXaDRpMmRRbi1iNDdiT1dDMFFQVXhfOEJobkxydwZDZD'
 
 const FALLBACK_SVG =
   "data:image/svg+xml;utf8," +
@@ -25,7 +19,7 @@ const Page8 = () => {
 
     try {
       // Prefer using an env var instead of hardcoding:
-      const accessToken = import.meta.env.VITE_INSTA_ACCESS_TOKEN;
+      const accessToken = INSTA_ACCESS_TOKEN;
       // const accessToken = "YOUR_TOKEN_HERE"; // temporary dev fallback (not recommended)
 
       if (!accessToken) {
@@ -99,12 +93,14 @@ const Page8 = () => {
           {/* Column 1: Single large image */}
           <div className="lg:w-[450px]">
             {thumbnails[0] ? (
-              <img
-                src={getImageSrc(thumbnails[0])}
-                alt={thumbnails[0]?.caption || "Instagram image"}
-                className="w-full h-[516px] border-8 border-white object-cover rounded-3xl shadow-lg"
-                onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
-              />
+              <a href={thumbnails[0]?.permalink} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={getImageSrc(thumbnails[0])}
+                  alt={thumbnails[0]?.caption || "Instagram image"}
+                  className="w-full h-[516px] border-8 border-white object-cover rounded-3xl shadow-lg"
+                  onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                />
+              </a>
             ) : (
               <img
                 src={FALLBACK_SVG}
@@ -118,13 +114,18 @@ const Page8 = () => {
           <div className="lg:w-[80%]">
             {/* Row 1: Two larger images */}
             <div className="flex gap-4 mb-4 h-[250px]">
+
               {thumbnails[1] ? (
-                <img
-                  src={getImageSrc(thumbnails[1])}
-                  alt={thumbnails[1]?.caption || "Instagram image"}
-                  className="w-1/2 object-cover border-8 border-white rounded-3xl shadow-lg"
-                  onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
-                />
+                <a href={thumbnails[1]?.permalink} target="_blank" rel="noopener noreferrer"
+                  className="w-1/2  object-cover border-8 border-white rounded-3xl shadow-lg"
+                >
+                  <img
+                    src={getImageSrc(thumbnails[1])}
+                    alt={thumbnails[1]?.caption || "Instagram image"}
+                    className="w-full h-full object-cover   rounded-3xl shadow-lg"
+                    onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                  />
+                </a>
               ) : (
                 <img
                   src={FALLBACK_SVG}
@@ -134,12 +135,17 @@ const Page8 = () => {
               )}
 
               {thumbnails[2] ? (
-                <img
-                  src={getImageSrc(thumbnails[2])}
-                  alt={thumbnails[2]?.caption || "Instagram image"}
-                  className="w-2/3 object-cover border-8 border-white rounded-3xl shadow-lg"
-                  onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
-                />
+                <a href={thumbnails[2]?.permalink} target="_blank" rel="noopener noreferrer"
+                  className="w-2/3  object-cover border-8 border-white rounded-3xl shadow-lg"
+                >
+
+                  <img
+                    src={getImageSrc(thumbnails[2])}
+                    alt={thumbnails[2]?.caption || "Instagram image"}
+                    className="w-full h-full object-cover rounded-3xl"
+                    onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                  />
+                </a>
               ) : (
                 <img
                   src={FALLBACK_SVG}
@@ -156,12 +162,17 @@ const Page8 = () => {
                   key={thumbnails[i]?.id || `placeholder-${idx}`}
                   className={idx === 1 ? "w-[40%]" : "w-[30%]"}
                 >
-                  <img
-                    src={getImageSrc(thumbnails[i])}
-                    alt={thumbnails[i]?.caption || "Instagram image"}
-                    className="w-full h-full object-cover border-8 border-white rounded-3xl shadow-lg"
-                    onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
-                  />
+                  <a href={thumbnails[i]?.permalink} target="_blank" rel="noopener noreferrer"
+                    className="w-full hfull "
+                  >
+
+                    <img
+                      src={getImageSrc(thumbnails[i])}
+                      alt={thumbnails[i]?.caption || "Instagram image"}
+                      className="w-full h-full object-cover border-8 border-white rounded-3xl shadow-lg"
+                      onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                    />
+                  </a>
                 </div>
               ))}
             </div>

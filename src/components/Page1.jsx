@@ -22,14 +22,14 @@ const Page1 = () => {
       {/* Main content container with responsive padding */}
       <div className="relative h-screen  w-full ">
         <header className=" w-screen z-50 bg-transparent px-4 sm:px-6 md:px-10">
-          <div className="max-w-full mx-auto w-full flex items-center justify-between">
+          <div className="max-w-full mx-auto w-full flex items-center justify-between ">
             {/* Logo */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 ">
               <OptimizedImage
-                src="/assets/logo.webp"
+                src="/assets/Logo.svg"
                 alt="logo"
-                width={90}
-                height={120}
+                width={125}
+                height={125}
               />
             </div>
 
