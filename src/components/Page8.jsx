@@ -72,32 +72,32 @@ const Page8 = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#d2eef9] relative">
-      <div className=" w-[85%] mx-auto p-8">
-        <h3 className="font-[Fredoka] text-[#285192] font-extrabold text-center text-3xl md:text-5xl mb-12 tracking-wider">
+    <div className="min-h-screen w-full bg-[#d2eef9] relative py-8 sm:py-12 md:py-16">
+      <div className="w-[90%] sm:w-[85%] mx-auto px-4 sm:px-6 md:px-8">
+        <h3 className="font-[Fredoka] text-[#285192] font-extrabold text-center text-[clamp(1.5rem,4vw,3rem)] mb-8 sm:mb-10 md:mb-12 tracking-wider px-4">
           Be a part of our Instagram community
         </h3>
 
         {loading && (
-          <div className="text-center mb-8 text-sm text-gray-600">
+          <div className="text-center mb-6 sm:mb-8 text-sm text-gray-600">
             Loading...
           </div>
         )}
         {error && (
-          <div className="text-center mb-8 text-sm text-red-600">
+          <div className="text-center mb-6 sm:mb-8 text-sm text-red-600">
             Could not load Instagram images: {error}
           </div>
         )}
 
-        <div className="flex flex-col lg:flex-row gap-4 justify-center">
+        <div className="flex flex-col xl:flex-row gap-4 sm:gap-6 justify-center">
           {/* Column 1: Single large image */}
-          <div className="lg:w-[450px]">
+          <div className="w-full xl:w-[450px]">
             {thumbnails[0] ? (
               <a href={thumbnails[0]?.permalink} target="_blank" rel="noopener noreferrer">
                 <img
                   src={getImageSrc(thumbnails[0])}
                   alt={thumbnails[0]?.caption || "Instagram image"}
-                  className="w-full h-[516px] border-8 border-white object-cover rounded-3xl shadow-lg"
+                  className="w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] xl:h-[516px] border-4 sm:border-6 md:border-8 border-white object-cover rounded-2xl sm:rounded-3xl shadow-lg"
                   onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                 />
               </a>
@@ -105,24 +105,24 @@ const Page8 = () => {
               <img
                 src={FALLBACK_SVG}
                 alt="placeholder"
-                className="w-full h-[516px] border-8 border-white object-cover rounded-3xl shadow-lg"
+                className="w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] xl:h-[516px] border-4 sm:border-6 md:border-8 border-white object-cover rounded-2xl sm:rounded-3xl shadow-lg"
               />
             )}
           </div>
 
           {/* Column 2: Grid layout */}
-          <div className="lg:w-[80%]">
+          <div className="w-full xl:w-[80%]">
             {/* Row 1: Two larger images */}
-            <div className="flex gap-4 mb-4 h-[250px]">
+            <div className="flex flex-col sm:flex-row gap-4 mb-4 h-auto sm:h-[200px] md:h-[250px]">
 
               {thumbnails[1] ? (
                 <a href={thumbnails[1]?.permalink} target="_blank" rel="noopener noreferrer"
-                  className="w-1/2  object-cover border-8 border-white rounded-3xl shadow-lg"
+                  className="w-full sm:w-1/2 h-[150px] sm:h-full object-cover border-4 sm:border-6 md:border-8 border-white rounded-2xl sm:rounded-3xl shadow-lg"
                 >
                   <img
                     src={getImageSrc(thumbnails[1])}
                     alt={thumbnails[1]?.caption || "Instagram image"}
-                    className="w-full h-full object-cover   rounded-3xl shadow-lg"
+                    className="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
                     onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                   />
                 </a>
@@ -130,19 +130,18 @@ const Page8 = () => {
                 <img
                   src={FALLBACK_SVG}
                   alt="placeholder"
-                  className="w-1/2 object-cover border-8 border-white rounded-3xl shadow-lg"
+                  className="w-full sm:w-1/2 h-[150px] sm:h-full object-cover border-4 sm:border-6 md:border-8 border-white rounded-2xl sm:rounded-3xl shadow-lg"
                 />
               )}
 
               {thumbnails[2] ? (
                 <a href={thumbnails[2]?.permalink} target="_blank" rel="noopener noreferrer"
-                  className="w-2/3  object-cover border-8 border-white rounded-3xl shadow-lg"
+                  className="w-full sm:w-2/3 h-[150px] sm:h-full object-cover border-4 sm:border-6 md:border-8 border-white rounded-2xl sm:rounded-3xl shadow-lg"
                 >
-
                   <img
                     src={getImageSrc(thumbnails[2])}
                     alt={thumbnails[2]?.caption || "Instagram image"}
-                    className="w-full h-full object-cover rounded-3xl"
+                    className="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
                     onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                   />
                 </a>
@@ -150,26 +149,25 @@ const Page8 = () => {
                 <img
                   src={FALLBACK_SVG}
                   alt="placeholder"
-                  className="w-2/3 object-cover border-8 border-white rounded-3xl shadow-lg"
+                  className="w-full sm:w-2/3 h-[150px] sm:h-full object-cover border-4 sm:border-6 md:border-8 border-white rounded-2xl sm:rounded-3xl shadow-lg"
                 />
               )}
             </div>
 
             {/* Row 2: Three smaller images */}
-            <div className="flex gap-4 h-[250px]">
+            <div className="flex flex-col sm:flex-row gap-4 h-auto sm:h-[200px] md:h-[250px]">
               {[3, 4, 5].map((i, idx) => (
                 <div
                   key={thumbnails[i]?.id || `placeholder-${idx}`}
-                  className={idx === 1 ? "w-[40%]" : "w-[30%]"}
+                  className={idx === 1 ? "w-full sm:w-[40%]" : "w-full sm:w-[30%]"}
                 >
                   <a href={thumbnails[i]?.permalink} target="_blank" rel="noopener noreferrer"
-                    className="w-full hfull "
+                    className="w-full h-[120px] sm:h-full block"
                   >
-
                     <img
                       src={getImageSrc(thumbnails[i])}
                       alt={thumbnails[i]?.caption || "Instagram image"}
-                      className="w-full h-full object-cover border-8 border-white rounded-3xl shadow-lg"
+                      className="w-full h-full object-cover border-4 sm:border-6 md:border-8 border-white rounded-2xl sm:rounded-3xl shadow-lg"
                       onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                     />
                   </a>

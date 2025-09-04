@@ -83,21 +83,21 @@ const Page3 = () => {
 
   return (
     <div className="w-full h-[95vh] flex flex-col bg-gray-100 relative z-10 -mt-[50px]">
-      <div className="absolute inset-0 flex items-center justify-between px-8 pointer-events-none z-20">
+      <div className="absolute inset-0 flex items-center justify-between px-4 sm:px-6 md:px-8 pointer-events-none z-20">
         <button
           onClick={prevCategory}
           className="pointer-events-auto cursor-pointer flex items-center gap-2 text-black/70 hover:text-black transition-colors group"
         >
-          <div className="bg-white/75 backdrop-blur-sm hover:bg-white rounded-full p-2 transition-all duration-300">
-            <ChevronLeft className="w-6 h-6" />
+          <div className="bg-white/75 backdrop-blur-sm hover:bg-white rounded-full p-1.5 sm:p-2 transition-all duration-300">
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </div>
         </button>
         <button
           onClick={nextCategory}
           className="pointer-events-auto cursor-pointer flex items-center gap-2 text-black/70 hover:text-black transition-colors group"
         >
-          <div className="bg-white/75 backdrop-blur-sm hover:bg-white rounded-full p-2 transition-all duration-300">
-            <ChevronRight className="w-6 h-6" />
+          <div className="bg-white/75 backdrop-blur-sm hover:bg-white rounded-full p-1.5 sm:p-2 transition-all duration-300">
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </div>
         </button>
       </div>

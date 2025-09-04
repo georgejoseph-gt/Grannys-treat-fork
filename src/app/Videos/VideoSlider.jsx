@@ -51,7 +51,7 @@ const VideoSlider = () => {
   };
 
   return (
-    <div className="w-full mx-auto px-0 py-12">
+    <div className="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 py-8 sm:py-10 md:py-12">
       <div
         ref={sliderRef}
         className="
@@ -59,9 +59,9 @@ const VideoSlider = () => {
           flex
           overflow-x-auto
           snap-x snap-mandatory
-          gap-20
+          gap-4 sm:gap-6 md:gap-8 lg:gap-12 xl:gap-20
           cursor-grab active:cursor-grabbing
-          px-10
+          px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10
           scrollbar-hide
         "
         onMouseDown={handleMouseDown}

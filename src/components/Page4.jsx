@@ -22,21 +22,21 @@ const Page4 = () => {
   }, [images.length]);
 
   return (
-    <div className="w-full bg-[#d1ebfd] py-16 px-4 sm:px-6 md:px-20 relative">
-      <div className="w-full flex flex-col items-center">
+    <div className="w-full bg-[#d1ebfd] py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-8 lg:px-20 relative">
+      <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
         {/* Heading */}
         <h3
           className="font-[Fredoka] text-[#285192] font-extrabold text-center tracking-wider
-          text-[clamp(1.75rem,5vw,3.5rem)] mt-10"
+          text-[clamp(1.5rem,4vw,3rem)] mt-4 sm:mt-6 md:mt-10 px-4"
         >
           Our Journey to Healthier Dairy
         </h3>
 
         {/* Content Container */}
-        <div className="w-full flex flex-col md:flex-row gap-10 md:gap-20 mt-10 items-center">
+        <div className="w-full flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-20 mt-6 sm:mt-8 md:mt-10 items-center">
           {/* Left Image */}
-          <div className="w-full sm:px-10 md:w-1/2 pt-10 md:pt-20 flex flex-col justify-center">
-            <div className="relative w-full md:h-[630px] h-auto overflow-hidden rounded-2xl">
+          <div className="w-full lg:w-1/2 px-4 sm:px-6 md:px-10 lg:px-0 pt-4 sm:pt-6 md:pt-10 lg:pt-20 flex flex-col justify-center">
+            <div className="relative w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] xl:h-[630px] overflow-hidden rounded-2xl">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.img
                   key={currentIndex}
@@ -51,11 +51,11 @@ const Page4 = () => {
                 />
               </AnimatePresence>
             </div>
-            <div className="flex space-x-2 mt-4 w-full justify-center ">
+            <div className="flex space-x-2 mt-4 w-full justify-center">
               {images.map((_, idx) => ( 
                 <button
                   key={idx}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 focus:outline-none ${
+                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors duration-300 focus:outline-none ${
                     idx === currentIndex ? "bg-[#285192]" : "bg-[#cbdef3]"
                   }`}
                   onClick={() => {
@@ -68,21 +68,23 @@ const Page4 = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-1/2 md:px-20 flex flex-col items-start gap-6">
+          <div className="w-full lg:w-1/2 px-4 sm:px-6 md:px-10 lg:px-20 flex flex-col items-start gap-4 sm:gap-6">
             <img
               src="/assets/photo2.png"
               alt="Healthy Dairy"
-              className="w-full  md:h-[300px] h-auto"
+              className="w-full h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] object-cover rounded-lg"
             />
 
-            <p className="font-[Fredoka] text-[#285192] font-normal text-[clamp(1.5rem,2.5vw,1.8rem)]">
+            <p className="font-[Fredoka] text-[#285192] font-normal text-[clamp(1rem,2vw,1.2rem)] leading-relaxed">
               At Granny&apos;s Treat, our story began with a simple truth —
-              traditional dahi isn’t just delicious, it’s naturally rich in
+              traditional dahi isn't just delicious, it's naturally rich in
               probiotics that support gut health and immunity.
               <br />
-              Inspired by this, we set out to create dairy that’s fresh, pure,
+              <br />
+              Inspired by this, we set out to create dairy that's fresh, pure,
               and free from antibiotics — because real nourishment should never
               come with compromises.
+              <br />
               <br />
               We keep things simple: high-quality milk, no shortcuts, and
               probiotic-rich products that support your health, your lifestyle,
