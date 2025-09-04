@@ -1,8 +1,11 @@
 "use client";
 import { smoothScrollTo } from "../lib/scrollUtils";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const navbarData = ["Products", "Our Story", "Benefits", "Testimonials"];
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavigation = (item) => {
     const sectionId = item.toLowerCase().replace(/\s+/g, '-');
@@ -10,6 +13,11 @@ const Header = () => {
       ? Math.round(window.innerHeight * -0.10)
       : 80;
     smoothScrollTo(sectionId, offset);
+    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -48,25 +56,112 @@ const Header = () => {
 
             {/* Mobile Hamburger Menu */}
             <div className="md:hidden">
-              <button aria-label="Open menu">
-                <svg
-                  className="w-6 h-6 text-[#285192]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <motion.button 
+                onClick={toggleMobileMenu}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                className="relative z-50 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300"
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  className="w-6 h-6 flex flex-col justify-center items-center"
+                  animate={isMobileMenuOpen ? "open" : "closed"}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
+                  <motion.span
+                    className="w-5 h-0.5 bg-[#285192] rounded-full"
+                    variants={{
+                      closed: { rotate: 0, y: 0 },
+                      open: { rotate: 45, y: 1 }
+                    }}
+                    transition={{ duration: 0.3 }}
                   />
-                </svg>
-              </button>
+                  <motion.span
+                    className="w-5 h-0.5 bg-[#285192] rounded-full mt-1"
+                    variants={{
+                      closed: { opacity: 1 },
+                      open: { opacity: 0 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="w-5 h-0.5 bg-[#285192] rounded-full mt-1"
+                    variants={{
+                      closed: { rotate: 0, y: 0 },
+                      open: { rotate: -45, y: -1 }
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              </motion.button>
             </div>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+              onClick={toggleMobileMenu}
+            />
+            
+            {/* Mobile Menu */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ 
+                duration: 0.4,
+                type: "spring",
+                stiffness: 300,
+                damping: 30
+              }}
+              className="fixed top-20 left-4 right-4 z-50 md:hidden"
+            >
+              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+                {/* Decorative elements */}
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#285192] via-[#55acee] to-[#285192]"></div>
+                
+                {/* Menu items */}
+                <div className="px-6 py-4">
+                  {navbarData.map((item, index) => (
+                    <motion.button
+                      key={index}
+                      onClick={() => handleNavigation(item)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                      className="w-full text-left py-4 px-4 rounded-2xl hover:bg-[#285192]/10 transition-all duration-300 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-[Fredoka] text-[#285192] font-semibold text-lg group-hover:text-[#55acee] transition-colors duration-300">
+                          {item}
+                        </span>
+                        <motion.div
+                          className="w-2 h-2 rounded-full bg-[#285192] group-hover:bg-[#55acee] transition-colors duration-300"
+                          whileHover={{ scale: 1.5 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+                
+                {/* Bottom decorative element */}
+                <div className="px-6 pb-4">
+                  <div className="h-1 bg-gradient-to-r from-transparent via-[#285192]/30 to-transparent rounded-full"></div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };
