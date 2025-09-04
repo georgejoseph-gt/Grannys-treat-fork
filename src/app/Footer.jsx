@@ -7,24 +7,24 @@ const Footer = () => {
             Connect with us
           </h3>
           <div className="flex gap-4 mb-4">
-            <a href="#">
+            <a href="https://www.instagram.com/grannystreat/?hl=en" target="_blank">
               <img
                 src="/assets/BG/insta.svg"
                 alt="Instagram"
                 className="h-14 w-14 sm:h-20 sm:w-20 "
               />
             </a>
-            <a href="#">
+            <a href="https://api.whatsapp.com/send/?phone=917024221305&text&type=phone_number&app_absent=0" target="_blank">
               <img
                 src="/assets/BG/whatsapp.svg"
-                alt="Instagram"
+                alt="whatsapp"
                 className="h-14 w-14 sm:h-20 sm:w-20"
               />
             </a>
-            <a href="#">
+            <a href="https://www.facebook.com/grannystreat/" target="_blank">
               <img
                 src="/assets/BG/facebook.svg"
-                alt="Instagram"
+                alt="facebook"
                 className="h-14 w-14 sm:h-20 sm:w-20"
               />
             </a>

@@ -6,7 +6,10 @@ const Header = () => {
 
   const handleNavigation = (item) => {
     const sectionId = item.toLowerCase().replace(/\s+/g, '-');
-    smoothScrollTo(sectionId, 80); // 80px offset for header height
+    const offset = (item === "Testimonials" || item === "Benefits")
+      ? Math.round(window.innerHeight * -0.10)
+      : 80;
+    smoothScrollTo(sectionId, offset);
   };
 
   return (

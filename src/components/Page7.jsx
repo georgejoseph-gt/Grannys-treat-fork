@@ -3,7 +3,7 @@ import FullWidthMap from "../helperComponents/FullWidthMap";
 
 const Page7 = () => {
   return (
-    <div className="bg-[#55acee] py-20 relative z-10">
+    <div className="bg-[#d2eef9] py-20 relative z-10">
       <div className="max-w-7xl mx-auto px-4 md:px-10 flex flex-col items-center gap-10">
         <div className="mt-28 text-center space-y-4">
           <h1 className="font-[Fredoka] text-[#285192] font-extrabold text-3xl md:text-5xl tracking-wider">

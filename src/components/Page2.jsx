@@ -1,17 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 const Page2 = () => {
-  const [scrollDir, setScrollDir] = useState("down");
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    const updateScrollDir = () => {
-      const currentScrollY = window.scrollY;
-      setScrollDir(currentScrollY > lastScrollY ? "down" : "up");
-      lastScrollY = currentScrollY;
-    };
-    window.addEventListener("scroll", updateScrollDir);
-    return () => window.removeEventListener("scroll", updateScrollDir);
-  }, []);
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  // Smoothly map scroll progress (0 -> 1) to scale ranges
+  const strawberryScale = useTransform(scrollYProgress, [0, 1], [0.5, 1.8]);
+  const blueberryScale = useTransform(scrollYProgress, [0, 1], [0.5, 1.8]);
   const text = "At Granny's Treat, we craft probiotic-rich dairy that's as nourishing as it is delicious — your daily go-to for health, taste, and a dash of love in every bite. Welcome to a community that celebrates good food and even better living.";
   const words = text.split(" ");
   // Responsive group size
@@ -47,7 +44,7 @@ const Page2 = () => {
   const headingRef = useRef(null);
   const isInView = useInView(headingRef, { once: true, margin: "-100px" });
   return (
-    <div className="h-screen md:min-h-screen  w-full bg-[#d2eef9] relative overflow-hidden py-10 md:py-32">
+    <div ref={sectionRef} className="h-screen md:min-h-screen  w-full bg-[#d2eef9] relative overflow-hidden py-10 md:py-32">
       <div className="w-[95%] sm:w-[90%] md:w-[90%] h-full flex flex-col items-center justify-center mx-auto px-4 sm:px-6 md:px-8">
 
         {/* Main text content */}
@@ -73,13 +70,7 @@ const Page2 = () => {
       <motion.img
         src="/assets/BG/strawberry_page2.svg"
         alt="Decorative strawberry illustration"
-        animate={{
-          scale: scrollDir === "down" ? 1.15 : 0.85,
-        }}
-        transition={{
-          duration: 0.5,
-          ease: "easeInOut",
-        }}
+        style={{ scale: strawberryScale }}
         className="absolute w-[clamp(180px,22vw,285px)] h-auto aspect-square
         top-[20%] sm:top-[12%] md:top-[18%] lg:top-[22%] xl:top-[50px]
         left-[2%] sm:left-[6%] md:left-[10%] lg:left-[12%] xl:left-[186.63px]
@@ -89,13 +80,7 @@ const Page2 = () => {
       <motion.img
         src="/assets/BG/blueberry_page2.svg"
         alt="Decorative blueberry illustration"
-        animate={{
-          scale: scrollDir === "down" ? 1.1 : 0.9,
-        }}
-        transition={{
-          duration: 0.5,
-          ease: "easeInOut",
-        }}
+        style={{ scale: blueberryScale }}
         className="absolute w-[clamp(180px,28vw,375px)] h-auto aspect-square
         top-[5%] md:top-[42%] lg:top-[36%] xl:top-[220px]
         right-[2%] sm:right-[6%] md:right-[10%] lg:right-[12%] xl:right-[186.63px]

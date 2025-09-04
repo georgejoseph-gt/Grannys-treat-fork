@@ -2,8 +2,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
-import { BsFillPlayCircleFill } from "react-icons/bs";
-import { FaPauseCircle } from "react-icons/fa";
+// Removed old play/pause circle icons in favor of custom SVGs
 import { FaVolumeXmark } from "react-icons/fa6";
 import { IoVolumeHigh } from "react-icons/io5";
 
@@ -191,13 +190,13 @@ const VideoCard = ({
   const effectivePoster = poster || clientPoster || null;
 
   return (
-         <div
-       className="relative w-[320px] h-[560px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-white to-gray-50 flex flex-col"
-       onMouseEnter={handleMouseEnter}
-       onMouseLeave={handleMouseLeave}
-     >
+    <div
+      className="relative w-[320px] h-[560px] md:w-[400px] md:h-[640px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-white to-gray-50 flex flex-col"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Video Container with proper aspect ratio */}
-      <div className="relative w-full h-[480px] bg-gradient-to-br from-gray-100 to-gray-200">
+      <div className="relative w-full h-full bg-gradient-to-br from-gray-100 to-gray-200">
         {/* Poster image shown when not playing */}
         {!isPlaying && effectivePoster && (
           <img
@@ -217,37 +216,48 @@ const VideoCard = ({
           controls={false}
         />
 
-                 {/* Subtle Play / Pause button */}
-         {(isHovered || !isPlaying) && (
-           <div className="absolute inset-0 flex items-center justify-center z-20">
-             <button
-               onClick={handlePlayPause}
-               className="flex bg-white/90 backdrop-blur-sm rounded-full items-center justify-center hover:bg-white transition-all duration-200 focus:outline-none p-4 shadow-lg"
-               aria-label={isPlaying ? "Pause video" : "Play video"}
-             >
-               {isPlaying ? (
-                 <FaPauseCircle className="w-12 h-12 text-gray-800" />
-               ) : (
-                 <BsFillPlayCircleFill className="w-12 h-12 text-gray-800" />
-               )}
-             </button>
-           </div>
-         )}
+        {/* Subtle Play / Pause button */}
+        {(isHovered || !isPlaying) && (
+          <div className="absolute inset-0 flex items-center justify-center z-20">
+            <button
+              onClick={handlePlayPause}
+              className={`flex items-center justify-center focus:outline-none transition-all duration-200 rounded-full 
+                ${isPlaying
+                  ? "bg-white/80 hover:bg-white/95 backdrop-blur-md w-16 h-16 md:w-16 md:h-16 shadow-2xl ring-2 ring-white/80"
+                  : "bg-white/80 hover:bg-white/95 backdrop-blur-md w-16 h-16 md:w-16 md:h-16 shadow-2xl ring-2 ring-white/80"}
+              `}
+              aria-label={isPlaying ? "Pause video" : "Play video"}
+            >
+              {isPlaying ? (
+                // Minimal pause icon in brand blue
+                <svg viewBox="0 0 64 64" className="w-8 h-8 md:w-10 md:h-10" aria-hidden="true">
+                  <rect x="22" y="18" width="8" height="28" rx="2" fill="#285192" />
+                  <rect x="34" y="18" width="8" height="28" rx="2" fill="#285192" />
+                </svg>
+              ) : (
+                // YouTube-style white triangle
+                <svg viewBox="0 0 64 64" className="w-8 h-8 md:w-10 md:h-10" aria-hidden="true">
+                  <polygon points="24,18 24,46 46,32" fill="#285192" />
+                </svg>
+              )}
+            </button>
+          </div>
+        )}
 
-                 {/* Subtle MUTE / UNMUTE button */}
-         <div className="absolute top-3 right-3 z-20">
-           <button
-             onClick={handleMuteToggle}
-             className="text-gray-700 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-all duration-200 focus:outline-none"
-             aria-label={isMuted ? "Unmute" : "Mute"}
-           >
-             {isMuted ? (
-               <FaVolumeXmark className="w-4 h-4" />
-             ) : (
-               <IoVolumeHigh className="w-4 h-4" />
-             )}
-           </button>
-         </div>
+        {/* Subtle MUTE / UNMUTE button */}
+        <div className="absolute top-3 right-3 z-20">
+          <button
+            onClick={handleMuteToggle}
+            className="text-gray-700 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-all duration-200 focus:outline-none"
+            aria-label={isMuted ? "Unmute" : "Mute"}
+          >
+            {isMuted ? (
+              <FaVolumeXmark className="w-4 h-4" />
+            ) : (
+              <IoVolumeHigh className="w-4 h-4" />
+            )}
+          </button>
+        </div>
 
         {/* Video progress indicator */}
         {isPlaying && (

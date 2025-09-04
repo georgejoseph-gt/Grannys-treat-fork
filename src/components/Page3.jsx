@@ -82,8 +82,7 @@ const Page3 = () => {
   };
 
   return (
-    <div className="w-full h-[115vh] flex flex-col bg-gray-100 relative z-10 -mt-[50px]">
-      {/* Navigation Controls Overlay */}
+    <div className="w-full h-[95vh] flex flex-col bg-gray-100 relative z-10 -mt-[50px]">
       <div className="absolute inset-0 flex items-center justify-between px-8 pointer-events-none z-20">
         <button
           onClick={prevCategory}
@@ -104,7 +103,7 @@ const Page3 = () => {
       </div>
 
       <Carousel
-        className="w-full h-[115vh]"
+        className="w-full h-[95vh]"
         thumbnails={thumbnails}
         onSlideChange={handleImageChange}
         initialSlide={currentImageIndex}

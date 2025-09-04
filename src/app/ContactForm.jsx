@@ -34,7 +34,7 @@ const ContactForm = () => {
         </div>
         <motion.button type="submit" className=" w-full justify-center flex cursor-pointer "
           animate={{
-            scale: [1, 1.03, 1],
+            scale: [1, 1.05, 1],
           }}
           transition={{
             duration: 3,
