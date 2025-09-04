@@ -42,8 +42,8 @@ export const productCategories = [
             path: "/assets/p3/rose.png",
             width: 140,
             height: 120,
-            top: -90,
-            left: 150,
+            top: -100,
+            left: 100,
             zIndex: 0
           },
           image2: {
@@ -51,8 +51,9 @@ export const productCategories = [
             width: 150,
             height: 150,
             top: -10,
-            right: 180,
-            zIndex: 10
+            right: 200,
+            zIndex: 10,
+            fixed: true
           },
           image3: {
             path: "/assets/p3/ice.png",
@@ -265,7 +266,7 @@ export const productCategories = [
             lg: { width: 300, height: 200 },
           }
         },
-        selectedScale: 1.4,
+        selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
           xs: { bottom: -60 },
           sm: { bottom: -60 },
@@ -302,11 +303,11 @@ export const productCategories = [
       },
       {
         title: "Buttermilk Sambaram 200ml",
-        image: "/assets/ProductImages/Buttermilk Sambaram 200ml.png",
+        image: "/assets/ProductImages/saambaram.png",
         subtext1: "This naturally fermented drink is light, cooling, and refreshing — made using cultured curd and blended with or without gentle spices. Whether plain or flavoured, our buttermilk is a great companion to meals and daily hydration.",
         subtext2: "Enjoy it at breakfast topped with fruit or in a smoothie.",
         subtext3: "It is also a versatile culinary ingredient",
-        colorbg: "#93cda2",
+        colorbg: "#D8CC02",
         imgStyle: {
           width: 450, height: 260, top: -120, marginBottom: 0,
           responsive: {
@@ -319,13 +320,13 @@ export const productCategories = [
         thumbnailStyle: {
           width: 300, height: 105,
           responsive: {
-            xs: { width: 205, height: 105 },
-            sm: { width: 205, height: 105 },
-            md: { width: 205, height: 105 },
-            lg: { width: 205, height: 105 },
+            xs: { width: 250, height: 105 },
+            sm: { width: 250, height: 105 },
+            md: { width: 250, height: 105 },
+            lg: { width: 250, height: 105 },
           }
         },
-        selectedScale: 1.3,
+        selectedScale: 1.15,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 50 },
           sm: { bottom: 50 },
@@ -386,7 +387,7 @@ export const productCategories = [
             xl: { width: 300, height: 105 }
           }
         },
-        selectedScale: 1.3,
+        selectedScale: 1.15,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 15 },
           sm: { bottom: 15 },

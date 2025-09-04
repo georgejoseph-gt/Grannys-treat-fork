@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Page4 = () => {
   const images = [
@@ -10,11 +11,13 @@ const Page4 = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 -> next/right, -1 -> prev/left
 
   useEffect(() => {
     const interval = setInterval(() => {
+      setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 4000); 
+    }, 4000);
     return () => clearInterval(interval);
   }, [images.length]);
 
@@ -33,11 +36,21 @@ const Page4 = () => {
         <div className="w-full flex flex-col md:flex-row gap-10 md:gap-20 mt-10 items-center">
           {/* Left Image */}
           <div className="w-full sm:px-10 md:w-1/2 pt-10 md:pt-20 flex flex-col justify-center">
-            <img
-              src={images[currentIndex]}
-              alt={`Slide ${currentIndex + 1}`}
-              className=" md:h-[630px] h-auto object-cover transition-opacity duration-700 rounded-2xl"
-            />
+            <div className="relative w-full md:h-[630px] h-auto overflow-hidden rounded-2xl">
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.img
+                  key={currentIndex}
+                  src={images[currentIndex]}
+                  alt={`Slide ${currentIndex + 1}`}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  custom={direction}
+                  initial={{ x: direction === 1 ? 80 : -80, opacity: 0.0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: direction === 1 ? -80 : 80, opacity: 0.0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                />
+              </AnimatePresence>
+            </div>
             <div className="flex space-x-2 mt-4 w-full justify-center ">
               {images.map((_, idx) => ( 
                 <button
@@ -45,7 +58,10 @@ const Page4 = () => {
                   className={`w-3 h-3 rounded-full transition-colors duration-300 focus:outline-none ${
                     idx === currentIndex ? "bg-[#285192]" : "bg-[#cbdef3]"
                   }`}
-                  onClick={() => setCurrentIndex(idx)}
+                  onClick={() => {
+                    setDirection(idx > currentIndex ? 1 : -1);
+                    setCurrentIndex(idx);
+                  }}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
