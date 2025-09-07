@@ -7,7 +7,7 @@ const Page6 = () => {
         <img
           src="/assets/BG/Vector.png"
           alt="img"
-          className="absolute -top-20 h-40 w-full md:h-60 lg:h-80"
+          className="hidden md:block md:absolute -top-20 h-40 w-full md:h-60 lg:h-80"
         />
 
 

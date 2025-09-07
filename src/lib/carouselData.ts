@@ -44,7 +44,7 @@ export const productCategories = [
             width: 150,
             height: 150,
             top: -10,
-            right: 200,
+            right: 250,
             zIndex: 10,
             fixed: true
           },
@@ -239,7 +239,7 @@ export const productCategories = [
         },
         selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: -30 },
+          xs: { bottom: -40 },
           md: { bottom: -60 },
           xl: { bottom: -60 }
         },
@@ -257,14 +257,14 @@ export const productCategories = [
             width: 130,
             height: 130,
             top: 0,
-            right: 200,
+            right: 270,
             zIndex: 0
           },
           image3: {
             path: "/assets/p3/ice.png",
             width: 140,
             height: 140,
-            bottom: 80,
+            bottom: 20,
             left: -60,
             zIndex: 50
           }
@@ -293,7 +293,7 @@ export const productCategories = [
         },
         selectedScale: 1.15,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 35 },
+          xs: { bottom: 20 },
           md: { bottom: 50 },
         },
         decorativeImages: {
@@ -412,9 +412,8 @@ export const productCategories = [
         },
         selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 0 },
-          md: { bottom: 0 },
-          xl: { bottom: 30 }
+          xs: { bottom: 40 },
+          md: { bottom: 100 },
         },
         decorativeImages: {
           image1: {
@@ -468,9 +467,8 @@ export const productCategories = [
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 0 },
-          md: { bottom: 0 },
-          xl: { bottom: 0 }
+          xs: { bottom: 30 },
+          md: { bottom: 80 },
         },
         decorativeImages: {
           image1: {
@@ -509,7 +507,7 @@ export const productCategories = [
         imgStyle: {
           width: 400, height: 220, top: -200, marginBottom: 0,
           responsive: {
-            xs: { width: 400, height: 220, top: -200, marginBottom: 0 },
+            xs: { width: 300, height: 220, top: -200, marginBottom: 0 },
             md: { width: 400, height: 220, top: -200, marginBottom: 0 },
             xl: { width: 400, height: 220, top: -200, marginBottom: 0 }
           }
@@ -524,7 +522,7 @@ export const productCategories = [
         },
         selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: -20 },
+          xs: { bottom: 20 },
           md: { bottom: -20 },
           xl: { bottom: -20 }
         },
@@ -565,7 +563,7 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 220, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 400, height: 220, top: -100, marginBottom: 0 },
+            xs: { width: 300, height: 220, top: -100, marginBottom: 0 },
             md: { width: 450, height: 220, top: -100, marginBottom: 0 },
             xl: { width: 450, height: 220, top: -100, marginBottom: 0 }
           }
@@ -573,7 +571,7 @@ export const productCategories = [
         thumbnailStyle: {
           width: 250, height: 105,
           responsive: {
-            xs: { width: 450, height: 105 },
+            xs: { width: 300, height: 105 },
             md: { width: 250, height: 105 },
             xl: { width: 250, height: 105 }
           }
@@ -615,7 +613,7 @@ export const productCategories = [
   },
   {
     category: "Paneer",
-    thumbnailGap: 70,
+    thumbnailGap: 170,
     items: [
       {
         title: "Malai Paneer 100g",
@@ -627,22 +625,21 @@ export const productCategories = [
         imgStyle: {
           width: 250, height: 120, top: 0, marginBottom: 0,
           responsive: {
-            xs: { width: 250, height: 120, top: 0, marginBottom: 0 },
+            xs: { width: 130, height: 150, top: 0, marginBottom: 0 },
             md: { width: 250, height: 120, top: 0, marginBottom: 0 },
-            xl: { width: 250, height: 120, top: -150, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
           width: 200, height: 105,
           responsive: {
-            xs: { width: 200, height: 105 },
+            xs: { width: 150, height: 105 },
             md: { width: 200, height: 105 },
             xl: { width: 200, height: 105 }
           }
         },
         selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: -90 },
+          xs: { bottom: -40 },
           md: { bottom: -90 },
           xl: { bottom: -90 }
         },
@@ -679,7 +676,7 @@ export const productCategories = [
             width: 240,
             height: 240,
             top: -160,
-            right: 140,
+            right: 180,
             zIndex: 30,
             rotate: 240
           }
@@ -695,7 +692,7 @@ export const productCategories = [
         imgStyle: {
           width: 250, height: 150, top: -200, marginBottom: 0,
           responsive: {
-            xs: { width: 250, height: 150, top: -60, marginBottom: 0 },
+            xs: { width: 150, height: 200, top: -60, marginBottom: 0 },
             md: { width: 250, height: 150, top: -60, marginBottom: 0 },
             xl: { width: 250, height: 150, top: -60, marginBottom: 0 }
           }
@@ -703,14 +700,14 @@ export const productCategories = [
         thumbnailStyle: {
           width: 205, height: 105,
           responsive: {
-            xs: { width: 205, height: 105 },
+            xs: { width: 150, height: 105 },
             md: { width: 205, height: 105 },
             xl: { width: 205, height: 105 }
           }
         },
         selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: -50 },
+          xs: { bottom: -10 },
           md: { bottom: -50 },
           xl: { bottom: -50 }
         },
@@ -769,9 +766,8 @@ export const productCategories = [
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 500, height: 220, top: 0, marginBottom: 0 },
+            xs: { width: 350, height: 220, top: 0, marginBottom: 0 },
             md: { width: 500, height: 220, top: 0, marginBottom: 0 },
-            xl: { width: 500, height: 220, top: 0, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -779,14 +775,12 @@ export const productCategories = [
           responsive: {
             xs: { width: 300, height: 105 },
             md: { width: 300, height: 105 },
-            xl: { width: 300, height: 105 }
           }
         },
         selectedScale: 1.4,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 40 },
+          xs: { bottom: 20 },
           md: { bottom: 40 },
-          xl: { bottom: 40 }
         },
         decorativeImages: {
           image1: {
@@ -817,7 +811,7 @@ export const productCategories = [
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 500, height: 220, top: 0, marginBottom: 0 },
+            xs: { width: 350, height: 220, top: 0, marginBottom: 0 },
             md: { width: 500, height: 220, top: 0, marginBottom: 0 },
             xl: { width: 500, height: 220, top: 0, marginBottom: 0 }
           }
@@ -832,7 +826,7 @@ export const productCategories = [
         },
         selectedScale: 1.4,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 40 },
+          xs: { bottom: 20 },
           md: { bottom: 40 },
           xl: { bottom: 40 }
         },
@@ -871,7 +865,7 @@ export const productCategories = [
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 500, height: 220, top: -50, marginBottom: 0 },
+            xs: { width: 350, height: 220, top: -50, marginBottom: 0 },
             md: { width: 500, height: 220, top: -50, marginBottom: 0 },
             xl: { width: 500, height: 220, top: -50, marginBottom: 0 }
           }
@@ -938,7 +932,7 @@ export const productCategories = [
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 500, height: 220, top: -50, marginBottom: 0 },
+            xs: { width: 350, height: 220, top: -50, marginBottom: 0 },
             md: { width: 500, height: 220, top: -50, marginBottom: 0 },
             xl: { width: 500, height: 220, top: -50, marginBottom: 0 }
           }

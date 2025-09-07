@@ -166,13 +166,13 @@ const Page5 = () => {
         {/* Design Image with looping Lassi image overlay */}
         <div
           ref={containerRef}
-          className="relative w-[95%] sm:w-[90%] md:w-[85%] max-w-[500px] sm:max-w-[700px] md:max-w-[1000px] mx-auto h-[360px] sm:h-[420px] md:h-[520px]"
+          className="relative w-[98%] md:w-[150%] max-w-[640px] md:max-w-[1000px] lg:max-w-[1000px] mx-auto h-[420px] md:h-[640px] lg:h-[720px]"
         >
           {/* background artwork */}
           <img
-            src="/assets/Icons/benefit.svg"
+            src="/assets/Icons/p5-b.png"
             alt="img"
-            className="w-full h-full object-contain transition-all duration-300"
+            className="w-full h-full object-contain transition-all duration-300 "
           />
 
           {/* Orbiting images */}

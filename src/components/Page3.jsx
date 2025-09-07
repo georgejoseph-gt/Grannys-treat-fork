@@ -72,7 +72,7 @@ const Page3 = () => {
   const getConsistentDimensions = (item) => {
     const imgStyle = item.imgStyle?.responsive?.[breakpoint] || item.imgStyle;
     const isMobile = ['xs', 'sm', 'md'].includes(breakpoint);
-    
+
     return {
       width: isMobile ? (imgStyle?.width || 220) : (imgStyle?.width || 350),
       height: isMobile ? (imgStyle?.height || 180) : (imgStyle?.height || 300),
@@ -121,7 +121,7 @@ const Page3 = () => {
             >
               {/* Responsive order for mobile/tablet vs desktop */}
               {['xs', 'sm', 'md'].includes(breakpoint) ? (
-                <div className="flex flex-col gap-y-5 pt-32">
+                <div className="flex flex-col gap-y-5 pt-20">
                   {/* Div 1 - Product Title */}
                   <div className="w-full flex items-center justify-center mt-4 mb-4">
                     <h1 className="text-3xl sm:text-4xl font-[Fredoka] font-bold text-white drop-shadow-md text-center">
@@ -130,7 +130,7 @@ const Page3 = () => {
                   </div>
                   {/* Div 3 - Main Product Image */}
                   <div className="w-full flex items-center justify-center mb-8">
-                    <div 
+                    <div
                       className="relative transition-all duration-500"
                       style={{
                         width: dimensions.width,
@@ -202,7 +202,7 @@ const Page3 = () => {
                     {/* Div 3 - Main Product Image */}
                     <div className="w-full flex-col md:w-3/8 h-full flex items-center justify-around ">
                       <span className=" w-fit h-[70%]">
-                        <div 
+                        <div
                           className="relative transition-all duration-500"
                           style={{
                             width: dimensions.width,
@@ -233,29 +233,25 @@ const Page3 = () => {
                     </div>
                     {/* Div 4 - Right Space with Features */}
                     {['md', 'lg', 'xl'].includes(breakpoint) && (
-                      <div className="w-3/8 h-full relative">
+                      <div className="w-3/8 h-full relative ">
                         {/* First star with text */}
-                        <div className="absolute w-[480px] h-[380px] -top-15 -left-30 z-10">
-                          {/* Star background with text */}
-                          <div className="relative w-full h-full">
-                            {/* Star background */}
-                            <div
-                              className="w-full h-full"
-                              style={{
-                                background: `url('/assets/page3/page3_star.svg') no-repeat center center`,
-                                backgroundSize: 'contain'
-                              }}
-                            />
-                            {/* Text container */}
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center max-w-[400px]">
-                              <p className="text-2xl font-[Fredoka] text-black font-medium">
-                                {item.subtext2}
-                              </p>
-                            </div>
+                        <div className="absolute w-[480px] h-[380px] -top-15 -left-30 z-10 ">
+                          <div
+                            className="w-full h-full"
+                            style={{
+                              background: `url('/assets/page3/page3_star.svg') no-repeat center center`,
+                              backgroundSize: 'contain'
+                            }}
+                          />
+                          {/* Text container */}
+                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center max-w-[400px] ">
+                            <p className="text-2xl font-[Fredoka] text-black font-medium ">
+                              {item.subtext2}
+                            </p>
                           </div>
                         </div>
                         {/* Second star with text */}
-                        <div className="absolute w-[300px] h-[200px] top-70 right-30 z-20">
+                        <div className="absolute w-[300px] h-[200px] top-70 right-30 z-20 ">
                           {/* Star background with text */}
                           <div className="relative w-full h-full">
                             {/* Star background */}
@@ -282,7 +278,7 @@ const Page3 = () => {
                               key={key}
                               src={image.path}
                               alt={`Decorative ${key}`}
-                              className="absolute object-contain"
+                              className="absolute object-contain "
                               style={{
                                 width: decoStyle.width,
                                 height: decoStyle.height,
