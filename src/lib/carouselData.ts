@@ -13,29 +13,22 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 150, height: 200, top: -100, marginBottom: 0 },
-            sm: { width: 450, height: 400, top: -100, marginBottom: 0 },
+            xs: { width: 250, height: 200, top: -100, marginBottom: 0 },
             md: { width: 450, height: 400, top: -100, marginBottom: 0 },
-            lg: { width: 450, height: 400, top: -100, marginBottom: 0 },
           }
         },
         thumbnailStyle: {
           width: 260, height: 105,
           responsive: {
             xs: { width: 260, height: 105 },
-            sm: { width: 260, height: 105 },
             md: { width: 260, height: 105 },
-            lg: { width: 260, height: 105 },
             xl: { width: 260, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 0 },
-          sm: { bottom: 0 },
           md: { bottom: 0 },
-          lg: { bottom: -30 },
-          xl: { bottom: -30 }
         },
         decorativeImages: {
           image1: {
@@ -75,10 +68,8 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 450, height: 400, top: -100, marginBottom: 0 },
-            sm: { width: 450, height: 400, top: -100, marginBottom: 0 },
+            xs: { width: 250, height: 400, top: -100, marginBottom: 0 },
             md: { width: 450, height: 400, top: -100, marginBottom: 0 },
-            lg: { width: 450, height: 400, top: -100, marginBottom: 0 },
             xl: { width: 450, height: 400, top: -100, marginBottom: 0 }
           }
         },
@@ -86,18 +77,14 @@ export const productCategories = [
           width: 260, height: 105,
           responsive: {
             xs: { width: 260, height: 105 },
-            sm: { width: 260, height: 105 },
             md: { width: 260, height: 105 },
-            lg: { width: 260, height: 105 },
             xl: { width: 260, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 0 },
-          sm: { bottom: -30 },
           md: { bottom: -30 },
-          lg: { bottom: -30 },
           xl: { bottom: -30 }
         },
         decorativeImages: {
@@ -129,10 +116,8 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 450, height: 400, top: -100, marginBottom: 0 },
-            sm: { width: 450, height: 400, top: -100, marginBottom: 0 },
+            xs: { width: 250, height: 400, top: -100, marginBottom: 0 },
             md: { width: 450, height: 400, top: -100, marginBottom: 0 },
-            lg: { width: 450, height: 400, top: -100, marginBottom: 0 },
             xl: { width: 450, height: 400, top: -100, marginBottom: 0 }
           }
         },
@@ -140,18 +125,14 @@ export const productCategories = [
           width: 260, height: 105,
           responsive: {
             xs: { width: 260, height: 105 },
-            sm: { width: 260, height: 105 },
             md: { width: 260, height: 105 },
-            lg: { width: 260, height: 105 },
             xl: { width: 260, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: -30 },
-          sm: { bottom: -30 },
+          xs: { bottom: 0 },
           md: { bottom: -30 },
-          lg: { bottom: -30 },
           xl: { bottom: -30 }
         },
         decorativeImages: {
@@ -183,10 +164,8 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 450, height: 400, top: -100, marginBottom: 0 },
-            sm: { width: 450, height: 400, top: -100, marginBottom: 0 },
+            xs: { width: 250, height: 400, top: -100, marginBottom: 0 },
             md: { width: 450, height: 400, top: -100, marginBottom: 0 },
-            lg: { width: 450, height: 400, top: -100, marginBottom: 0 },
             xl: { width: 450, height: 400, top: -100, marginBottom: 0 }
           }
         },
@@ -194,18 +173,14 @@ export const productCategories = [
           width: 260, height: 105,
           responsive: {
             xs: { width: 260, height: 105 },
-            sm: { width: 260, height: 105 },
             md: { width: 260, height: 105 },
-            lg: { width: 260, height: 105 },
             xl: { width: 260, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: -30 },
-          sm: { bottom: -30 },
+          xs: { bottom: 0 },
           md: { bottom: -30 },
-          lg: { bottom: -30 },
           xl: { bottom: -30 }
         },
         decorativeImages: {
@@ -251,27 +226,21 @@ export const productCategories = [
         imgStyle: {
           width: 500, height: 260, top: -170, marginBottom: 0,
           responsive: {
-            xs: { width: 500, height: 260, top: -170, marginBottom: 0 },
-            sm: { width: 500, height: 260, top: -170, marginBottom: 0 },
+            xs: { width: 300, height: 260, top: -170, marginBottom: 0 },
             md: { width: 500, height: 260, top: 20, marginBottom: 0 },
-            lg: { width: 500, height: 260, top: 20, marginBottom: 0 },
           }
         },
         thumbnailStyle: {
           width: 320, height: 200,
           responsive: {
-            xs: { width: 300, height: 200 },
-            sm: { width: 300, height: 200 },
+            xs: { width: 400, height: 200 },
             md: { width: 300, height: 200 },
-            lg: { width: 300, height: 200 },
           }
         },
         selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: -60 },
-          sm: { bottom: -60 },
+          xs: { bottom: -30 },
           md: { bottom: -60 },
-          lg: { bottom: -60 },
           xl: { bottom: -60 }
         },
         decorativeImages: {
@@ -311,27 +280,21 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 260, top: -120, marginBottom: 0,
           responsive: {
-            xs: { width: 450, height: 260, top: -120, marginBottom: 0 },
-            sm: { width: 450, height: 260, top: -120, marginBottom: 0 },
+            xs: { width: 250, height: 260, top: -120, marginBottom: 0 },
             md: { width: 450, height: 260, top: -120, marginBottom: 0 },
-            lg: { width: 450, height: 260, top: -120, marginBottom: 0 },
           }
         },
         thumbnailStyle: {
           width: 300, height: 105,
           responsive: {
             xs: { width: 250, height: 105 },
-            sm: { width: 250, height: 105 },
             md: { width: 250, height: 105 },
-            lg: { width: 250, height: 105 },
           }
         },
         selectedScale: 1.15,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 50 },
-          sm: { bottom: 50 },
+          xs: { bottom: 35 },
           md: { bottom: 50 },
-          lg: { bottom: 50 },
         },
         decorativeImages: {
           image1: {
@@ -370,7 +333,7 @@ export const productCategories = [
         imgStyle: {
           width: 460, height: 260, top: 20, marginBottom: 0,
           responsive: {
-            xs: { width: 460, height: 260, top: 20, marginBottom: 0 },
+            xs: { width: 300, height: 260, top: 70, marginBottom: 0 },
             sm: { width: 460, height: 260, top: 20, marginBottom: 0 },
             md: { width: 460, height: 260, top: 20, marginBottom: 0 },
             lg: { width: 460, height: 260, top: 20, marginBottom: 0 },
@@ -381,18 +344,14 @@ export const productCategories = [
           width: 300, height: 175,
           responsive: {
             xs: { width: 300, height: 105 },
-            sm: { width: 300, height: 105 },
             md: { width: 300, height: 105 },
-            lg: { width: 300, height: 105 },
             xl: { width: 300, height: 105 }
           }
         },
         selectedScale: 1.15,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 15 },
-          sm: { bottom: 15 },
           md: { bottom: 15 },
-          lg: { bottom: 15 },
           xl: { bottom: 15 }
         },
         decorativeImages: {
@@ -426,7 +385,7 @@ export const productCategories = [
   },
   {
     category: "Dahi",
-    thumbnailGap: 40,
+    thumbnailGap: 30,
     items: [
       {
         title: "Dahi 100g",
@@ -438,8 +397,7 @@ export const productCategories = [
         imgStyle: {
           width: 400, height: 220, top: 0, marginBottom: 0,
           responsive: {
-            xs: { width: 400, height: 220, top: 40, marginBottom: 0 },
-            sm: { width: 400, height: 220, top: 40, marginBottom: 0 },
+            xs: { width: 300, height: 220, top: 40, marginBottom: 0 },
             md: { width: 400, height: 220, top: 40, marginBottom: 0 },
             xl: { width: 430, height: 220, top: 0, marginBottom: 0 }
           }
@@ -448,18 +406,14 @@ export const productCategories = [
           width: 250, height: 105,
           responsive: {
             xs: { width: 250, height: 105 },
-            sm: { width: 250, height: 105 },
             md: { width: 250, height: 105 },
-            lg: { width: 250, height: 105 },
             xl: { width: 250, height: 105 }
           }
         },
         selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 30 },
-          sm: { bottom: 30 },
-          md: { bottom: 30 },
-          lg: { bottom: 30 },
+          xs: { bottom: 0 },
+          md: { bottom: 0 },
           xl: { bottom: 30 }
         },
         decorativeImages: {
@@ -499,10 +453,8 @@ export const productCategories = [
         imgStyle: {
           width: 400, height: 220, top: 40, marginBottom: 0,
           responsive: {
-            xs: { width: 400, height: 220, top: -100, marginBottom: 0 },
-            sm: { width: 400, height: 220, top: -100, marginBottom: 0 },
+            xs: { width: 250, height: 220, top: -100, marginBottom: 0 },
             md: { width: 400, height: 220, top: -100, marginBottom: 0 },
-            lg: { width: 400, height: 220, top: -100, marginBottom: 0 },
             xl: { width: 400, height: 220, top: -100, marginBottom: 0 }
           }
         },
@@ -510,18 +462,14 @@ export const productCategories = [
           width: 205, height: 105,
           responsive: {
             xs: { width: 205, height: 105 },
-            sm: { width: 205, height: 105 },
             md: { width: 205, height: 105 },
-            lg: { width: 205, height: 105 },
             xl: { width: 205, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 0 },
-          sm: { bottom: 0 },
           md: { bottom: 0 },
-          lg: { bottom: 0 },
           xl: { bottom: 0 }
         },
         decorativeImages: {
@@ -562,9 +510,7 @@ export const productCategories = [
           width: 400, height: 220, top: -200, marginBottom: 0,
           responsive: {
             xs: { width: 400, height: 220, top: -200, marginBottom: 0 },
-            sm: { width: 400, height: 220, top: -200, marginBottom: 0 },
             md: { width: 400, height: 220, top: -200, marginBottom: 0 },
-            lg: { width: 400, height: 220, top: -200, marginBottom: 0 },
             xl: { width: 400, height: 220, top: -200, marginBottom: 0 }
           }
         },
@@ -572,18 +518,14 @@ export const productCategories = [
           width: 250, height: 105,
           responsive: {
             xs: { width: 250, height: 105 },
-            sm: { width: 250, height: 105 },
             md: { width: 250, height: 105 },
-            lg: { width: 250, height: 105 },
             xl: { width: 250, height: 105 }
           }
         },
         selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
           xs: { bottom: -20 },
-          sm: { bottom: -20 },
           md: { bottom: -20 },
-          lg: { bottom: -20 },
           xl: { bottom: -20 }
         },
         decorativeImages: {
@@ -623,29 +565,23 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 220, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 450, height: 220, top: -100, marginBottom: 0 },
-            sm: { width: 450, height: 220, top: -100, marginBottom: 0 },
+            xs: { width: 400, height: 220, top: -100, marginBottom: 0 },
             md: { width: 450, height: 220, top: -100, marginBottom: 0 },
-            lg: { width: 450, height: 220, top: -100, marginBottom: 0 },
             xl: { width: 450, height: 220, top: -100, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
           width: 250, height: 105,
           responsive: {
-            xs: { width: 250, height: 105 },
-            sm: { width: 250, height: 105 },
+            xs: { width: 450, height: 105 },
             md: { width: 250, height: 105 },
-            lg: { width: 250, height: 105 },
             xl: { width: 250, height: 105 }
           }
         },
         selectedScale: 1.6,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 30 },
-          sm: { bottom: 30 },
           md: { bottom: 30 },
-          lg: { bottom: 30 },
           xl: { bottom: 30 }
         },
         decorativeImages: {
@@ -692,9 +628,7 @@ export const productCategories = [
           width: 250, height: 120, top: 0, marginBottom: 0,
           responsive: {
             xs: { width: 250, height: 120, top: 0, marginBottom: 0 },
-            sm: { width: 250, height: 120, top: 0, marginBottom: 0 },
             md: { width: 250, height: 120, top: 0, marginBottom: 0 },
-            lg: { width: 250, height: 120, top: -150, marginBottom: 0 },
             xl: { width: 250, height: 120, top: -150, marginBottom: 0 }
           }
         },
@@ -702,18 +636,14 @@ export const productCategories = [
           width: 200, height: 105,
           responsive: {
             xs: { width: 200, height: 105 },
-            sm: { width: 200, height: 105 },
             md: { width: 200, height: 105 },
-            lg: { width: 200, height: 105 },
             xl: { width: 200, height: 105 }
           }
         },
         selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
           xs: { bottom: -90 },
-          sm: { bottom: -90 },
           md: { bottom: -90 },
-          lg: { bottom: -90 },
           xl: { bottom: -90 }
         },
         decorativeImages: {
@@ -766,9 +696,7 @@ export const productCategories = [
           width: 250, height: 150, top: -200, marginBottom: 0,
           responsive: {
             xs: { width: 250, height: 150, top: -60, marginBottom: 0 },
-            sm: { width: 250, height: 150, top: -60, marginBottom: 0 },
             md: { width: 250, height: 150, top: -60, marginBottom: 0 },
-            lg: { width: 250, height: 150, top: -60, marginBottom: 0 },
             xl: { width: 250, height: 150, top: -60, marginBottom: 0 }
           }
         },
@@ -776,18 +704,14 @@ export const productCategories = [
           width: 205, height: 105,
           responsive: {
             xs: { width: 205, height: 105 },
-            sm: { width: 205, height: 105 },
             md: { width: 205, height: 105 },
-            lg: { width: 205, height: 105 },
             xl: { width: 205, height: 105 }
           }
         },
         selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
           xs: { bottom: -50 },
-          sm: { bottom: -50 },
           md: { bottom: -50 },
-          lg: { bottom: -50 },
           xl: { bottom: -50 }
         },
         decorativeImages: {
@@ -846,9 +770,7 @@ export const productCategories = [
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
             xs: { width: 500, height: 220, top: 0, marginBottom: 0 },
-            sm: { width: 500, height: 220, top: 0, marginBottom: 0 },
             md: { width: 500, height: 220, top: 0, marginBottom: 0 },
-            lg: { width: 500, height: 220, top: 0, marginBottom: 0 },
             xl: { width: 500, height: 220, top: 0, marginBottom: 0 }
           }
         },
@@ -856,18 +778,14 @@ export const productCategories = [
           width: 300, height: 105,
           responsive: {
             xs: { width: 300, height: 105 },
-            sm: { width: 300, height: 105 },
             md: { width: 300, height: 105 },
-            lg: { width: 300, height: 105 },
             xl: { width: 300, height: 105 }
           }
         },
         selectedScale: 1.4,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 40 },
-          sm: { bottom: 40 },
           md: { bottom: 40 },
-          lg: { bottom: 40 },
           xl: { bottom: 40 }
         },
         decorativeImages: {
@@ -900,9 +818,7 @@ export const productCategories = [
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
             xs: { width: 500, height: 220, top: 0, marginBottom: 0 },
-            sm: { width: 500, height: 220, top: 0, marginBottom: 0 },
             md: { width: 500, height: 220, top: 0, marginBottom: 0 },
-            lg: { width: 500, height: 220, top: 0, marginBottom: 0 },
             xl: { width: 500, height: 220, top: 0, marginBottom: 0 }
           }
         },
@@ -910,18 +826,14 @@ export const productCategories = [
           width: 300, height: 105,
           responsive: {
             xs: { width: 300, height: 105 },
-            sm: { width: 300, height: 105 },
             md: { width: 300, height: 105 },
-            lg: { width: 300, height: 105 },
             xl: { width: 300, height: 105 }
           }
         },
         selectedScale: 1.4,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 40 },
-          sm: { bottom: 40 },
           md: { bottom: 40 },
-          lg: { bottom: 40 },
           xl: { bottom: 40 }
         },
         decorativeImages: {
@@ -960,9 +872,7 @@ export const productCategories = [
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
             xs: { width: 500, height: 220, top: -50, marginBottom: 0 },
-            sm: { width: 500, height: 220, top: -50, marginBottom: 0 },
             md: { width: 500, height: 220, top: -50, marginBottom: 0 },
-            lg: { width: 500, height: 220, top: -50, marginBottom: 0 },
             xl: { width: 500, height: 220, top: -50, marginBottom: 0 }
           }
         },
@@ -970,18 +880,14 @@ export const productCategories = [
           width: 305, height: 105,
           responsive: {
             xs: { width: 305, height: 105 },
-            sm: { width: 305, height: 105 },
             md: { width: 305, height: 105 },
-            lg: { width: 305, height: 105 },
             xl: { width: 305, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 20 },
-          sm: { bottom: 20 },
           md: { bottom: 20 },
-          lg: { bottom: 20 },
           xl: { bottom: 20 }
         },
         decorativeImages: {
@@ -1033,9 +939,7 @@ export const productCategories = [
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
             xs: { width: 500, height: 220, top: -50, marginBottom: 0 },
-            sm: { width: 500, height: 220, top: -50, marginBottom: 0 },
             md: { width: 500, height: 220, top: -50, marginBottom: 0 },
-            lg: { width: 500, height: 220, top: -50, marginBottom: 0 },
             xl: { width: 500, height: 220, top: -50, marginBottom: 0 }
           }
         },
@@ -1043,18 +947,14 @@ export const productCategories = [
           width: 305, height: 105,
           responsive: {
             xs: { width: 305, height: 105 },
-            sm: { width: 305, height: 105 },
             md: { width: 305, height: 105 },
-            lg: { width: 305, height: 105 },
             xl: { width: 305, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 20 },
-          sm: { bottom: 20 },
           md: { bottom: 20 },
-          lg: { bottom: 20 },
           xl: { bottom: 20 }
         },
         decorativeImages: {

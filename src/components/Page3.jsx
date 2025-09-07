@@ -121,7 +121,7 @@ const Page3 = () => {
             >
               {/* Responsive order for mobile/tablet vs desktop */}
               {['xs', 'sm', 'md'].includes(breakpoint) ? (
-                <div className="flex flex-col gap-y-5">
+                <div className="flex flex-col gap-y-5 pt-32">
                   {/* Div 1 - Product Title */}
                   <div className="w-full flex items-center justify-center mt-4 mb-4">
                     <h1 className="text-3xl sm:text-4xl font-[Fredoka] font-bold text-white drop-shadow-md text-center">
