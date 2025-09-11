@@ -72,8 +72,8 @@ const Page5 = () => {
     const orbitRadiusYFactor = 0.10; // fraction of container height (60% more gap)
 
     // timing: hold center image, then transition to the next center
-    const holdMs = 1000; // center stays still
-    const transitionMs = 700; // smooth move to next center
+    const holdMs = 2500; // center stays still
+    const transitionMs = 1000; // smooth move to next center
     const stepMs = holdMs + transitionMs; // per image step
 
     const getStateForCenter = (centerIndex, w, h) => {
