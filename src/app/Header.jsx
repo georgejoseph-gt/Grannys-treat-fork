@@ -7,11 +7,21 @@ const Header = () => {
   const navbarData = ["Products", "Our Story", "Benefits", "Testimonials"];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Custom per-section offsets (edit these values as needed)
+  const customOffsets = {
+    'products': 65,
+    'our-story': 65,
+    'benefits': -100,
+    'testimonials': -100
+  };
+
   const handleNavigation = (item) => {
     const sectionId = item.toLowerCase().replace(/\s+/g, '-');
-    const offset = (item === "Testimonials" || item === "Benefits")
-      ? Math.round(window.innerHeight * -0.10)
-      : 80;
+    const offset = customOffsets[sectionId] !== undefined
+      ? customOffsets[sectionId]
+      : ((item === "Testimonials" || item === "Benefits")
+        ? Math.round(window.innerHeight * -0.10)
+        : 80);
     smoothScrollTo(sectionId, offset);
     setIsMobileMenuOpen(false); // Close mobile menu after navigation
   };

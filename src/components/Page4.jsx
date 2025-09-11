@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Page4 = () => {
   const images = [
-    "/assets/page4/photo.png",
+    "/assets/page4/img5.jpg",
+    "/assets/page4/img6.jpg",
+    "/assets/page4/img7.jpg",
+    "/assets/page4/img8.jpg",
+    // "/assets/page4/photo.png",
     "/assets/page4/img1.png",
     "/assets/page4/img2.png",
     "/assets/page4/img3.png",
@@ -17,7 +21,7 @@ const Page4 = () => {
     const interval = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [images.length]);
 
