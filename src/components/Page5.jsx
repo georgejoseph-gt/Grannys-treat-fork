@@ -63,65 +63,129 @@ const Page5 = () => {
     return () => ro.disconnect();
   }, []);
 
-  // animation loop
+  // animation loop (center image holds for a second, then next image transitions to center)
   useEffect(() => {
-    // respect user's reduce-motion preference
     const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return undefined;
 
-    const duration = 10000; // ms per full orbit (slower)
-    const orbitRadiusXFactor = 0.15; // fraction of container width (smaller orbit)
-    const orbitRadiusYFactor = 0.08; // fraction of container height (smaller flattened ellipse)
-    const imageRadius = 40; // approx radius used for rolling calc — not critical
+    const orbitRadiusXFactor = 0.18; // fraction of container width (60% more gap)
+    const orbitRadiusYFactor = 0.10; // fraction of container height (60% more gap)
+
+    // timing: hold center image, then transition to the next center
+    const holdMs = 1000; // center stays still
+    const transitionMs = 700; // smooth move to next center
+    const stepMs = holdMs + transitionMs; // per image step
+
+    const getStateForCenter = (centerIndex, w, h) => {
+      const cx = w / 2;
+      // push the orbit a bit downward relative to container height
+      const cy = h / 2 + h * 0.1; // ~6% down
+      const rx = w * orbitRadiusXFactor;
+      const ry = h * orbitRadiusYFactor;
+
+      return chosenImages.map((_, i) => {
+        const rel = (i - centerIndex + orbitCount) % orbitCount; // 0 is center
+        if (rel === 0) {
+          return {
+            left: `${cx}px`,
+            top: `${cy}px`,
+            translateX: "-50%",
+            translateY: "-50%",
+            scale: 1.8,
+            rotate: 0,
+            zIndex: 1000,
+            opacity: 1,
+            filter: "none",
+          };
+        }
+
+        // Slot mapping for 4 items: 0=center, 1=right, 2=behind, 3=left
+        // If there are fewer than 4 items, we approximate positions.
+        if (rel === 1) {
+          // right
+          return {
+            left: `${cx + rx}px`,
+            top: `${cy}px`,
+            translateX: "-50%",
+            translateY: "-50%",
+            scale: 1.15,
+            rotate: 0,
+            zIndex: 600,
+            opacity: 0.35,
+            filter: "blur(0.6px) saturate(0.9)",
+          };
+        }
+        if (rel === 2) {
+          // behind center (centered, up a bit)
+          return {
+            left: `${cx}px`,
+            top: `${cy - ry}px`,
+            translateX: "-50%",
+            translateY: "-50%",
+            scale: 0.85,
+            rotate: 0,
+            zIndex: 200,
+            opacity: 0.18,
+            filter: "blur(1.2px) brightness(0.95)",
+          };
+        }
+        // rel === 3 or any other -> left
+        return {
+          left: `${cx - rx}px`,
+          top: `${cy}px`,
+          translateX: "-50%",
+          translateY: "-50%",
+          scale: 1.15,
+          rotate: 0,
+          zIndex: 600,
+          opacity: 0.35,
+          filter: "blur(0.6px) saturate(0.9)",
+        };
+      });
+    };
+
+    const lerp = (a, b, t) => a + (b - a) * t;
 
     const tick = (ts) => {
       if (!startRef.current) startRef.current = ts;
       const elapsed = ts - startRef.current;
-      const t = (elapsed % duration) / duration; // 0..1
-      const baseAngle = t * Math.PI * 2; // 0..2PI
 
       const { w, h } = sizeRef.current;
-      const cx = w / 2;
-      const cy = h / 2;
 
-      const rx = w * orbitRadiusXFactor;
-      const ry = h * orbitRadiusYFactor;
+      const stepIndex = Math.floor(elapsed / stepMs);
+      const phaseMs = elapsed % stepMs;
+      const centerNow = ((stepIndex % orbitCount) + orbitCount) % orbitCount;
+      const centerNext = (centerNow + 1) % orbitCount;
 
-      const newPos = chosenImages.map((src, i) => {
-        // evenly space items around the circle
-        const angle = baseAngle + (i * (Math.PI * 2)) / orbitCount;
+      const stateA = getStateForCenter(centerNow, w, h);
+      const stateB = getStateForCenter(centerNext, w, h);
 
-        // elliptical orbit coordinates
-        const x = cx + rx * Math.cos(angle);
-        const y = cy + ry * Math.sin(angle);
-
-        // depth metric - front when sin(angle) is near +1 (top of ellipse) => adjust to desired orientation
-        // We want front when the item is near center (y approx cy) and moving left->right visually.
-        // Using sin(angle) provides a smooth phase: -1 .. 1 => map to 0..1
-        const depth = (Math.sin(angle) + 1) / 2;
-
-        // scale between min and max based on depth - center cup much larger
-        const scale = 0.70 + depth * 1.3; // range ~0.70 .. 1.30 (center cup 30% larger)
-
-        // no rotation - keep cups upright while orbiting
-        const rotationDeg = 0; // cups stay upright
-
-        // opacity + blur for dramatic depth effect - very low when behind, full when in front
-        const opacity = 0.04 + depth * 0.85; // 0.15 .. 1.0 (much more dramatic depth)
-        const blurPx = Math.max(0, (0.8 - depth) * 2.5); // blur when depth small
-
-        return {
-          left: `${x}px`,
-          top: `${y}px`,
-          translateX: "-50%", // to center images at their position
-          translateY: "-50%",
-          scale,
-          rotate: rotationDeg,
-          zIndex: Math.round(depth * 100), // higher depth -> higher zIndex
-          opacity,
-          filter: blurPx > 0 ? `blur(${blurPx}px)` : "none",
-        };
-      });
+      let newPos;
+      if (phaseMs <= holdMs) {
+        // hold
+        newPos = stateA;
+      } else {
+        // transition
+        const t = Math.min(1, (phaseMs - holdMs) / transitionMs);
+        newPos = stateA.map((posA, i) => {
+          const posB = stateB[i];
+          const leftA = parseFloat(posA.left);
+          const topA = parseFloat(posA.top);
+          const leftB = parseFloat(posB.left);
+          const topB = parseFloat(posB.top);
+          return {
+            left: `${lerp(leftA, leftB, t)}px`,
+            top: `${lerp(topA, topB, t)}px`,
+            translateX: "-50%",
+            translateY: "-50%",
+            scale: lerp(posA.scale, posB.scale, t),
+            rotate: 0,
+            zIndex: Math.round(lerp(posA.zIndex, posB.zIndex, t)),
+            opacity: lerp(posA.opacity, posB.opacity, t),
+            filter: t < 0.5 ? posA.filter : posB.filter,
+          };
+        });
+      }
 
       setPositions(newPos);
       rafRef.current = requestAnimationFrame(tick);
@@ -146,7 +210,7 @@ const Page5 = () => {
   }
 
   return (
-    <div className="h-auto min-h-screen w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
+    <div className="h-auto min-h-fit w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
       {/* Top Image */}
       <img
         src="/assets/BG/page5_top.png"
@@ -155,24 +219,24 @@ const Page5 = () => {
       />
 
       {/* Content Container */}
-      <div className="w-full max-w-[120x] mx-auto flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8 mt-12 sm:mt-32 ">
+      <div className="w-full max-w-[120x] mx-auto flex flex-col items-center justify-center   mt-12 sm:mt-32  ">
         {/* Text Image */}
         <img
           src="/assets/Icons/benefitlabel.svg"
           alt="img"
-          className="w-[90%] sm:w-[85%] md:w-[80%] max-w-[400px] sm:max-w-[600px] md:max-w-[800px] transition-all duration-300"
+          className=" w-[80%] sm:w-[70%] md:w-[60%] max-w-[360px] sm:max-w-[520px] md:max-w-[680px] transition-all duration-300"
         />
 
         {/* Design Image with looping Lassi image overlay */}
         <div
           ref={containerRef}
-          className="relative w-[98%] md:w-[150%] max-w-[640px] md:max-w-[1000px] lg:max-w-[1000px] mx-auto h-[420px] md:h-[640px] lg:h-[720px]"
+          className=" relative w-[98%] md:w-[150%] max-w-[640px] md:max-w-[1000px] lg:max-w-[1000px] mx-auto h-[420px] md:h-[640px] lg:h-[720px]"
         >
           {/* background artwork */}
           <img
-            src="/assets/Icons/p5-b.png"
+            src="/assets/Icons/p5-background-benefit.png"
             alt="img"
-            className="w-full h-full object-contain transition-all duration-300 "
+            className="w-full h-full object-contain transition-all duration-300 transform origin-center  md:scale-[1.2]"
           />
 
           {/* Orbiting images */}
@@ -203,7 +267,7 @@ const Page5 = () => {
                   className="block rounded-xl"
                   // limit rendered size; actual transform uses scale so base size controls max space
                   style={{
-                    width: 160,
+                    width: 200,
                     height: 200,
                     objectFit: "contain",
                     display: "block",
