@@ -6,6 +6,8 @@ import "./VideoSlider.css";
 
 const VideoSlider = () => {
   const [playingId, setPlayingId] = useState(null);
+  const [previewId, setPreviewId] = useState(null);
+  const [loadedIds, setLoadedIds] = useState(() => new Set(videos.slice(0, 4).map(v => v.id)));
   const sliderRef = useRef(null);
 
   // Optional: center the first card on mount
@@ -17,6 +19,71 @@ const VideoSlider = () => {
     const scrollTo =
       initialIndex * (cardWidth + gap) - (window.innerWidth - cardWidth) / 2;
     sliderRef.current.scrollLeft = scrollTo;
+  }, []);
+
+  // Determine most centered card to run preview loop only for that one
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return undefined;
+
+    const updatePreviewTarget = () => {
+      const containerRect = el.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      let best = { id: null, dist: Number.POSITIVE_INFINITY };
+      // children correspond to wrapper divs around cards
+      const wrappers = Array.from(el.querySelectorAll('[data-card-wrapper="true"]'));
+      wrappers.forEach((w) => {
+        const rect = w.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        const dist = Math.abs(center - containerCenter);
+        const idStr = w.getAttribute('data-card-id');
+        const id = idStr ? Number(idStr) : null;
+        if (id != null && dist < best.dist) best = { id, dist };
+      });
+      setPreviewId((prev) => (prev === best.id ? prev : best.id));
+    };
+
+    updatePreviewTarget();
+    const onScroll = () => {
+      // throttle via requestAnimationFrame
+      if (onScroll._raf) return;
+      onScroll._raf = requestAnimationFrame(() => {
+        onScroll._raf = null;
+        updatePreviewTarget();
+      });
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updatePreviewTarget);
+    const ro = new ResizeObserver(updatePreviewTarget);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updatePreviewTarget);
+      ro.disconnect();
+    };
+  }, []);
+
+  // Observe cards to progressively mark them loadable when they come into view
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return undefined;
+    const wrappers = Array.from(el.querySelectorAll('[data-card-wrapper="true"]'));
+    const opts = { root: el, threshold: 0.4 };
+    const io = new IntersectionObserver((entries) => {
+      setLoadedIds((prev) => {
+        const next = new Set(prev);
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idStr = entry.target.getAttribute('data-card-id');
+            const id = idStr ? Number(idStr) : null;
+            if (id != null) next.add(id);
+          }
+        });
+        return next;
+      });
+    }, opts);
+    wrappers.forEach(w => io.observe(w));
+    return () => io.disconnect();
   }, []);
 
   const handleTogglePlay = (id) => {
@@ -74,7 +141,12 @@ const VideoSlider = () => {
         }}
       >
         {videos.map((video) => (
-          <div key={video.id} className="snap-center flex-shrink-0">
+          <div
+            key={video.id}
+            className="snap-center flex-shrink-0"
+            data-card-wrapper="true"
+            data-card-id={video.id}
+          >
             <VideoCard
               id={video.id}
               videoUrl={video.url}
@@ -82,6 +154,8 @@ const VideoSlider = () => {
               username={video.username}
               dimensions={video.dimensions}
               isPlaying={video.id === playingId}
+              previewActive={video.id === previewId}
+              canLoad={loadedIds.has(video.id)}
               onTogglePlay={handleTogglePlay}
               onVideoEnd={handleVideoEnd}
             />

@@ -25,44 +25,72 @@ const VideoCard = ({
   const [isHovered, setIsHovered] = useState(false);
   const [clientPoster, setClientPoster] = useState(poster || null);
   const [isGeneratingPoster, setIsGeneratingPoster] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [isActuallyPlaying, setIsActuallyPlaying] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
-  // Attach HLS if needed
+  // Attach HLS or native source only when needed (when card is in view)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return undefined;
+
+    if (!isInView) {
+      // Pause and avoid loading while off-screen
+      try { video.pause(); } catch {}
+      setIsActuallyPlaying(false);
+      return undefined;
+    }
 
     const isHls = typeof videoUrl === "string" && videoUrl.endsWith(".m3u8");
     const canPlayNative = video.canPlayType("application/vnd.apple.mpegurl");
 
     if (isHls && !canPlayNative && Hls.isSupported()) {
-      // use hls.js
-      if (hlsRef.current) {
-        hlsRef.current.destroy();
-        hlsRef.current = null;
+      if (!hlsRef.current) {
+        const hls = new Hls({ allowFileProtocol: true, maxBufferLength: 6, maxMaxBufferLength: 10 });
+        hlsRef.current = hls;
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+          hls.loadSource(videoUrl);
+        });
       }
-      const hls = new Hls({ allowFileProtocol: true });
-      hlsRef.current = hls;
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-        hls.loadSource(videoUrl);
-      });
     } else {
-      // native: just set the src (works in Safari or for mp4)
-      // When switching between video sources, reset src
-      if (video.src !== videoUrl) {
-        video.src = videoUrl;
-      }
+      if (video.src !== videoUrl) video.src = videoUrl;
     }
 
     return () => {
-      if (hlsRef.current) {
-        hlsRef.current.destroy();
-        hlsRef.current = null;
-      }
+      // don't destroy on every visibility change to keep buffer; rely on unmount cleanup
     };
-  }, [videoUrl]);
+  }, [videoUrl, isInView]);
 
-  // Start/stop playback depending on isPlaying prop
+  // Observe visibility of the card
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return undefined;
+    const observer = new IntersectionObserver((entries) => {
+      setIsInView(entries[0]?.isIntersecting || false);
+    }, { root: null, threshold: 0.5 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Track playback state via media events
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return undefined;
+    const onPlaying = () => { setIsActuallyPlaying(true); setAutoplayBlocked(false); };
+    const onPause = () => setIsActuallyPlaying(false);
+    const onEnded = () => setIsActuallyPlaying(false);
+    v.addEventListener('playing', onPlaying);
+    v.addEventListener('pause', onPause);
+    v.addEventListener('ended', onEnded);
+    return () => {
+      v.removeEventListener('playing', onPlaying);
+      v.removeEventListener('pause', onPause);
+      v.removeEventListener('ended', onEnded);
+    };
+  }, []);
+
+  // Start/stop playback depending on selection and visibility
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return undefined;
@@ -74,15 +102,23 @@ const VideoCard = ({
       // handle promise for browsers requiring user gesture
       if (playPromise && typeof playPromise.then === "function") {
         playPromise.catch(() => {
-          // failed to autoplay — leave poster visible
+          setAutoplayBlocked(true);
         });
       }
     } else {
-      video.pause();
-      // when paused, reset to poster visibility handled by parent markup
+      if (isInView) {
+        // try to autoplay silently when visible
+        video.muted = true;
+        const p = video.play();
+        if (p && typeof p.then === 'function') {
+          p.catch(() => setAutoplayBlocked(true));
+        }
+      } else {
+        video.pause();
+      }
     }
     return undefined;
-  }, [isPlaying, isMuted]);
+  }, [isPlaying, isMuted, isInView]);
 
   // Optional: client-side thumbnail generation (slow); only use if poster not provided
   useEffect(() => {
@@ -197,8 +233,8 @@ const VideoCard = ({
     >
       {/* Video Container with proper aspect ratio */}
       <div className="relative w-full h-full bg-gradient-to-br from-gray-100 to-gray-200">
-        {/* Poster image shown when not playing */}
-        {!isPlaying && effectivePoster && (
+        {/* Poster image when off-screen or not actually playing / autoplay blocked */}
+        {((!isInView) || (!isActuallyPlaying) || autoplayBlocked) && effectivePoster && (
           <img
             src={effectivePoster}
             alt={username || "Video thumbnail"}
