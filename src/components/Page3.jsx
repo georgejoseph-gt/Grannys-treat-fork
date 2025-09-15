@@ -228,76 +228,26 @@ const Page3 = () => {
                       </span>
                       <span className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-[Fredoka] font-normal text-black">
                         {/* {String(currentImageIndex + 1).padStart(2, '0')}/{String(category.items.length).padStart(2, '0')} */}
-
+                        <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-[Fredoka] font-normal text-black">
+                          {/* {String(currentImageIndex + 1).padStart(2, '0')}/{String(category.items.length).padStart(2, '0')} */}
+                        </div>
                       </span>
                     </div>
                     {/* Div 4 - Right Space with Features */}
                     {['md', 'lg', 'xl'].includes(breakpoint) && (
-                      <div className="w-3/8 h-full relative ">
-                        {/* First star with text */}
-                        <div className="absolute w-[480px] h-[380px] -top-15 -left-30 z-10 ">
-                          <div
-                            className="w-full h-full"
-                            style={{
-                              background: `url('/assets/page3/page3_star.svg') no-repeat center center`,
-                              backgroundSize: 'contain'
-                            }}
+                      <div className="w-3/8 h-full relative flex items-center justify-start ">
+                        {item.div4_image && (
+                          <img
+                            src={item.div4_image}
+                            alt="Section visual"
+                            className="object-contain max-w-full max-h-full"
                           />
-                          {/* Text container */}
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center max-w-[400px] ">
-                            <p className="text-2xl font-[Fredoka] text-black font-medium ">
-                              {item.subtext2}
-                            </p>
-                          </div>
-                        </div>
-                        {/* Second star with text */}
-                        <div className="absolute w-[300px] h-[200px] top-70 right-30 z-20 ">
-                          {/* Star background with text */}
-                          <div className="relative w-full h-full">
-                            {/* Star background */}
-                            <div
-                              className="w-full h-full"
-                              style={{
-                                background: `url('/assets/page3/page3_star2.svg') no-repeat center center`,
-                                backgroundSize: 'contain'
-                              }}
-                            />
-                            {/* Text container */}
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center max-w-[250px]">
-                              <p className="text-xl font-[Fredoka] text-black font-medium">
-                                {item.subtext3}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        {/* Decorative Images */}
-                        {item.decorativeImages && Object.entries(item.decorativeImages).map(([key, image]) => {
-                          const decoStyle = image.responsive?.[breakpoint] || image;
-                          return (
-                            <img
-                              key={key}
-                              src={image.path}
-                              alt={`Decorative ${key}`}
-                              className="absolute object-contain "
-                              style={{
-                                width: decoStyle.width,
-                                height: decoStyle.height,
-                                top: decoStyle.top,
-                                left: decoStyle.left,
-                                right: decoStyle.right,
-                                bottom: decoStyle.bottom,
-                                zIndex: decoStyle.zIndex,
-                                transform: decoStyle.rotate ? `rotate(${decoStyle.rotate}deg)` : undefined
-                              }}
-                            />
-                          );
-                        })}
-
+                        )}
                       </div>
                     )}
                   </div>
                   {/* Div 5 - Counter - 30vh */}
-                  <div className="w-full h-[20vh] md:h-[50vh] flex flex-col items-center justify-center gap-2 md:gap-4">
+                  <div className="w-full h-[20vh] md:h-[50vh] flex flex-col items-center justify-center gap-2 md:gap-4 ">
                     <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-[Fredoka] font-normal text-black">
                       {String(currentImageIndex + 1).padStart(2, '0')}/{String(category.items.length).padStart(2, '0')}
                     </div>

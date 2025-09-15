@@ -10,6 +10,7 @@ export const productCategories = [
         subtext2: "A smooth and refreshing probiotic drink that's gentle on your stomach and perfect for daily use, any time of the day.",
         subtext3: "Classic taste with probiotic comfort. ",
         colorbg: "#88c0f8",
+        div4_image: '/div4/rose.png',
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
@@ -21,8 +22,7 @@ export const productCategories = [
           width: 260, height: 105,
           responsive: {
             xs: { width: 260, height: 105 },
-            md: { width: 260, height: 105 },
-            xl: { width: 260, height: 105 }
+            md: { width: 160, height: 105 },
           }
         },
         selectedScale: 1.5,
@@ -65,6 +65,7 @@ export const productCategories = [
         subtext2: "Real strawberry pulp and probiotic curd come together for a fruity, creamy treat that's easy on the gut.",
         subtext3: "A healthy dessert alternative, naturally sweet.",
         colorbg: "#e44556",
+        div4_image: '/div4/strawberry.png',
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
@@ -113,6 +114,7 @@ export const productCategories = [
         subtext2: "Blueberry blended into cultured dairy for a tangy, refreshing lassi that energises and supports digestion.",
         subtext3: "Perfect pick-me-up with antioxidants.",
         colorbg: "#b691c5",
+        div4_image: '/div4/blue.png',
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
@@ -161,6 +163,7 @@ export const productCategories = [
         subtext2: "Sweet Alphonso mango blended with probiotic lassi to give you a tropical, creamy drink that's full of flavour and gut goodness.",
         subtext3: "Tropical mango, creamy and nourishing.",
         colorbg: "#f28e47",
+        div4_image: '/div4/mango.png',
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
@@ -223,6 +226,7 @@ export const productCategories = [
         subtext2: "A smooth, refreshing buttermilk made from cultured curd — easy to digest, hydrating, and a gentle support for your gut health.",
         subtext3: "Refreshing, gentle, gut-friendly drink",
         colorbg: "#f3cb8e",
+        div4_image: '/div4/buttermilk1.png',
         imgStyle: {
           width: 500, height: 260, top: -170, marginBottom: 0,
           responsive: {
@@ -277,6 +281,8 @@ export const productCategories = [
         subtext2: "Enjoy it at breakfast topped with fruit or in a smoothie.",
         subtext3: "It is also a versatile culinary ingredient",
         colorbg: "#D8CC02",
+        div4_image: '/div4/buttermilk2.png',
+
         imgStyle: {
           width: 450, height: 260, top: -120, marginBottom: 0,
           responsive: {
@@ -330,6 +336,8 @@ export const productCategories = [
         subtext2: "Enjoy it at breakfast topped with fruit or in a smoothie.",
         subtext3: "It is also a versatile culinary ingredient",
         colorbg: "#5dc726",
+        div4_image: '/div4/buttermilk3.png',
+
         imgStyle: {
           width: 460, height: 260, top: 20, marginBottom: 0,
           responsive: {
@@ -394,6 +402,7 @@ export const productCategories = [
         subtext2: "Snack-ready, portioned curd with probiotics — light, healthy and perfect for daily gut balance.",
         subtext3: "Low-fat, probiotic-packed goodness",
         colorbg: "#61b4e1",
+        div4_image: '/div4/dahi1.png',
         imgStyle: {
           width: 400, height: 220, top: 0, marginBottom: 0,
           responsive: {
@@ -449,6 +458,7 @@ export const productCategories = [
         subtext2: "A smooth, low-fat probiotic curd that's great for solo meals, breakfast bowls, or pairing with fruits and cereals.",
         subtext3: "Smooth, nourishing, and ready to eat.",
         colorbg: "#61b4e1",
+        div4_image: '/div4/dahi2.png',
         imgStyle: {
           width: 400, height: 220, top: 40, marginBottom: 0,
           responsive: {
@@ -504,6 +514,7 @@ export const productCategories = [
         subtext2: "A family-sized pouch of probiotic curd that's low in fat, full of nourishment, and perfect for everyday kitchen use.",
         subtext3: "Everyday curd made healthier.",
         colorbg: "#61b4e1",
+        div4_image: '/div4/dahi3.png',
         imgStyle: {
           width: 400, height: 220, top: -200, marginBottom: 0,
           responsive: {
@@ -560,6 +571,7 @@ export const productCategories = [
         subtext2: "Compact, travel-friendly and tasty — this pouch of probiotic curd keeps your gut happy wherever you go.",
         subtext3: "Easy to carry, good for gut..",
         colorbg: "#61b4e1",
+        div4_image: '/div4/dahi4.png',
         imgStyle: {
           width: 450, height: 220, top: -100, marginBottom: 0,
           responsive: {
@@ -622,6 +634,7 @@ export const productCategories = [
         subtext2: "Convenient sized fresh paneer that's perfect for small households and specific recipes.",
         subtext3: "Fresh and protein-rich",
         colorbg: "#9ed1a6",
+        div4_image: '/div4/panner1.png',
         imgStyle: {
           width: 250, height: 120, top: 0, marginBottom: 0,
           responsive: {
@@ -689,6 +702,7 @@ export const productCategories = [
         subtext2: "Larger serving of fresh paneer perfect for family meals and special recipes.",
         subtext3: "Rich in protein and calcium",
         colorbg: "#14871f",
+        div4_image: '/div4/panner2.png',
         imgStyle: {
           width: 250, height: 150, top: -200, marginBottom: 0,
           responsive: {
@@ -762,6 +776,7 @@ export const productCategories = [
         subtext1: "Our Probiotic Strawberry Yogurt combines the goodness of fresh dairy with real fruit and beneficial probiotics. Made with carefully selected strawberries and cultured milk, it offers a perfect balance of taste and health.",
         subtext2: "A delicious blend of real strawberries and probiotic-rich yogurt for a healthy treat any time of day.",
         subtext3: "Natural fruit goodness",
+        div4_image: '/div4/yoghurt1.png',
         colorbg: "#fc758c",
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
@@ -808,6 +823,7 @@ export const productCategories = [
         subtext2: "Sweet, creamy mango-flavored yogurt enriched with probiotics for gut health and immunity.",
         subtext3: "Tropical probiotic delight",
         colorbg: "#fdc858",
+        div4_image: '/div4/yoghurt2.png',
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {
@@ -861,6 +877,7 @@ export const productCategories = [
         subtext1: "Our Elaichi Shrikhand is a traditional sweet delicacy made from strained yogurt and infused with aromatic cardamom. This creamy dessert combines the richness of dairy with the warmth of Indian spices.",
         subtext2: "A perfect blend of strained yogurt and cardamom, creating a rich, aromatic dessert experience.",
         subtext3: "Traditional Indian sweet",
+        div4_image: '/div4/shrikhand1.png',
         colorbg: "#8bc960",
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
@@ -929,6 +946,7 @@ export const productCategories = [
         subtext2: "Premium shrikhand enriched with almonds and pistachios, offering a royal dessert experience.",
         subtext3: "Nutty and aromatic",
         colorbg: "#e9b26d",
+        div4_image: '/div4/shrikhand2.png',
         imgStyle: {
           width: 500, height: 220, top: -100, marginBottom: 0,
           responsive: {

@@ -3,20 +3,11 @@ import { useRef, useEffect, useState } from "react";
 import { productCategories } from "../lib/carouselData";
 import OptimizedImage from "./OptimizedImage";
 
-/**
- * Orbiting lassi gallery
- *
- * - Picks up to `maxOrbitItems` images from productCategories.Lassi
- * - Animates them on an elliptical orbit using requestAnimationFrame
- * - Computes per-image transform: translate(x,y) scale(s) rotate(r)
- * - Sets zIndex based on depth so front images overlay back images
- */
 const Page5 = () => {
   const lassiImages =
     productCategories.find((cat) => cat.category === "Lassi")?.items.map((i) => i.image) ||
     [];
-
-  // number of orbiting items (choose up to 4)
+    
   const maxOrbitItems = 4;
   const orbitCount = Math.min(maxOrbitItems, lassiImages.length);
 
@@ -111,7 +102,7 @@ const Page5 = () => {
             scale: 1.15,
             rotate: 0,
             zIndex: 600,
-            opacity: 0.35,
+            opacity: 0.0,
             filter: "blur(0.6px) saturate(0.9)",
           };
         }
@@ -125,7 +116,7 @@ const Page5 = () => {
             scale: 0.85,
             rotate: 0,
             zIndex: 200,
-            opacity: 0.18,
+            opacity: 0.0,
             filter: "blur(1.2px) brightness(0.95)",
           };
         }
@@ -138,7 +129,7 @@ const Page5 = () => {
           scale: 1.15,
           rotate: 0,
           zIndex: 600,
-          opacity: 0.35,
+          opacity: 0.0,
           filter: "blur(0.6px) saturate(0.9)",
         };
       });
@@ -162,8 +153,11 @@ const Page5 = () => {
 
       let newPos;
       if (phaseMs <= holdMs) {
-        // hold
-        newPos = stateA;
+        // hold: only show the centered image
+        newPos = stateA.map((pos, i) => ({
+          ...pos,
+          opacity: i === centerNow ? 1 : 0,
+        }));
       } else {
         // transition
         const t = Math.min(1, (phaseMs - holdMs) / transitionMs);
@@ -181,7 +175,7 @@ const Page5 = () => {
             scale: lerp(posA.scale, posB.scale, t),
             rotate: 0,
             zIndex: Math.round(lerp(posA.zIndex, posB.zIndex, t)),
-            opacity: lerp(posA.opacity, posB.opacity, t),
+            opacity: 0,
             filter: t < 0.5 ? posA.filter : posB.filter,
           };
         });
