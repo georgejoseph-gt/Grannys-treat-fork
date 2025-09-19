@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 const Page2 = () => {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -29,42 +29,44 @@ const Page2 = () => {
   for (let i = 0; i < words.length; i += groupSize) {
     wordGroups.push(words.slice(i, i + groupSize));
   }
-  const container = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.25,
-      }
-    }
-  };
-  const child = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, color: "#285192", transition: { duration: 0.6 } }
-  };
-  const headingRef = useRef(null);
-  const isInView = useInView(headingRef, { once: true, margin: "-100px" });
   return (
     <div ref={sectionRef} className="h-screen md:min-h-screen  w-full bg-[#d2eef9] relative overflow-hidden py-10 md:py-32">
       <div className="w-[95%] sm:w-[90%] md:w-[90%] h-full flex flex-col items-center justify-center mx-auto px-4 sm:px-6 md:px-8">
 
         {/* Main text content */}
-        <motion.h1
-          ref={headingRef}
-          className="font-[Fredoka] text-[#285192] font-semibold text-center tracking-normal leading-relaxed text-2xl sm:text-3xl md:text-4xl lg:text-5xl  max-w-[95vw] sm:max-w-[80vw] md:max-w-[90vw]"
-          variants={container}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {wordGroups.map((group, i) => (
-            <motion.span
-              key={i}
-              variants={child}
-              style={{ display: "inline-block", marginRight: "0.5em" }}
-            >
-              {group.join(" ")}
-            </motion.span>
-          ))}
-        </motion.h1>
+        <h1 className="font-[Fredoka] text-[#285192] font-semibold text-center tracking-normal leading-relaxed text-2xl sm:text-3xl md:text-4xl lg:text-5xl  max-w-[95vw] sm:max-w-[80vw] md:max-w-[90vw]">
+          {wordGroups.map((group, i) => {
+
+            const startOffset = 0.2; // Start after 30% of scroll
+            const animationDuration = 0.3; // Complete within 20% of scroll (30% to 50%)
+            const startProgress = startOffset + (i / wordGroups.length) * animationDuration;
+            const endProgress = startOffset + ((i + 1) / wordGroups.length) * animationDuration;
+
+            // Create opacity and y transform based on scroll progress
+            const opacity = useTransform(scrollYProgress,
+              [startProgress, endProgress],
+              [0, 1]
+            );
+            const y = useTransform(scrollYProgress,
+              [startProgress, endProgress],
+              [20, 0]
+            );
+
+            return (
+              <motion.span
+                key={i}
+                style={{
+                  display: "inline-block",
+                  marginRight: "0.5em",
+                  opacity,
+                  y
+                }}
+              >
+                {group.join(" ")}
+              </motion.span>
+            );
+          })}
+        </h1>
       </div>
 
       <motion.img
