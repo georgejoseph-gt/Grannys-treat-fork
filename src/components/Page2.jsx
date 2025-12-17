@@ -1,94 +1,122 @@
-import { useState, useEffect, useRef } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+
+const AnimatedWordGroup = ({ text, index, total, scrollYProgress }) => {
+  const start = 0.1 + (index / total) * 0.5;
+  const end = start + 0.12;
+
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1]);
+  const y = useTransform(scrollYProgress, [start, end], [24, 0]);
+
+  return (
+    <motion.span
+      style={{ opacity, y }}
+      className="inline-block mr-2 "
+    >
+      {text}
+    </motion.span>
+  );
+};
+
 const Page2 = () => {
   const sectionRef = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
+    offset: ["start 85%", "end 30%"],
   });
-  // Smoothly map scroll progress (0 -> 1) to scale ranges
-  const strawberryScale = useTransform(scrollYProgress, [0, 1], [0.5, 1.8]);
-  const blueberryScale = useTransform(scrollYProgress, [0, 1], [0.5, 1.8]);
-  const text = "At Granny's Treat, we craft probiotic-rich dairy that's as nourishing as it is delicious — your daily go-to for health, taste, and a dash of love in every bite. Welcome to a community that celebrates good food and even better living.";
+
+  const strawberryScale = useTransform(scrollYProgress, [0, 1], [0.85, 1.15]);
+  const blueberryScale = useTransform(scrollYProgress, [0, 1], [0.85, 1.2]);
+
+  const text =
+    "At Granny's Treat, we craft probiotic-rich dairy that's as nourishing as it is delicious — your daily go-to for health, taste, and a dash of love in every bite. Welcome to a community that celebrates good food and even better living.";
+
   const words = text.split(" ");
-  // Responsive group size
+
   const [groupSize, setGroupSize] = useState(3);
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setGroupSize(2);
-      } else {
-        setGroupSize(3);
-      }
+    const onResize = () => {
+      const mobile = window.innerWidth < 640;
+      setIsMobile(mobile);
+      setGroupSize(mobile ? 2 : 3);
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
+
   const wordGroups = [];
   for (let i = 0; i < words.length; i += groupSize) {
-    wordGroups.push(words.slice(i, i + groupSize));
+    wordGroups.push(words.slice(i, i + groupSize).join(" "));
   }
+
   return (
-    <div ref={sectionRef} className="h-screen md:min-h-screen  w-full bg-[#d2eef9] relative overflow-hidden py-10 md:py-32">
-      <div className="w-[95%] sm:w-[90%] md:w-[90%] h-full flex flex-col items-center justify-center mx-auto px-4 sm:px-6 md:px-8">
-
-        {/* Main text content */}
-        <h1 className="font-[Fredoka] text-[#285192] font-semibold text-center tracking-normal leading-relaxed text-2xl sm:text-3xl md:text-4xl lg:text-5xl  max-w-[95vw] sm:max-w-[80vw] md:max-w-[90vw]">
-          {wordGroups.map((group, i) => {
-
-            const startOffset = 0.2; // Start after 30% of scroll
-            const animationDuration = 0.3; // Complete within 20% of scroll (30% to 50%)
-            const startProgress = startOffset + (i / wordGroups.length) * animationDuration;
-            const endProgress = startOffset + ((i + 1) / wordGroups.length) * animationDuration;
-
-            // Create opacity and y transform based on scroll progress
-            const opacity = useTransform(scrollYProgress,
-              [startProgress, endProgress],
-              [0, 1]
-            );
-            const y = useTransform(scrollYProgress,
-              [startProgress, endProgress],
-              [20, 0]
-            );
-
-            return (
-              <motion.span
-                key={i}
-                style={{
-                  display: "inline-block",
-                  marginRight: "0.5em",
-                  opacity,
-                  y
-                }}
-              >
-                {group.join(" ")}
-              </motion.span>
-            );
-          })}
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-[#d2eef9] overflow-hidden"
+    >
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-24 pb-32 sm:pt-32 sm:pb-40">
+        <h1 className="font-[Fredoka] text-[#285192] font-semibold leading-relaxed text-center
+          text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] max-w-7xl mx-auto"
+        >
+          {isMobile
+            ? wordGroups.map((g, i) => (
+                <span key={i} className="mr-2 inline-block">
+                  {g}
+                </span>
+              ))
+            : wordGroups.map((g, i) => (
+                <AnimatedWordGroup
+                  key={i}
+                  text={g}
+                  index={i}
+                  total={wordGroups.length}
+                  scrollYProgress={scrollYProgress}
+                />
+              ))}
         </h1>
       </div>
 
+      {/* Strawberry */}
       <motion.img
         src="/assets/BG/strawberry_page2.svg"
-        alt="Decorative strawberry illustration"
+        alt=""
         style={{ scale: strawberryScale }}
-        className="absolute w-[clamp(180px,22vw,285px)] h-auto aspect-square
-        top-[20%] sm:top-[12%] md:top-[18%] lg:top-[22%] xl:top-[50px]
-        left-[2%] sm:left-[6%] md:left-[10%] lg:left-[12%] xl:left-[186.63px]
-         opacity-50 pointer-events-none select-none z-0"
+        className="
+          absolute
+          w-[140px] sm:w-[180px] md:w-[220px]
+          top-10 sm:top-16
+          left-2 sm:left-8
+          opacity-40
+          pointer-events-none
+          select-none
+        "
       />
 
+      {/* Blueberry */}
       <motion.img
         src="/assets/BG/blueberry_page2.svg"
-        alt="Decorative blueberry illustration"
+        alt=""
         style={{ scale: blueberryScale }}
-        className="absolute w-[clamp(180px,28vw,375px)] h-auto aspect-square
-        top-[5%] md:top-[42%] lg:top-[36%] xl:top-[220px]
-        right-[2%] sm:right-[6%] md:right-[10%] lg:right-[12%] xl:right-[186.63px]
-        -rotate-[26deg] pointer-events-none select-none hidden sm:block z-0"
+        className="
+          absolute
+          w-[160px] sm:w-[220px] md:w-[280px]
+          bottom-10 sm:bottom-20
+          right-2 sm:right-8
+          -rotate-12
+          opacity-40
+          pointer-events-none
+          select-none
+          hidden sm:block
+        "
       />
-    </div>
+    </section>
   );
 };
 

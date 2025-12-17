@@ -28,10 +28,11 @@ const App = () => {
           refs={{ homeRef, productsRef, storyRef, benefitsRef, testimonialsRef }}
         />
       </div>
+
       <Page2 />
       <div id="products">
         <div ref={productsRef}>
-          <Page3 />
+          {/* <Page3 /> */}
         </div>
       </div>
       <div id="our-story">
@@ -46,10 +47,11 @@ const App = () => {
       </div>
       <div id="testimonials">
         <div ref={testimonialsRef}>
-          <Page6 />
+          {/* <Page6 /> */}
         </div>
       </div>
       {/* <Page7 /> */}
+      {/* InstagramFeed */}
       <Page8 />
       <Page9 />
     </div>

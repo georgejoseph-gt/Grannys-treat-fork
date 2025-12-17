@@ -34,9 +34,29 @@ const Page5 = () => {
       filter: "none",
     }))
   );
+  const [imageSize, setImageSize] = useState(200);
 
   // measure container for radii
   const sizeRef = useRef({ w: 800, h: 400 });
+
+  // Update image size based on window width
+  useEffect(() => {
+    const updateImageSize = () => {
+      if (window.innerWidth < 640) {
+        setImageSize(120);
+      } else if (window.innerWidth < 768) {
+        setImageSize(150);
+      } else if (window.innerWidth < 1024) {
+        setImageSize(180);
+      } else {
+        setImageSize(200);
+      }
+    };
+
+    updateImageSize();
+    window.addEventListener('resize', updateImageSize);
+    return () => window.removeEventListener('resize', updateImageSize);
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -59,9 +79,6 @@ const Page5 = () => {
     const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return undefined;
 
-    const orbitRadiusXFactor = 0.18; // fraction of container width (60% more gap)
-    const orbitRadiusYFactor = 0.10; // fraction of container height (60% more gap)
-
     // timing: hold center image, then transition to the next center
     const holdMs = 2500; // center stays still
     const transitionMs = 1000; // smooth move to next center
@@ -70,9 +87,20 @@ const Page5 = () => {
     const getStateForCenter = (centerIndex, w, h) => {
       const cx = w / 2;
       // push the orbit a bit downward relative to container height
-      const cy = h / 2 + h * 0.1; // ~6% down
+      const cy = h / 2 + h * 0.1; // ~10% down
+      
+      // Responsive orbit radius factors - smaller on mobile
+      const isMobile = w < 640;
+      const isTablet = w >= 640 && w < 1024;
+      const orbitRadiusXFactor = isMobile ? 0.22 : isTablet ? 0.20 : 0.18;
+      const orbitRadiusYFactor = isMobile ? 0.12 : isTablet ? 0.11 : 0.10;
       const rx = w * orbitRadiusXFactor;
       const ry = h * orbitRadiusYFactor;
+
+      // Responsive scale values - adjusted for better mobile visibility
+      const centerScale = isMobile ? 1.5 : isTablet ? 1.65 : 1.8;
+      const sideScale = isMobile ? 0.95 : isTablet ? 1.05 : 1.15;
+      const behindScale = isMobile ? 0.75 : isTablet ? 0.8 : 0.85;
 
       return chosenImages.map((_, i) => {
         const rel = (i - centerIndex + orbitCount) % orbitCount; // 0 is center
@@ -82,7 +110,7 @@ const Page5 = () => {
             top: `${cy}px`,
             translateX: "-50%",
             translateY: "-50%",
-            scale: 1.8,
+            scale: centerScale,
             rotate: 0,
             zIndex: 1000,
             opacity: 1,
@@ -99,7 +127,7 @@ const Page5 = () => {
             top: `${cy}px`,
             translateX: "-50%",
             translateY: "-50%",
-            scale: 1.15,
+            scale: sideScale,
             rotate: 0,
             zIndex: 600,
             opacity: 0.0,
@@ -113,7 +141,7 @@ const Page5 = () => {
             top: `${cy - ry}px`,
             translateX: "-50%",
             translateY: "-50%",
-            scale: 0.85,
+            scale: behindScale,
             rotate: 0,
             zIndex: 200,
             opacity: 0.0,
@@ -126,7 +154,7 @@ const Page5 = () => {
           top: `${cy}px`,
           translateX: "-50%",
           translateY: "-50%",
-          scale: 1.15,
+          scale: sideScale,
           rotate: 0,
           zIndex: 600,
           opacity: 0.0,
@@ -153,20 +181,71 @@ const Page5 = () => {
 
       let newPos;
       if (phaseMs <= holdMs) {
-        // hold: only show the centered image
-        newPos = stateA.map((pos, i) => ({
-          ...pos,
-          opacity: i === centerNow ? 1 : 0,
-        }));
+        // hold: show centered image fully, and tease the next one with faded effect
+        const teaseProgress = phaseMs / holdMs; // 0 to 1 during hold phase
+        // Create a subtle pulsing effect for the next product (0.4 to 0.6 opacity)
+        // More visible teasing with gentle pulse
+        const baseOpacity = 0.45;
+        const pulseAmplitude = 0.12;
+        const nextOpacity = baseOpacity + Math.sin(teaseProgress * Math.PI * 3) * pulseAmplitude;
+        
+        newPos = stateA.map((pos, i) => {
+          if (i === centerNow) {
+            // Current centered product - fully visible with slight glow
+            return {
+              ...pos,
+              opacity: 1,
+              filter: "none",
+            };
+          } else if (i === centerNext) {
+            // Next product - show with faded/teasing effect and subtle glow
+            return {
+              ...pos,
+              opacity: nextOpacity,
+              filter: "blur(0.3px) saturate(0.9) brightness(1.15) drop-shadow(0 0 8px rgba(40, 81, 146, 0.4))",
+            };
+          } else {
+            // Other products - hidden
+            return {
+              ...pos,
+              opacity: 0,
+            };
+          }
+        });
       } else {
-        // transition
+        // transition: smooth crossfade between current and next
         const t = Math.min(1, (phaseMs - holdMs) / transitionMs);
+        // Smooth opacity transition: current fades out, next fades in
+        const currentOpacity = 1 - t;
+        const nextOpacity = t;
+        
         newPos = stateA.map((posA, i) => {
           const posB = stateB[i];
           const leftA = parseFloat(posA.left);
           const topA = parseFloat(posA.top);
           const leftB = parseFloat(posB.left);
           const topB = parseFloat(posB.top);
+          
+          let opacity = 0;
+          let filter = posA.filter;
+          
+          if (i === centerNow) {
+            // Current product fading out with smooth transition
+            opacity = currentOpacity;
+            const blurAmount = t * 0.4;
+            const saturateAmount = 1 - t * 0.2;
+            const brightnessAmount = 1 - t * 0.15;
+            filter = `blur(${blurAmount}px) saturate(${saturateAmount}) brightness(${brightnessAmount})`;
+          } else if (i === centerNext) {
+            // Next product fading in, removing the teasing blur/glow
+            opacity = nextOpacity;
+            const blurAmount = (1 - t) * 0.3;
+            const saturateAmount = 0.9 + t * 0.1;
+            const brightnessAmount = 1.15 - t * 0.15;
+            const glowOpacity = (1 - t) * 0.4;
+            filter = `blur(${blurAmount}px) saturate(${saturateAmount}) brightness(${brightnessAmount}) drop-shadow(0 0 ${8 + t * 5}px rgba(40, 81, 146, ${glowOpacity}))`;
+          }
+          
           return {
             left: `${lerp(leftA, leftB, t)}px`,
             top: `${lerp(topA, topB, t)}px`,
@@ -175,8 +254,8 @@ const Page5 = () => {
             scale: lerp(posA.scale, posB.scale, t),
             rotate: 0,
             zIndex: Math.round(lerp(posA.zIndex, posB.zIndex, t)),
-            opacity: 0,
-            filter: t < 0.5 ? posA.filter : posB.filter,
+            opacity: opacity,
+            filter: filter,
           };
         });
       }
@@ -204,38 +283,43 @@ const Page5 = () => {
   }
 
   return (
-    <div className="h-auto min-h-fit w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
+    <div className="h-auto min-h-fit w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
       {/* Top Image */}
       <img
         src="/assets/BG/page5_top.png"
         alt="img"
-        className="absolute top-0 w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover"
+        className="absolute top-0 w-full h-28 sm:h-36 md:h-44 lg:h-52 object-cover"
       />
 
       {/* Content Container */}
-      <div className="w-full max-w-[120x] mx-auto flex flex-col items-center justify-center   mt-12 sm:mt-32  ">
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center mt-16 sm:mt-24 md:mt-32 lg:mt-40">
         {/* Text Image */}
         <img
           src="/assets/Icons/benefitlabel.svg"
           alt="img"
-          className=" w-[80%] sm:w-[70%] md:w-[60%] max-w-[360px] sm:max-w-[520px] md:max-w-[680px] transition-all duration-300"
+          className="w-[85%] sm:w-[75%] md:w-[65%] lg:w-[60%] max-w-[380px] sm:max-w-[540px] md:max-w-[700px] lg:max-w-[680px] transition-all duration-300 mb-8 sm:mb-10 md:mb-12"
         />
 
         {/* Design Image with looping Lassi image overlay */}
         <div
           ref={containerRef}
-          className=" relative w-[98%] md:w-[150%] max-w-[640px] md:max-w-[1000px] lg:max-w-[1000px] mx-auto h-[420px] md:h-[640px] lg:h-[720px]"
+          className="relative w-full max-w-[92vw] sm:max-w-[88vw] md:max-w-[800px] lg:max-w-[1000px] mx-auto h-[420px] sm:h-[480px] md:h-[550px] lg:h-[640px] overflow-hidden"
         >
           {/* background artwork */}
           <img
             src="/assets/Icons/p5-background-benefit.png"
             alt="img"
-            className="w-full h-full object-contain transition-all duration-300 transform origin-center  md:scale-[1.2]"
+            className="w-full h-full object-contain transition-all duration-300 transform origin-center"
           />
 
           {/* Orbiting images */}
           {chosenImages.map((src, i) => {
             const pos = positions[i] || {};
+            const opacity = pos.opacity ?? 0;
+            // Add glow effect for teasing (when opacity is between 0.2 and 0.8)
+            const isTeasing = opacity > 0.2 && opacity < 0.9;
+            const isCentered = opacity >= 0.9;
+            
             return (
               <div
                 key={String(i)}
@@ -246,9 +330,9 @@ const Page5 = () => {
                   top: pos.top || "50%",
                   transform: `translate(${pos.translateX || "-50%"}, ${pos.translateY || "-50%"}) scale(${pos.scale || 1}) rotate(${pos.rotate || 0}deg)`,
                   zIndex: pos.zIndex || 1,
-                  opacity: pos.opacity ?? 1,
+                  opacity: opacity,
                   filter: pos.filter || "none",
-                  transition: "transform 120ms linear, filter 120ms linear, opacity 120ms linear",
+                  transition: "transform 120ms linear, filter 120ms linear, opacity 120ms linear, box-shadow 120ms linear",
                   pointerEvents: "none",
                 }}
                 aria-hidden
@@ -258,11 +342,11 @@ const Page5 = () => {
                   alt={`Lassi ${i}`}
                   width={undefined}
                   height={undefined}
-                  className="block rounded-xl"
+                  className="block rounded-xl transition-all duration-300"
                   // limit rendered size; actual transform uses scale so base size controls max space
                   style={{
-                    width: 200,
-                    height: 200,
+                    width: imageSize,
+                    height: imageSize,
                     objectFit: "contain",
                     display: "block",
                     willChange: "transform, filter, opacity",
@@ -272,6 +356,9 @@ const Page5 = () => {
             );
           })}
         </div>
+        
+        {/* Bottom spacing for better visual balance */}
+        <div className="h-8 sm:h-12 md:h-16 lg:h-20"></div>
       </div>
     </div>
   );

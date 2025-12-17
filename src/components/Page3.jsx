@@ -248,9 +248,11 @@ const Page3 = () => {
                   </div>
                   {/* Div 5 - Counter - 30vh */}
                   <div className="w-full h-[20vh] md:h-[50vh] flex flex-col items-center justify-center gap-2 md:gap-4 ">
+                    {/*
                     <div className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-[Fredoka] font-normal text-black">
                       {String(currentImageIndex + 1).padStart(2, '0')}/{String(category.items.length).padStart(2, '0')}
                     </div>
+                     */}
 
                   </div>
                 </>

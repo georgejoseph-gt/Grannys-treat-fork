@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const INSTA_ACCESS_TOKEN = 'IGAAKbe6ZAFyLdBZAE9uRFFRU3A2WnhBWnBmaFJsVzMxWkV4RDlCVFkxeHZAFeUhnU2RQMGNoUU1NNmNCdEItM1pHNUhxTDZArdE5qVDRSdGFZAb1Q1SEZA0N2U3RkRJZAFh3NS1LYUZAXaDRpMmRRbi1iNDdiT1dDMFFQVXhfOEJobkxydwZDZD'
+const INSTA_ACCESS_TOKEN = 'IGAAKbe6ZAFyLdBZAFo4OTVXTUJzekRKS3F6QzltSjBNMUxYMWhweE5ueUdObG5LdVdDNEl5aWpxeG1ScWdIdkczSGJXalI5WXJSTnlhMHpKbXFmWTBzQ1FOQlF2clp1ZATB6NUNvZATN2ZAlkxempTUlpaMWJHZAkVqRVR1R0FKR05YbwZDZD'
 
 const FALLBACK_SVG =
   "data:image/svg+xml;utf8," +
@@ -130,7 +130,6 @@ const Page8 = () => {
               </a>
             </div>
 
-            {/* Right column: two stacked */}
             <div className="flex-1 flex flex-col gap-3">
               {[3, 4].map((i) => (
                 <a

@@ -1,7 +1,7 @@
 import OptimizedImage from './OptimizedImage';
 import { smoothScrollTo } from '../lib/scrollUtils';
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 
 const Page1 = () => {
   const ref = useRef(null);
@@ -9,8 +9,29 @@ const Page1 = () => {
     target: ref,
     offset: ["start start", "end end"]
   });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
   const scrollToContact = () => {
     smoothScrollTo('contact-form', 50); // 80px offset for header height
+  };
+
+  const navbarData = ["Products", "Our Story", "Benefits", "Testimonials", "Contact Us"];
+
+  const handleNavigation = (item) => {
+    if (item === "Contact Us") {
+      scrollToContact();
+    } else {
+      const sectionId = item.toLowerCase().replace(/\s+/g, '-');
+      const offset = (item === "Testimonials" || item === "Benefits")
+        ? Math.round(window.innerHeight * -0.10)
+        : 80;
+      smoothScrollTo(sectionId, offset);
+    }
+    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -20,16 +41,17 @@ const Page1 = () => {
     >
 
       {/* Main content container with responsive padding */}
-      <div className="relative h-screen  w-full ">
-        <header className="relative w-screen z-[60] bg-transparent px-4 sm:px-6 md:px-10">
-          <div className="max-w-full mx-auto w-full flex items-center justify-between ">
+      <div className="relative h-screen w-full overflow-hidden">
+        <header className="absolute top-0 left-0 right-0 w-full z-[60] bg-transparent px-4 sm:px-6 md:px-10 pt-2 sm:pt-4">
+          <div className="max-w-full mx-auto w-full flex items-center justify-between">
             {/* Logo */}
-            <div className="flex-shrink-0 ">
+            <div className="flex-shrink-0">
               <OptimizedImage
                 src="/assets/Logo.svg"
                 alt="logo"
                 width={125}
                 height={125}
+                className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[125px] md:h-[125px]"
               />
             </div>
 
@@ -52,10 +74,13 @@ const Page1 = () => {
                   Contact Us
                 </a>
               </div>
+              
+              {/* Mobile Hamburger Menu */}
+            
             </div>
           </div>
         </header>
-        <div className='flex flex-col items-center justify-center  h-full gap-3 sm:gap-4 md:gap-5 px-4 sm:px-6 md:px-8 '>
+        <div className='flex flex-col items-center justify-center h-full w-full gap-3 sm:gap-4 md:gap-5 px-4 sm:px-6 md:px-8 pt-20 sm:pt-24'>
 
           {/* Heading with responsive text sizes */}
           <motion.h1
@@ -76,25 +101,86 @@ const Page1 = () => {
           >
             Quality That Brings Homemade Goodness to Your Table
           </motion.h3>
-          <motion.button 
+          <motion.img
+            src="/assets/BG/button.svg"
+            alt="Let's Talk button"
             onClick={scrollToContact}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
-            className="cursor-pointer hover:scale-105   transition-transform duration-300"
-          >
-            <OptimizedImage
-              src="/assets/BG/button.svg"
-              alt="Let's Talk button"
-              width={240}
-              height={80}
-              className="w-[clamp(10rem,20vw,15rem)] h-auto mt-4"
-            />
-          </motion.button>
+            className="cursor-pointer hover:scale-105 transition-transform duration-300 mt-2 sm:mt-4 w-[140px] h-auto sm:w-[180px] md:w-[clamp(10rem,20vw,15rem)]"
+          />
         </div>
       </div>
+      
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[65] md:hidden"
+              onClick={toggleMobileMenu}
+            />
+            
+            {/* Mobile Menu */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ 
+                duration: 0.4,
+                type: "spring",
+                stiffness: 300,
+                damping: 30
+              }}
+              className="fixed top-20 left-4 right-4 z-[70] md:hidden"
+            >
+              <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+                {/* Decorative top bar */}
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#285192] via-[#55acee] to-[#285192]"></div>
+                
+                {/* Menu items */}
+                <div className="px-6 py-4">
+                  {navbarData.map((item, index) => (
+                    <motion.button
+                      key={index}
+                      onClick={() => handleNavigation(item)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                      className="w-full text-left py-4 px-4 rounded-2xl hover:bg-[#285192]/10 transition-all duration-300 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-[Fredoka] text-[#285192] font-semibold text-lg group-hover:text-[#55acee] transition-colors duration-300">
+                          {item}
+                        </span>
+                        <motion.div
+                          className="w-2 h-2 rounded-full bg-[#285192] group-hover:bg-[#55acee] transition-colors duration-300"
+                          whileHover={{ scale: 1.5 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+                
+                {/* Bottom decorative element */}
+                <div className="px-6 pb-4">
+                  <div className="h-1 bg-gradient-to-r from-transparent via-[#285192]/30 to-transparent rounded-full"></div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+      
       {/* Background image with responsive handling */}
     </motion.div>
   );
