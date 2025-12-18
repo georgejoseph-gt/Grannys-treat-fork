@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-const INSTA_ACCESS_TOKEN = 'IGAAKbe6ZAFyLdBZAFo4OTVXTUJzekRKS3F6QzltSjBNMUxYMWhweE5ueUdObG5LdVdDNEl5aWpxeG1ScWdIdkczSGJXalI5WXJSTnlhMHpKbXFmWTBzQ1FOQlF2clp1ZATB6NUNvZATN2ZAlkxempTUlpaMWJHZAkVqRVR1R0FKR05YbwZDZD'
 
 const FALLBACK_SVG =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
     `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'><rect width='100%' height='100%' fill='#e6eef6'/><text x='50%' y='50%' font-size='20' dominant-baseline='middle' text-anchor='middle' fill='#6b7f96'>Image unavailable</text></svg>`
   );
+
+// Read once at module scope to avoid recomputing on every render
+const accessToken = import.meta.env.VITE_INSTA_ACCESS_TOKEN;
 
 const Page8 = () => {
   const [thumbnails, setThumbnails] = useState([]);
@@ -18,9 +20,6 @@ const Page8 = () => {
     setError(null);
 
     try {
-      // Prefer using an env var instead of hardcoding:
-      const accessToken = INSTA_ACCESS_TOKEN;
-      // const accessToken = "YOUR_TOKEN_HERE"; // temporary dev fallback (not recommended)
 
       if (!accessToken) {
         throw new Error(
@@ -59,6 +58,7 @@ const Page8 = () => {
   };
 
   useEffect(() => {
+
     fetchData();
   }, []);
 

@@ -8,6 +8,7 @@ import Page7 from "./components/Page7";
 import Page8 from "./components/Page8";
 import Page9 from "./components/Page9";
 import { useRef } from 'react';
+import Testimonial from "./components/Testimonial";
 
 const App = () => {
   const homeRef = useRef(null);
@@ -47,6 +48,7 @@ const App = () => {
       </div>
       <div id="testimonials">
         <div ref={testimonialsRef}>
+          <Testimonial />
           {/* <Page6 /> */}
         </div>
       </div>
