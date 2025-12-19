@@ -49,9 +49,9 @@ const Page1 = () => {
               <OptimizedImage
                 src="/assets/Logo.svg"
                 alt="logo"
-                width={125}
-                height={125}
-                className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[125px] md:h-[125px]"
+                width={100}
+                height={100}
+                className="w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] md:w-[125px] md:h-[125px]"
               />
             </div>
 

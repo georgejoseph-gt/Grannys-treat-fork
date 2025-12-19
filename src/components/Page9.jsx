@@ -14,7 +14,7 @@ const Page9 = () => {
   const rightScale = useTransform(scrollYProgress, [0, 1], [0.5, 1.65]);
 
   return (
-    <div ref={sectionRef} id="contact-form" className="min-h-screen w-full bg-[#d2eef9] relative py-8 sm:py-12 md:py-16">
+    <div ref={sectionRef} id="contact-form" className="  w-full bg-[#d2eef9] relative ">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
         <p className="font-[Fredoka] text-[#285192] font-extrabold text-center text-[clamp(1.5rem,4vw,3rem)] tracking-wider mb-2 sm:mb-2 md:mb-0">
           Drop us a message!

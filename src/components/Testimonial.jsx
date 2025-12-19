@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { stories } from '../lib/testimonialData';
 import { PlayIcon, X } from 'lucide-react';
 
-/* -------------------- Card -------------------- */
 const TestimonialCard = ({ story, onClick, isDragging }) => {
   const videoRef = useRef(null);
 
@@ -47,18 +46,18 @@ const TestimonialCard = ({ story, onClick, isDragging }) => {
       />
 
       {/* Username */}
-      <div className="absolute bottom-3 left-3 z-10 rounded-full
+      {/* <div className="absolute bottom-3 left-3 z-10 rounded-full
                       bg-white/90 px-3 py-1 text-xs font-semibold
                       text-gray-800 shadow backdrop-blur-sm">
         {story.user}
-      </div>
+      </div> */}
 
       {/* Play Button */}
       <div className="absolute inset-0 z-10 flex items-center
                       justify-center pointer-events-none">
         <div className="flex h-12 w-12 items-center justify-center
                         rounded-full bg-white/90 shadow-lg
-                        backdrop-blur-sm">
+                        backdrop-blur-sm hover:bg-red-300 hover:scale-105">
           <PlayIcon className="h-5 w-5 text-gray-900 translate-x-[1px]" />
         </div>
       </div>
