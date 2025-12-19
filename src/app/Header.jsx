@@ -34,7 +34,7 @@ const Header = () => {
     <>
       {/* Spacer to prevent overlap from fixed header */}
 
-      <header className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-10  font-[Fredoka] text-[#d2eef9]">
+      <header className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-10  font-[Fredoka] text-[#d2eef9]">
         <div className="max-w-full mx-auto w-full flex items-center justify-between py-4">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -65,11 +65,11 @@ const Header = () => {
             <div className="hidden md:block">{/* Optional content */}</div>
 
             {/* Mobile Hamburger Menu */}
-            <div className="md:hidden">
+            <div className="md:hidden relative z-[101]">
               <motion.button 
                 onClick={toggleMobileMenu}
                 aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-                className="relative z-50 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300"
+                className="relative p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300"
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
@@ -132,7 +132,7 @@ const Header = () => {
                 stiffness: 300,
                 damping: 30
               }}
-              className="fixed top-20 left-4 right-4 z-50 md:hidden"
+              className="fixed top-20 left-4 right-4 z-[100] md:hidden"
             >
               <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
                 {/* Decorative elements */}

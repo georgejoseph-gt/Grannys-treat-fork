@@ -9,6 +9,7 @@ import Page8 from "./components/Page8";
 import Page9 from "./components/Page9";
 import { useRef } from 'react';
 import Testimonial from "./components/Testimonial";
+import ProductsSection from "./components/productsPage/productSection";
 
 const App = () => {
   const homeRef = useRef(null);
@@ -24,7 +25,7 @@ const App = () => {
   return (
     <div className="overflow-x-hidden w-full select-none">
       <div ref={homeRef}>
-        <Page1 
+        <Page1
           scrollToRef={scrollToRef}
           refs={{ homeRef, productsRef, storyRef, benefitsRef, testimonialsRef }}
         />
@@ -33,7 +34,8 @@ const App = () => {
       <Page2 />
       <div id="products">
         <div ref={productsRef}>
-          {/* <Page3 /> */}
+          {/* <ProductsSection />
+          <Page3 /> */}
         </div>
       </div>
       <div id="our-story">

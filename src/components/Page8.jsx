@@ -72,7 +72,7 @@ const Page8 = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#d2eef9] relative  sm:py-12 md:py-16">
+    <div className="min-h-fit w-full bg-[#d2eef9] relative  pb-12 md:py-16">
       <div className="w-[95%] sm:w-[85%] mx-auto px-2 sm:px-6 md:px-8">
         <h3 className="font-[Fredoka] text-[#285192] font-extrabold text-center text-[clamp(1.5rem,4vw,3rem)] mb-8 sm:mb-10 md:mb-12 tracking-wider px-4">
           Be a part of our Instagram community
@@ -91,9 +91,9 @@ const Page8 = () => {
 
         {/* Mobile-only layout (< sm) */}
         <div className="sm:hidden">
-          <div className="flex gap-3">
+          <div className="flex gap-1">
             {/* Left column: two stacked */}
-            <div className="flex-1 flex flex-col gap-3">
+            <div className="flex-1 flex flex-col gap-1">
               {[0, 1].map((i) => (
                 <a
                   key={thumbnails[i]?.id || `m-${i}`}
@@ -113,13 +113,13 @@ const Page8 = () => {
             </div>
 
             {/* Middle column: one tall */}
-            <div className="flex-1">
+            <div className="flex-1 flex flex-col gap-1">
               <a
                 key={thumbnails[2]?.id || `m-2`}
                 href={thumbnails[2]?.permalink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full h-[103vw]"
+                className="block w-full h-[40vw]"
               >
                 <img
                   src={getImageSrc(thumbnails[2])}
@@ -128,10 +128,24 @@ const Page8 = () => {
                   onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                 />
               </a>
+              <a
+                key={thumbnails[3]?.id || `m-2`}
+                href={thumbnails[3]?.permalink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full h-[60vw]"
+              >
+                <img
+                  src={getImageSrc(thumbnails[3])}
+                  alt={thumbnails[3]?.caption || "Instagram image"}
+                  className="w-full h-full object-cover border-4 border-white rounded-2xl shadow-md"
+                  onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
+                />
+              </a>
             </div>
 
-            <div className="flex-1 flex flex-col gap-3">
-              {[3, 4].map((i) => (
+            <div className="flex-1 flex flex-col gap-1">
+              {[4, 5].map((i) => (
                 <a
                   key={thumbnails[i]?.id || `m-${i}`}
                   href={thumbnails[i]?.permalink}
@@ -148,24 +162,6 @@ const Page8 = () => {
                 </a>
               ))}
             </div>
-          </div>
-
-          {/* Bottom wide image (6th) */}
-          <div className="mt-3">
-            <a
-              key={thumbnails[5]?.id || `m-5`}
-              href={thumbnails[5]?.permalink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full h-[40vw]"
-            >
-              <img
-                src={getImageSrc(thumbnails[5])}
-                alt={thumbnails[5]?.caption || "Instagram image"}
-                className="w-full h-full object-cover border-4 border-white rounded-2xl shadow-md"
-                onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
-              />
-            </a>
           </div>
 
         </div>
