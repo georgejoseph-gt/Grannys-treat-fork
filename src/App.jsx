@@ -34,8 +34,8 @@ const App = () => {
       <Page2 />
       <div id="products">
         <div ref={productsRef}>
-          {/* <ProductsSection />
-          <Page3 /> */}
+          {/* <ProductsSection /> */}
+             <Page3 /> 
         </div>
       </div>
       <div id="our-story">

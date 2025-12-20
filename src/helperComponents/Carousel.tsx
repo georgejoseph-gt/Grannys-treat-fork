@@ -79,8 +79,8 @@ const Carousel = ({
         {React.Children.map(children, (child, index) => (
           <div
             key={index}
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
-              index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out ${
+              index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
             }`}
           >
             {child}
@@ -90,13 +90,27 @@ const Carousel = ({
 
       {/* Thumbnail Navigation */}
       {thumbnails && (
-        <div className="absolute left-0 right-0 flex justify-center space-x-1 z-10">
+        <div className="absolute left-0 right-0 flex justify-center z-10">
           <div
             className={
-              `flex items-end px-2 sm:px-6 md:px-0 ` +
+              `flex items-end justify-center px-2 sm:px-6 md:px-0 ` +
               (breakpoint === 'xs' || breakpoint === 'sm' ? 'h-[60px]' : 'h-[110px]')
             }
-            style={{ gap: `${breakpoint === 'xs' || breakpoint === 'sm' ? 4 : (thumbnailGap ?? 8)}px` }}
+            style={{ 
+              gap: (() => {
+                if (breakpoint === 'xs' || breakpoint === 'sm') {
+                  return '6px';
+                } else if (breakpoint === 'md') {
+                  // Scale down large gaps for medium screens
+                  const baseGap = thumbnailGap ?? 8;
+                  return `${Math.min(Math.max(baseGap * 0.6, 6), 30)}px`;
+                } else {
+                  // For lg and xl, use full gap but cap at reasonable max
+                  const baseGap = thumbnailGap ?? 8;
+                  return `${Math.min(baseGap, 50)}px`;
+                }
+              })()
+            }}
           >
             {thumbnails.map((src, index) => {
               const scale = selectedScales?.[index] ?? 1.7;
@@ -110,9 +124,9 @@ const Carousel = ({
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className="border-transparent transition-transform focus:outline-none"
+                  className="border-transparent transition-all duration-300 ease-in-out focus:outline-none"
                   style={{
-                    transform: index === currentIndex ? `scale(${scale})` : undefined,
+                    transform: index === currentIndex ? `scale(${scale})` : 'scale(1)',
                     position: 'relative',
                     ...position,
                     minWidth: 36, minHeight: 24, // ensure tap target
@@ -123,7 +137,7 @@ const Carousel = ({
                     alt={`Slide ${index + 1}`}
                     width={thumbStyle.width}
                     height={thumbStyle.height}
-                    className="rounded h-full object-contain"
+                    className="rounded h-full object-contain transition-opacity duration-300"
                   />
                 </button>
               );

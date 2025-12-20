@@ -217,7 +217,7 @@ export const productCategories = [
   },
   {
     category: "Buttermilk",
-    thumbnailGap: 0,
+    thumbnailGap: 20,
     items: [
       {
         title: "Buttermilk Plain 400ml",
@@ -230,7 +230,7 @@ export const productCategories = [
         imgStyle: {
           width: 500, height: 260, top: -170, marginBottom: 0,
           responsive: {
-            xs: { width: 300, height: 260, top: -170, marginBottom: 0 },
+            xs: { width: 250, height: 200, top: 170, marginBottom: 0 },
             md: { width: 500, height: 260, top: 20, marginBottom: 0 },
           }
         },
@@ -393,7 +393,7 @@ export const productCategories = [
   },
   {
     category: "Dahi",
-    thumbnailGap: 30,
+    thumbnailGap: 50,
     items: [
       {
         title: "Dahi 100g",
@@ -412,11 +412,10 @@ export const productCategories = [
           }
         },
         thumbnailStyle: {
-          width: 250, height: 105,
+          width: 300, height: 150,
           responsive: {
-            xs: { width: 250, height: 105 },
-            md: { width: 250, height: 105 },
-            xl: { width: 250, height: 105 }
+            xs: { width: 250, height: 150 },
+            md: { width: 250, height: 110 },
           }
         },
         selectedScale: 1.3,
@@ -583,7 +582,7 @@ export const productCategories = [
         thumbnailStyle: {
           width: 250, height: 105,
           responsive: {
-            xs: { width: 300, height: 105 },
+            xs: { width: 280, height: 105 },
             md: { width: 250, height: 105 },
             xl: { width: 250, height: 105 }
           }
@@ -792,7 +791,7 @@ export const productCategories = [
             md: { width: 300, height: 105 },
           }
         },
-        selectedScale: 1.4,
+        selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 20 },
           md: { bottom: 40 },
@@ -833,18 +832,17 @@ export const productCategories = [
           }
         },
         thumbnailStyle: {
-          width: 300, height: 105,
+          width: 500, height: 105,
           responsive: {
             xs: { width: 300, height: 105 },
             md: { width: 300, height: 105 },
             xl: { width: 300, height: 105 }
           }
         },
-        selectedScale: 1.4,
+        selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 20 },
           md: { bottom: 40 },
-          xl: { bottom: 40 }
         },
         decorativeImages: {
           image1: {

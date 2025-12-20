@@ -6,6 +6,7 @@ import Carousel from "../helperComponents/Carousel";
 import { productCategories } from "../lib/carouselData";
 import OptimizedImage from "./OptimizedImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 // Preload all images when the module is imported
 const preloadedImages = new Set();
@@ -40,7 +41,6 @@ function useBreakpoint() {
 const Page3 = () => {
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const category = productCategories[categoryIndex];
   const thumbnails = category.items.map((item) => item.image);
   const currentItem = category.items[currentImageIndex];
@@ -49,19 +49,13 @@ const Page3 = () => {
   const breakpoint = useBreakpoint();
 
   const prevCategory = () => {
-    setIsTransitioning(true);
     setCategoryIndex((i) => (i === 0 ? productCategories.length - 1 : i - 1));
     setCurrentImageIndex(0);
-    // Reset transition state after animation completes
-    setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const nextCategory = () => {
-    setIsTransitioning(true);
     setCategoryIndex((i) => (i === productCategories.length - 1 ? 0 : i + 1));
     setCurrentImageIndex(0);
-    // Reset transition state after animation completes
-    setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const handleImageChange = (index) => {
@@ -124,14 +118,24 @@ const Page3 = () => {
                 <div className="flex flex-col gap-y-5 pt-20">
                   {/* Div 1 - Product Title */}
                   <div className="w-full flex items-center justify-center mt-4 mb-4">
-                    <h1 className="text-3xl sm:text-4xl font-[Fredoka] font-bold text-white drop-shadow-md text-center">
+                    <motion.h1 
+                      key={`title-${categoryIndex}-${idx}`}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={idx === currentImageIndex ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="text-3xl sm:text-4xl font-[Fredoka] font-bold text-white drop-shadow-md text-center"
+                    >
                       {item.title}
-                    </h1>
+                    </motion.h1>
                   </div>
                   {/* Div 3 - Main Product Image */}
                   <div className="w-full flex items-center justify-center mb-8">
-                    <div
-                      className="relative transition-all duration-500"
+                    <motion.div
+                      key={`${categoryIndex}-${idx}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={idx === currentImageIndex ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      className="relative"
                       style={{
                         width: dimensions.width,
                         height: dimensions.height,
@@ -147,18 +151,22 @@ const Page3 = () => {
                         style={{
                           objectFit: 'contain',
                           display: 'inline-block',
-                          opacity: isTransitioning ? 0 : 1,
-                          transition: 'opacity 0.3s ease-in-out',
                         }}
                         className="drop-shadow-lg rounded-xl"
                       />
-                    </div>
+                    </motion.div>
                   </div>
                   {/* Div 2 - Description */}
                   <div className="w-full flex flex-col items-center justify-center px-4 py-2">
-                    <p className="text-base sm:text-lg leading-relaxed text-white mb-6 font-[Fredoka] font-normal text-center max-w-md mx-auto">
+                    <motion.p 
+                      key={`desc-${categoryIndex}-${idx}`}
+                      initial={{ opacity: 0 }}
+                      animate={idx === currentImageIndex ? { opacity: 1 } : { opacity: 0 }}
+                      transition={{ duration: 0.4, ease: "easeInOut", delay: 0.1 }}
+                      className="text-base sm:text-lg leading-relaxed text-white mb-6 font-[Fredoka] font-normal text-center max-w-md mx-auto"
+                    >
                       {item.subtext1}
-                    </p>
+                    </motion.p>
                     <div className="relative w-[140px] sm:w-[180px] cursor-pointer hover:scale-105 transition-transform mx-auto mt-2 mb-6">
                       <img
                         src="/assets/page3/page3_locate.png"
@@ -178,18 +186,30 @@ const Page3 = () => {
                 <>
                   {/* Div 1 - Product Title - 20vh */}
                   <div className="w-full h-[35vh] flex items-center justify-center">
-                    <h1 className="text-2xl sm:text-3xl lg:text-6xl font-[Fredoka] transition-all duration-500">
+                    <motion.h1 
+                      key={`title-desktop-${categoryIndex}-${idx}`}
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={idx === currentImageIndex ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      className="text-2xl sm:text-3xl lg:text-6xl font-[Fredoka]"
+                    >
                       {item.title}
-                    </h1>
+                    </motion.h1>
                   </div>
                   {/* Main Content Area - 50vh */}
                   <div className="w-full h-[65vh] flex flex-col md:flex-row items-center md:items-stretch">
                     {/* Div 2 - Left Space with Description */}
                     <div className="w-full md:w-3/8 h-auto md:h-full flex flex-col items-start justify-center relative px-4 py-4 md:py-0">
                       <div className="max-w-full md:max-w-[500px] mx-auto md:ml-32 md:mr-6">
-                        <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-white mb-4 md:mb-6 font-[Fredoka] font-normal ">
+                        <motion.p 
+                          key={`desc-desktop-${categoryIndex}-${idx}`}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={idx === currentImageIndex ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                          transition={{ duration: 0.5, ease: "easeInOut", delay: 0.1 }}
+                          className="text-lg sm:text-xl md:text-2xl leading-relaxed text-white mb-4 md:mb-6 font-[Fredoka] font-normal"
+                        >
                           {item.subtext1}
-                        </p>
+                        </motion.p>
                         <div className="relative w-[140px] sm:w-[180px] md:w-[200px] cursor-pointer hover:scale-105 transition-transform mx-auto md:mx-0">
                           <img
                             src="/assets/page3/page3_locate.png"
@@ -202,8 +222,12 @@ const Page3 = () => {
                     {/* Div 3 - Main Product Image */}
                     <div className="w-full flex-col md:w-3/8 h-full flex items-center justify-around ">
                       <span className=" w-fit h-[70%]">
-                        <div
-                          className="relative transition-all duration-500"
+                        <motion.div
+                          key={`${categoryIndex}-${idx}`}
+                          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                          animate={idx === currentImageIndex ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 20 }}
+                          transition={{ duration: 0.5, ease: "easeInOut" }}
+                          className="relative"
                           style={{
                             width: dimensions.width,
                             height: dimensions.height,
@@ -219,12 +243,10 @@ const Page3 = () => {
                             style={{
                               objectFit: 'contain',
                               display: 'inline-block',
-                              opacity: isTransitioning ? 0 : 1,
-                              transition: 'opacity 0.3s ease-in-out',
                             }}
                             className="drop-shadow-lg rounded-xl"
                           />
-                        </div>
+                        </motion.div>
                       </span>
                       <span className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-[Fredoka] font-normal text-black">
                         {/* {String(currentImageIndex + 1).padStart(2, '0')}/{String(category.items.length).padStart(2, '0')} */}
@@ -237,9 +259,13 @@ const Page3 = () => {
                     {['md', 'lg', 'xl'].includes(breakpoint) && (
                       <div className="w-3/8 h-full relative flex items-center justify-start ">
                         {item.div4_image && (
-                          <img
+                          <motion.img
+                            key={`div4-${categoryIndex}-${idx}`}
                             src={item.div4_image}
                             alt="Section visual"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={idx === currentImageIndex ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+                            transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
                             className="object-contain max-w-full max-h-full"
                           />
                         )}
