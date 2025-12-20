@@ -408,7 +408,7 @@ export const productCategories = [
           responsive: {
             xs: { width: 300, height: 220, top: 40, marginBottom: 0 },
             md: { width: 400, height: 220, top: 40, marginBottom: 0 },
-            xl: { width: 430, height: 220, top: 0, marginBottom: 0 }
+            xl: { width: 550, height: 350, top: 40, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -519,7 +519,7 @@ export const productCategories = [
           responsive: {
             xs: { width: 300, height: 220, top: -200, marginBottom: 0 },
             md: { width: 400, height: 220, top: -200, marginBottom: 0 },
-            xl: { width: 400, height: 220, top: -200, marginBottom: 0 }
+            xl: { width: 500, height: 220, top: -200, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -576,7 +576,7 @@ export const productCategories = [
           responsive: {
             xs: { width: 300, height: 220, top: -100, marginBottom: 0 },
             md: { width: 450, height: 220, top: -100, marginBottom: 0 },
-            xl: { width: 450, height: 220, top: -100, marginBottom: 0 }
+            xl: { width: 550, height: 220, top: -100, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -638,7 +638,8 @@ export const productCategories = [
           width: 250, height: 120, top: 0, marginBottom: 0,
           responsive: {
             xs: { width: 130, height: 150, top: 0, marginBottom: 0 },
-            md: { width: 250, height: 120, top: 0, marginBottom: 0 },
+            md: { width: 300, height: 120, top: 0, marginBottom: 0 },
+            xl: { width: 300, height: 150, top: -60, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -707,7 +708,7 @@ export const productCategories = [
           responsive: {
             xs: { width: 150, height: 200, top: -60, marginBottom: 0 },
             md: { width: 250, height: 150, top: -60, marginBottom: 0 },
-            xl: { width: 250, height: 150, top: -60, marginBottom: 0 }
+            xl: { width: 300, height: 150, top: -60, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
