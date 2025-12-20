@@ -118,7 +118,7 @@ const Page3 = () => {
                 <div className="flex flex-col gap-y-5 pt-20">
                   {/* Div 1 - Product Title */}
                   <div className="w-full flex items-center justify-center mt-4 mb-4">
-                    <motion.h1 
+                    <motion.h1
                       key={`title-${categoryIndex}-${idx}`}
                       initial={{ opacity: 0, y: -10 }}
                       animate={idx === currentImageIndex ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
@@ -158,7 +158,7 @@ const Page3 = () => {
                   </div>
                   {/* Div 2 - Description */}
                   <div className="w-full flex flex-col items-center justify-center px-4 py-2">
-                    <motion.p 
+                    <motion.p
                       key={`desc-${categoryIndex}-${idx}`}
                       initial={{ opacity: 0 }}
                       animate={idx === currentImageIndex ? { opacity: 1 } : { opacity: 0 }}
@@ -167,13 +167,16 @@ const Page3 = () => {
                     >
                       {item.subtext1}
                     </motion.p>
-                    <div className="relative w-[140px] sm:w-[180px] cursor-pointer hover:scale-105 transition-transform mx-auto mt-2 mb-6">
+
+                    {/*
+                     <div className="relative w-[140px] sm:w-[180px] cursor-pointer hover:scale-105 transition-transform mx-auto mt-2 mb-6">
                       <img
                         src="/assets/page3/page3_locate.png"
                         alt="locate us"
                         className="w-full h-auto drop-shadow-md"
                       />
                     </div>
+                    */}
                   </div>
                   {/* Div 5 - Counter */}
                   <div className="w-full flex flex-col items-center justify-center gap-2 mt-2 mb-4">
@@ -186,7 +189,7 @@ const Page3 = () => {
                 <>
                   {/* Div 1 - Product Title - 20vh */}
                   <div className="w-full h-[35vh] flex items-center justify-center">
-                    <motion.h1 
+                    <motion.h1
                       key={`title-desktop-${categoryIndex}-${idx}`}
                       initial={{ opacity: 0, y: -20 }}
                       animate={idx === currentImageIndex ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
@@ -201,7 +204,7 @@ const Page3 = () => {
                     {/* Div 2 - Left Space with Description */}
                     <div className="w-full md:w-3/8 h-auto md:h-full flex flex-col items-start justify-center relative px-4 py-4 md:py-0">
                       <div className="max-w-full md:max-w-[500px] mx-auto md:ml-32 md:mr-6">
-                        <motion.p 
+                        <motion.p
                           key={`desc-desktop-${categoryIndex}-${idx}`}
                           initial={{ opacity: 0, x: -20 }}
                           animate={idx === currentImageIndex ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
