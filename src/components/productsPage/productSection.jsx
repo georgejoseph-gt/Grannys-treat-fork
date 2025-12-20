@@ -120,7 +120,6 @@ export default function ProductsSection() {
         </div>
       </div>
 
-      {/* BOTTOM PRODUCT SWITCH (TYPE CHANGE) */}
       <div className="mt-16 flex justify-center gap-6 overflow-x-auto px-6">
         {category.products.map((item, i) => (
           <button

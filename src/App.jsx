@@ -55,7 +55,6 @@ const App = () => {
         </div>
       </div>
       {/* <Page7 /> */}
-      {/* InstagramFeed */}
       <Page8 />
       <Page9 />
     </div>

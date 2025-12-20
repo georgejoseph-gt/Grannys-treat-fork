@@ -43,7 +43,7 @@ const Page5 = () => {
   useEffect(() => {
     const updateImageSize = () => {
       if (window.innerWidth < 640) {
-        setImageSize(120);
+        setImageSize(120); // Reduced from 120 for mobile
       } else if (window.innerWidth < 768) {
         setImageSize(150);
       } else if (window.innerWidth < 1024) {
@@ -98,9 +98,9 @@ const Page5 = () => {
       const ry = h * orbitRadiusYFactor;
 
       // Responsive scale values - adjusted for better mobile visibility
-      const centerScale = isMobile ? 1.5 : isTablet ? 1.65 : 1.8;
-      const sideScale = isMobile ? 0.95 : isTablet ? 1.05 : 1.15;
-      const behindScale = isMobile ? 0.75 : isTablet ? 0.8 : 0.85;
+      const centerScale = isMobile ? 1.4 : isTablet ? 1.50 : 1.8; // Reduced from 1.5 for mobile
+      const sideScale = isMobile ? 0.85 : isTablet ? 1.05 : 1.15; // Reduced from 0.95 for mobile
+      const behindScale = isMobile ? 0.65 : isTablet ? 0.8 : 0.85; // Reduced from 0.75 for mobile
 
       return chosenImages.map((_, i) => {
         const rel = (i - centerIndex + orbitCount) % orbitCount; // 0 is center
@@ -180,36 +180,28 @@ const Page5 = () => {
       const stateB = getStateForCenter(centerNext, w, h);
 
       let newPos;
+      const isMobile = w < 640;
       if (phaseMs <= holdMs) {
-        // hold: show centered image fully, and tease the next one with faded effect
-        const teaseProgress = phaseMs / holdMs; // 0 to 1 during hold phase
-        // Create a subtle pulsing effect for the next product (0.4 to 0.6 opacity)
-        // More visible teasing with gentle pulse
+        // hold: show centered image fully; tease next only on tablet/desktop
+        const teaseProgress = phaseMs / holdMs;
         const baseOpacity = 0.45;
         const pulseAmplitude = 0.12;
         const nextOpacity = baseOpacity + Math.sin(teaseProgress * Math.PI * 3) * pulseAmplitude;
         
         newPos = stateA.map((pos, i) => {
           if (i === centerNow) {
-            // Current centered product - fully visible with slight glow
-            return {
-              ...pos,
-              opacity: 1,
-              filter: "none",
-            };
+            return { ...pos, opacity: 1, filter: "none" };
           } else if (i === centerNext) {
-            // Next product - show with faded/teasing effect and subtle glow
+            if (isMobile) {
+              return { ...pos, opacity: 0 };
+            }
             return {
               ...pos,
               opacity: nextOpacity,
               filter: "blur(0.3px) saturate(0.9) brightness(1.15) drop-shadow(0 0 8px rgba(40, 81, 146, 0.4))",
             };
           } else {
-            // Other products - hidden
-            return {
-              ...pos,
-              opacity: 0,
-            };
+            return { ...pos, opacity: 0 };
           }
         });
       } else {
@@ -283,7 +275,7 @@ const Page5 = () => {
   }
 
   return (
-    <div className="h-auto min-h-fit w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
+    <div className="h-auto min-h-fit w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-2 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
       {/* Top Image */}
       <img
         src="/assets/BG/page5_top.png"
@@ -303,13 +295,18 @@ const Page5 = () => {
         {/* Design Image with looping Lassi image overlay */}
         <div
           ref={containerRef}
-          className="relative w-full max-w-[92vw] sm:max-w-[88vw] md:max-w-[800px] lg:max-w-[1000px] mx-auto h-[420px] sm:h-[480px] md:h-[550px] lg:h-[640px] overflow-hidden"
+          className="relative w-full max-w-[98vw] sm:max-w-[88vw] md:max-w-[800px] lg:max-w-[1000px] mx-auto h-[420px] sm:h-[480px] md:h-[550px] lg:h-[640px] overflow-hidden"
         >
-          {/* background artwork */}
+          {/* background artwork - Desktop version */}
           <img
             src="/assets/Icons/p5-background-benefit.png"
-            alt="img"
-            className="w-full h-full object-contain transition-all duration-300 transform origin-center"
+            alt="Background decoration"
+            className="hidden md:block absolute inset-0 w-full h-full object-contain transition-all duration-300 transform origin-center"
+          />
+          <img
+            src="/assets/Icons/p5-benefit-mobile.png"
+            alt="Background decoration"
+            className="block md:hidden absolute inset-0 w-full h-full object-contain object-center transition-all duration-300 transform origin-center scale-105"
           />
 
           {/* Orbiting images */}

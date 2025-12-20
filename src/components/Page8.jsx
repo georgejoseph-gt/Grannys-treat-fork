@@ -129,7 +129,7 @@ const Page8 = () => {
                 />
               </a>
               <a
-                key={thumbnails[3]?.id || `m-2`}
+                key={thumbnails[3]?.id || `m-3`}
                 href={thumbnails[3]?.permalink}
                 target="_blank"
                 rel="noopener noreferrer"

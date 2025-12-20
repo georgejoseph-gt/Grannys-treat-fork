@@ -31,7 +31,7 @@ const TestimonialCard = ({ story, onClick, isDragging }) => {
   return (
     <div
       onClick={handleClick}
-      className="snap-center shrink-0 w-[240px] sm:w-[260px] md:w-[280px]
+      className="snap-center shrink-0 w-[240px] sm:w-[260px] md:w-[320px]
                  aspect-[9/16] rounded-xl overflow-hidden bg-black relative
                  cursor-pointer select-none"
     >
@@ -145,7 +145,7 @@ const Testimonial = () => {
   }, [activeStory]);
 
   return (
-    <section className="relative w-full bg-[#d0ebff] py-12 md:py-16 overflow-hidden">
+    <section className="relative w-full bg-[#d0ebff] py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
          <img
         src="/assets/p3/strawberry.png"
         alt="Decorative strawberry illustration"
