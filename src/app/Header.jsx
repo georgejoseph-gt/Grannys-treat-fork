@@ -10,9 +10,9 @@ const Header = () => {
   // Custom per-section offsets (edit these values as needed)
   const customOffsets = {
     'products': 65,
-    'our-story': 65,
-    'benefits': -100,
-    'testimonials': -100
+    'our-story': 0,
+    'benefits': -120,
+    'testimonials': 0  // Changed from -100 to 80 to position at top of section
   };
 
   const handleNavigation = (item) => {
@@ -72,35 +72,35 @@ const Header = () => {
                 className="relative p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300"
                 whileTap={{ scale: 0.95 }}
               >
-                <motion.div
-                  className="w-6 h-6 flex flex-col justify-center items-center"
-                  animate={isMobileMenuOpen ? "open" : "closed"}
-                >
+                <div className="w-6 h-6 relative flex items-center justify-center">
                   <motion.span
-                    className="w-5 h-0.5 bg-[#285192] rounded-full"
+                    className="absolute w-5 h-0.5 bg-[#285192] rounded-full"
                     variants={{
-                      closed: { rotate: 0, y: 0 },
-                      open: { rotate: 45, y: 1 }
+                      closed: { rotate: 0, y: -6 },
+                      open: { rotate: 45, y: 0 }
                     }}
-                    transition={{ duration: 0.3 }}
+                    animate={isMobileMenuOpen ? "open" : "closed"}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                   />
                   <motion.span
-                    className="w-5 h-0.5 bg-[#285192] rounded-full mt-1"
+                    className="absolute w-5 h-0.5 bg-[#285192] rounded-full"
                     variants={{
                       closed: { opacity: 1 },
                       open: { opacity: 0 }
                     }}
-                    transition={{ duration: 0.3 }}
+                    animate={isMobileMenuOpen ? "open" : "closed"}
+                    transition={{ duration: 0.2 }}
                   />
                   <motion.span
-                    className="w-5 h-0.5 bg-[#285192] rounded-full mt-1"
+                    className="absolute w-5 h-0.5 bg-[#285192] rounded-full"
                     variants={{
-                      closed: { rotate: 0, y: 0 },
-                      open: { rotate: -45, y: -1 }
+                      closed: { rotate: 0, y: 6 },
+                      open: { rotate: -45, y: 0 }
                     }}
-                    transition={{ duration: 0.3 }}
+                    animate={isMobileMenuOpen ? "open" : "closed"}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                   />
-                </motion.div>
+                </div>
               </motion.button>
             </div>
           </div>

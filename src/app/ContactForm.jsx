@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const ContactForm = () => {
   return (
-    <div className="mx-auto max-w-3xl rounded-lg bg-[#d2eef9] p-4 sm:p-6 md:p-8">
+    <div className="mx-auto max-w-3xl rounded-lg bg-[#d2eef9] p-4 sm:p-6 md:p-8 relative z-10">
       <form className="space-y-4 sm:space-y-5">
         {/* Name */}
         <input

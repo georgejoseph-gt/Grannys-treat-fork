@@ -22,8 +22,10 @@ const Page1 = () => {
       scrollToContact();
     } else {
       const sectionId = item.toLowerCase().replace(/\s+/g, '-');
-      const offset = (item === "Testimonials" || item === "Benefits")
+      const offset = item === "Benefits"
         ? Math.round(window.innerHeight * -0.10)
+        : item === "Testimonials"
+        ? 80  // Position at top of testimonials section
         : 80;
       smoothScrollTo(sectionId, offset);
     }

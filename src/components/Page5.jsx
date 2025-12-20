@@ -275,7 +275,7 @@ const Page5 = () => {
   }
 
   return (
-    <div className="h-auto min-h-fit w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-2 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
+    <div className="h-auto min-h-fit w-full bg-[#55acee] relative z-10 flex flex-col items-center justify-center px-2 sm:px-6 md:px-8 py-12 sm:py-16 md:pt-20 ">
       {/* Top Image */}
       <img
         src="/assets/BG/page5_top.png"
@@ -354,8 +354,6 @@ const Page5 = () => {
           })}
         </div>
         
-        {/* Bottom spacing for better visual balance */}
-        <div className="h-8 sm:h-12 md:h-16 lg:h-20"></div>
       </div>
     </div>
   );
