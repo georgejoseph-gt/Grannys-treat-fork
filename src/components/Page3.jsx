@@ -179,11 +179,11 @@ const Page3 = () => {
                     */}
                   </div>
                   {/* Div 5 - Counter */}
-                  <div className="w-full flex flex-col items-center justify-center gap-2 mt-2 mb-4">
+                  {/* <div className="w-full flex flex-col items-center justify-center gap-2 mt-2 mb-4">
                     <div className="text-lg sm:text-xl font-[Fredoka] font-normal text-black">
                       {String(currentImageIndex + 1).padStart(2, '0')}/{String(category.items.length).padStart(2, '0')}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 <>
