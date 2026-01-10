@@ -3,8 +3,9 @@ export const productCategories = [
     category: "Lassi",
     thumbnailGap: 0,
     items: [
+
       {
-        title: "Probiotic lassi",
+        title: "Lassi Strawberry 200g",
         image: "/assets/ProductImages/Lassi rose.webp",
         subtext1: "Our lassi brings together smooth cultured curd and delightful flavours to create a refreshing, creamy drink. Whether plain or fruity, each cup offers a gentle boost of probiotics and a satisfying sip rooted in traditional Indian goodness.",
         subtext2: "A smooth and refreshing probiotic drink that's gentle on your stomach and perfect for daily use, any time of the day.",
@@ -14,45 +15,39 @@ export const productCategories = [
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 250, height: 200, top: -100, marginBottom: 0 },
+            xs: { width: 250, height: 400, top: -100, marginBottom: 0 },
             md: { width: 450, height: 400, top: -100, marginBottom: 0 },
+            xl: { width: 450, height: 400, top: -100, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
           width: 260, height: 105,
           responsive: {
             xs: { width: 260, height: 105 },
-            md: { width: 160, height: 105 },
+            md: { width: 260, height: 105 },
+            xl: { width: 260, height: 105 }
           }
         },
         selectedScale: 1.5,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 0 },
-          md: { bottom: 0 },
+          md: { bottom: -30 },
+          xl: { bottom: -30 }
         },
         decorativeImages: {
           image1: {
-            path: "/assets/p3/rose.png",
-            width: 140,
-            height: 120,
-            top: -100,
-            left: 100,
-            zIndex: 0
+            path: "/assets/p3/strawberry.png",
+            width: 130,
+            height: 130,
+            top: -120,
+            left: 20,
+            zIndex: 30
           },
           image2: {
-            path: "/assets/p3/melisa-1.png",
-            width: 150,
-            height: 150,
-            top: -10,
-            right: 250,
-            zIndex: 10,
-            fixed: true
-          },
-          image3: {
             path: "/assets/p3/ice.png",
             width: 140,
             height: 140,
-            bottom: 70,
+            bottom: 80,
             left: -60,
             zIndex: 50
           }
@@ -213,6 +208,7 @@ export const productCategories = [
           }
         }
       },
+
     ],
   },
   {
