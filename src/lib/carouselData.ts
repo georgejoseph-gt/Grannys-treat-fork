@@ -3,14 +3,14 @@ export const productCategories = [
     category: "Lassi",
     thumbnailGap: 0,
     items: [
-
+    
       {
         title: "Lassi Strawberry 200g",
         image: "/assets/ProductImages/Lassi rose.webp",
         subtext1: "Our lassi brings together smooth cultured curd and delightful flavours to create a refreshing, creamy drink. Whether plain or fruity, each cup offers a gentle boost of probiotics and a satisfying sip rooted in traditional Indian goodness.",
-        subtext2: "A smooth and refreshing probiotic drink that's gentle on your stomach and perfect for daily use, any time of the day.",
-        subtext3: "Classic taste with probiotic comfort. ",
-        colorbg: "#88c0f8",
+    subtext2: "A smooth and refreshing probiotic drink that's gentle on your stomach and perfect for daily use, any time of the day.",
+    subtext3: "Classic taste with probiotic comfort. ",
+    colorbg: "#88c0f8",
         div4_image: '/div4/rose.png',
         imgStyle: {
           width: 450, height: 400, top: -100, marginBottom: 0,
@@ -208,12 +208,12 @@ export const productCategories = [
           }
         }
       },
-
+      
     ],
   },
   {
     category: "Buttermilk",
-    thumbnailGap: 20,
+    thumbnailGap: 100,
     items: [
       {
         title: "Buttermilk Plain 400ml",
@@ -224,14 +224,14 @@ export const productCategories = [
         colorbg: "#f3cb8e",
         div4_image: '/div4/buttermilk1.png',
         imgStyle: {
-          width: 500, height: 260, top: -170, marginBottom: 0,
+          width: 400, height: 260, top: -170, marginBottom: 0,
           responsive: {
             xs: { width: 250, height: 200, top: 170, marginBottom: 0 },
-            md: { width: 500, height: 260, top: 20, marginBottom: 0 },
+            md: { width: 400, height: 260, top: 20, marginBottom: 0 },
           }
         },
         thumbnailStyle: {
-          width: 320, height: 200,
+          width: 280, height: 200,
           responsive: {
             xs: { width: 400, height: 200 },
             md: { width: 300, height: 200 },
@@ -293,7 +293,7 @@ export const productCategories = [
             md: { width: 250, height: 105 },
           }
         },
-        selectedScale: 1.15,
+        selectedScale: 1.2,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 20 },
           md: { bottom: 50 },
@@ -335,7 +335,7 @@ export const productCategories = [
         div4_image: '/div4/buttermilk3.png',
 
         imgStyle: {
-          width: 460, height: 260, top: 20, marginBottom: 0,
+          width: 500, height: 260, top: 20, marginBottom: 0,
           responsive: {
             xs: { width: 300, height: 260, top: 70, marginBottom: 0 },
             sm: { width: 460, height: 260, top: 20, marginBottom: 0 },
@@ -352,7 +352,7 @@ export const productCategories = [
             xl: { width: 300, height: 105 }
           }
         },
-        selectedScale: 1.15,
+        selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 15 },
           md: { bottom: 15 },
@@ -400,11 +400,11 @@ export const productCategories = [
         colorbg: "#61b4e1",
         div4_image: '/div4/dahi1.png',
         imgStyle: {
-          width: 400, height: 220, top: 0, marginBottom: 0,
+          width: 300, height: 220, top: 0, marginBottom: 0,
           responsive: {
             xs: { width: 300, height: 220, top: 40, marginBottom: 0 },
             md: { width: 400, height: 220, top: 40, marginBottom: 0 },
-            xl: { width: 550, height: 350, top: 40, marginBottom: 0 }
+            xl: { width: 400, height: 350, top: 40, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -514,8 +514,8 @@ export const productCategories = [
           width: 400, height: 220, top: -200, marginBottom: 0,
           responsive: {
             xs: { width: 300, height: 220, top: -200, marginBottom: 0 },
-            md: { width: 400, height: 220, top: -200, marginBottom: 0 },
-            xl: { width: 500, height: 220, top: -200, marginBottom: 0 }
+            md: { width: 350, height: 220, top: -200, marginBottom: 0 },
+            xl: { width: 400, height: 220, top: -200, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -572,18 +572,18 @@ export const productCategories = [
           responsive: {
             xs: { width: 300, height: 220, top: -100, marginBottom: 0 },
             md: { width: 450, height: 220, top: -100, marginBottom: 0 },
-            xl: { width: 550, height: 220, top: -100, marginBottom: 0 }
+            xl: { width: 450, height: 220, top: -100, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
-          width: 250, height: 105,
+          width: 280, height: 105,
           responsive: {
-            xs: { width: 280, height: 105 },
+            xs: { width: 200, height: 105 },
             md: { width: 250, height: 105 },
-            xl: { width: 250, height: 105 }
+            xl: { width: 280, height: 105 }
           }
         },
-        selectedScale: 1.6,
+        selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
           xs: { bottom: 30 },
           md: { bottom: 30 },
@@ -775,17 +775,17 @@ export const productCategories = [
         div4_image: '/div4/yoghurt1.png',
         colorbg: "#fc758c",
         imgStyle: {
-          width: 500, height: 220, top: -100, marginBottom: 0,
+          width: 500, height: 220, top: 0, marginBottom: 0,
           responsive: {
             xs: { width: 350, height: 220, top: 0, marginBottom: 0 },
             md: { width: 500, height: 220, top: 0, marginBottom: 0 },
           }
         },
         thumbnailStyle: {
-          width: 300, height: 105,
+          width: 350, height: 105,
           responsive: {
-            xs: { width: 300, height: 105 },
-            md: { width: 300, height: 105 },
+            xs: { width: 350, height: 105 },
+            md: { width: 350, height: 105 },
           }
         },
         selectedScale: 1.3,
@@ -829,11 +829,11 @@ export const productCategories = [
           }
         },
         thumbnailStyle: {
-          width: 500, height: 105,
+          width: 350, height: 105,
           responsive: {
             xs: { width: 300, height: 105 },
-            md: { width: 300, height: 105 },
-            xl: { width: 300, height: 105 }
+            md: { width: 350, height: 105 },
+            xl: { width: 350, height: 105 }
           }
         },
         selectedScale: 1.3,

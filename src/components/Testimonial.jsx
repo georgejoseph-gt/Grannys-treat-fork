@@ -33,7 +33,8 @@ const TestimonialCard = ({ story, onClick, isDragging }) => {
       onClick={handleClick}
       className="snap-center shrink-0 w-[240px] sm:w-[260px] md:w-[320px]
                  aspect-[9/16] rounded-xl overflow-hidden bg-black relative
-                 cursor-pointer select-none"
+                 cursor-pointer select-none transition-transform duration-300
+                 transform hover:scale-105"
     >
       <video
         ref={videoRef}
@@ -57,7 +58,9 @@ const TestimonialCard = ({ story, onClick, isDragging }) => {
                       justify-center pointer-events-none">
         <div className="flex h-12 w-12 items-center justify-center
                         rounded-full bg-white/90 shadow-lg
-                        backdrop-blur-sm hover:bg-red-300 hover:scale-105">
+                        backdrop-blur-sm transition-all duration-300
+                        transform hover:scale-110 hover:bg-white/100
+                        pointer-events-auto">
           <PlayIcon className="h-5 w-5 text-gray-900 translate-x-[1px]" />
         </div>
       </div>

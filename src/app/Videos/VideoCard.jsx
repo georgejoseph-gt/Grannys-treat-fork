@@ -2,9 +2,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
-// Removed old play/pause circle icons in favor of custom SVGs
-import { FaVolumeXmark } from "react-icons/fa6";
-import { IoVolumeHigh } from "react-icons/io5";
+import { Play, Pause, Volume2, VolumeX, Wallet, Sailboat } from "lucide-react";
 
 /**
  * VideoCard - plays mp4 or HLS (.m3u8). Uses a poster image when not playing.
@@ -18,6 +16,7 @@ const VideoCard = ({
   isPlaying,
   onTogglePlay,
   onVideoEnd,
+  canLoad,
 }) => {
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
@@ -29,13 +28,12 @@ const VideoCard = ({
   const [isActuallyPlaying, setIsActuallyPlaying] = useState(false);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
-  // Attach HLS or native source only when needed (when card is in view)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return undefined;
 
-    if (!isInView) {
-      // Pause and avoid loading while off-screen
+    // If canLoad is false, don't load
+    if (!canLoad) {
       try { video.pause(); } catch {}
       setIsActuallyPlaying(false);
       return undefined;
@@ -57,10 +55,16 @@ const VideoCard = ({
       if (video.src !== videoUrl) video.src = videoUrl;
     }
 
+    // Pause if not in view and not playing (but buffering will continue)
+    if (!isInView && !isPlaying) {
+      try { video.pause(); } catch {}
+      setIsActuallyPlaying(false);
+    }
+
     return () => {
       // don't destroy on every visibility change to keep buffer; rely on unmount cleanup
     };
-  }, [videoUrl, isInView]);
+  }, [videoUrl, isInView, canLoad, isPlaying]);
 
   // Observe visibility of the card
   useEffect(() => {
@@ -227,7 +231,7 @@ const VideoCard = ({
 
   return (
     <div
-      className="relative w-[320px] h-[560px] md:w-[400px] md:h-[640px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-white to-gray-50 flex flex-col"
+      className="relative w-[320px] h-[560px] md:w-[400px] md:h-[640px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-white to-gray-50 flex flex-col transition-transform duration-300 transform hover:scale-105"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -248,7 +252,7 @@ const VideoCard = ({
           className={`absolute inset-0 w-full h-full object-cover ${isPlaying ? "z-15" : "z-5"}`}
           playsInline
           onEnded={handleEnd}
-          preload="metadata"
+          preload="auto"
           controls={false}
         />
 
@@ -257,40 +261,33 @@ const VideoCard = ({
           <div className="absolute inset-0 flex items-center justify-center z-20">
             <button
               onClick={handlePlayPause}
-              className={`flex items-center justify-center focus:outline-none transition-all duration-200 rounded-full 
+              className={`flex items-center justify-center focus:outline-none transition-all duration-300 rounded-full 
+                transform hover:scale-110 active:scale-95
                 ${isPlaying
-                  ? "bg-white/80 hover:bg-white/95 backdrop-blur-md w-16 h-16 md:w-16 md:h-16 shadow-2xl ring-2 ring-white/80"
-                  : "bg-white/80 hover:bg-white/95 backdrop-blur-md w-16 h-16 md:w-16 md:h-16 shadow-2xl ring-2 ring-white/80"}
+                  ? "bg-white/80 hover:bg-white/95 backdrop-blur-md w-16 h-16 md:w-16 md:h-16 shadow-2xl ring-2 ring-white/80 hover:ring-white/100 hover:shadow-3xl"
+                  : "bg-white/80 hover:bg-white/95 backdrop-blur-md w-16 h-16 md:w-16 md:h-16 shadow-2xl ring-2 ring-white/80 hover:ring-white/100 hover:shadow-3xl"}
               `}
               aria-label={isPlaying ? "Pause video" : "Play video"}
             >
               {isPlaying ? (
-                // Minimal pause icon in brand blue
-                <svg viewBox="0 0 64 64" className="w-8 h-8 md:w-10 md:h-10" aria-hidden="true">
-                  <rect x="22" y="18" width="8" height="28" rx="2" fill="#285192" />
-                  <rect x="34" y="18" width="8" height="28" rx="2" fill="#285192" />
-                </svg>
+                <Wallet className="w-8 h-8 md:w-10 md:h-10 text-[#285192]" fill="#285192" />
               ) : (
-                // YouTube-style white triangle
-                <svg viewBox="0 0 64 64" className="w-8 h-8 md:w-10 md:h-10" aria-hidden="true">
-                  <polygon points="24,18 24,46 46,32" fill="#285192" />
-                </svg>
+                <Sailboat className="w-8 h-8 md:w-10 md:h-10 text-[#285192]" fill="#285192" />
               )}
             </button>
           </div>
         )}
 
-        {/* Subtle MUTE / UNMUTE button */}
         <div className="absolute top-3 right-3 z-20">
           <button
             onClick={handleMuteToggle}
-            className="text-gray-700 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-all duration-200 focus:outline-none"
+            className="text-gray-700 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-all duration-300 transform hover:scale-110 active:scale-95 hover:shadow-xl focus:outline-none"
             aria-label={isMuted ? "Unmute" : "Mute"}
           >
             {isMuted ? (
-              <FaVolumeXmark className="w-4 h-4" />
+              <VolumeX className="w-4 h-4" />
             ) : (
-              <IoVolumeHigh className="w-4 h-4" />
+              <Volume2 className="w-4 h-4" />
             )}
           </button>
         </div>
@@ -304,19 +301,6 @@ const VideoCard = ({
           </div>
         )}
       </div>
-
-      {/* Enhanced footer with gradient and better typography */}
-      {/* <div className="flex-1 bg-gradient-to-br from-white to-gray-50 p-4 flex flex-col justify-center">
-        <div className="text-center">
-          <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-3"></div>
-          <p className="text-xl font-[Fredoka] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#285192] to-[#4a90e2]">
-            {username}
-          </p>
-          <p className="text-sm text-gray-500 mt-1 font-medium">Tap to play</p>
-        </div>
-      </div> */}
-
-      {/* Subtle border accent */}
       <div className="absolute inset-0 rounded-2xl border border-gray-100 pointer-events-none"></div>
     </div>
   );
@@ -330,6 +314,7 @@ VideoCard.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   onTogglePlay: PropTypes.func.isRequired,
   onVideoEnd: PropTypes.func.isRequired,
+  canLoad: PropTypes.bool,
 };
 
 export default VideoCard;

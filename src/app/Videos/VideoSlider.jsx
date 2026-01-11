@@ -7,7 +7,8 @@ import "./VideoSlider.css";
 const VideoSlider = () => {
   const [playingId, setPlayingId] = useState(null);
   const [previewId, setPreviewId] = useState(null);
-  const [loadedIds, setLoadedIds] = useState(() => new Set(videos.slice(0, 4).map(v => v.id)));
+  // Preload all videos immediately instead of just the first 4
+  const [loadedIds, setLoadedIds] = useState(() => new Set(videos.map(v => v.id)));
   const sliderRef = useRef(null);
 
   // Optional: center the first card on mount
@@ -63,28 +64,8 @@ const VideoSlider = () => {
     };
   }, []);
 
-  // Observe cards to progressively mark them loadable when they come into view
-  useEffect(() => {
-    const el = sliderRef.current;
-    if (!el) return undefined;
-    const wrappers = Array.from(el.querySelectorAll('[data-card-wrapper="true"]'));
-    const opts = { root: el, threshold: 0.4 };
-    const io = new IntersectionObserver((entries) => {
-      setLoadedIds((prev) => {
-        const next = new Set(prev);
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idStr = entry.target.getAttribute('data-card-id');
-            const id = idStr ? Number(idStr) : null;
-            if (id != null) next.add(id);
-          }
-        });
-        return next;
-      });
-    }, opts);
-    wrappers.forEach(w => io.observe(w));
-    return () => io.disconnect();
-  }, []);
+   // All videos are preloaded immediately, so no need for intersection observer
+  // Removed lazy loading logic to preload all videos on page load
 
   const handleTogglePlay = (id) => {
     setPlayingId((prev) => (prev === id ? null : id));

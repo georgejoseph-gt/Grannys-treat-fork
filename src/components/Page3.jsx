@@ -76,7 +76,7 @@ const Page3 = () => {
   };
 
   return (
-    <div className="w-full h-[95vh] flex flex-col bg-gray-100 relative z-10 -mt-[50px]">
+    <div className="w-full h-[90vh] flex flex-col bg-gray-100 relative z-10 -mt-[50px]">
       <div className="absolute inset-0 flex items-center justify-between px-4 sm:px-6 md:px-8 pointer-events-none z-20">
         <button
           onClick={prevCategory}

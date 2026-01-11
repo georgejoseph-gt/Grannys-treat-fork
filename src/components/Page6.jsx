@@ -12,9 +12,8 @@ const Page6 = () => {
 
 
         <h3 className="font-[Fredoka] z-10 text-[#285192] font-[800] text-center mt-56 text-3xl md:text-4xl lg:text-5xl tracking-wider">
-          The real stories
+        The real stories
         </h3>
-        <VideoSlider />
       </div>
 
       <img
