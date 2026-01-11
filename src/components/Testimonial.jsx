@@ -2,9 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import { stories } from '../lib/testimonialData';
 import { PlayIcon, X } from 'lucide-react';
 
-const TestimonialCard = ({ story, onClick, isDragging }) => {
+const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
   const videoRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(priority); // Priority videos load immediately
 
+  // Start loading video immediately on mount (especially for priority videos)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Force immediate loading for faster buffering
+    if (shouldLoad || priority) {
+      video.load();
+    }
+  }, [shouldLoad, priority]);
+
+  // Use intersection observer with rootMargin to start loading BEFORE video is visible
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -12,17 +25,26 @@ const TestimonialCard = ({ story, onClick, isDragging }) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Start loading if not already loaded
+          if (!shouldLoad) {
+            setShouldLoad(true);
+            video.load();
+          }
+          // Play when visible
           video.play().catch(() => { });
         } else {
           video.pause();
         }
       },
-      { threshold: 0.6 }
+      { 
+        threshold: 0.01, // Very low threshold for faster detection
+        rootMargin: '300px' // Start loading 300px before video enters viewport
+      }
     );
 
     observer.observe(video);
     return () => observer.disconnect();
-  }, []);
+  }, [shouldLoad]);
 
   const handleClick = () => {
     if (!isDragging.current) onClick(story);
@@ -42,7 +64,7 @@ const TestimonialCard = ({ story, onClick, isDragging }) => {
         muted
         loop
         playsInline
-        preload="none"
+        preload="auto"
         className="h-full w-full object-cover"
       />
 
@@ -192,12 +214,13 @@ const Testimonial = () => {
           onMouseUp={onMouseUp}
           onMouseLeave={onMouseLeave}
         >
-          {stories.map((story) => (
+          {stories.map((story, index) => (
             <TestimonialCard
               key={story.id}
               story={story}
               onClick={openModal}
               isDragging={isDragging}
+              priority={index < 6} // Prioritize first 6 videos for immediate loading
             />
           ))}
         </div>
