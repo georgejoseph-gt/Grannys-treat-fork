@@ -10,7 +10,7 @@ const Page1 = () => {
     offset: ["start start", "end end"]
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   const scrollToContact = () => {
     smoothScrollTo('contact-form', 50); // 80px offset for header height
   };
@@ -25,8 +25,8 @@ const Page1 = () => {
       const offset = item === "Benefits"
         ? Math.round(window.innerHeight * -0.10)
         : item === "Testimonials"
-        ? 80  // Position at top of testimonials section
-        : 80;
+          ? 80  // Position at top of testimonials section
+          : 80;
       smoothScrollTo(sectionId, offset);
     }
     setIsMobileMenuOpen(false); // Close mobile menu after navigation
@@ -42,11 +42,9 @@ const Page1 = () => {
       className="relative h-screen md:h-[140vh] w-full bg-[url('/assets/bg1_mob.svg')] md:bg-[url('/assets/bg1.webp')] bg-cover bg-center bg-no-repeat bg-[#d2eef9]"
     >
 
-      {/* Main content container with responsive padding */}
       <div className="relative h-screen w-full overflow-hidden">
-        <header className="absolute top-0 left-0 right-0 w-full z-[60] bg-transparent px-4 sm:px-6 md:px-10 pt-2 sm:pt-4">
+        <header className="absolute top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-10 font-[Fredoka] text-[#d2eef9]">
           <div className="max-w-full mx-auto w-full flex items-center justify-between">
-            {/* Logo */}
             <div className="flex-shrink-0">
               <OptimizedImage
                 src="/assets/Logo.svg"
@@ -58,12 +56,12 @@ const Page1 = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex flex-1 justify-center">
+            <nav className="hidden md:flex flex-1 justify-center ">
               <div></div>
             </nav>
 
             {/* Right Section: Desktop Contact & Mobile Hamburger */}
-            <div className="flex items-center">
+            <div className="flex items-center ">
               <div className="hidden md:block">
                 <a
                   href="#contact-form"
@@ -76,9 +74,9 @@ const Page1 = () => {
                   Contact Us
                 </a>
               </div>
-              
+
               {/* Mobile Hamburger Menu */}
-            
+
             </div>
           </div>
         </header>
@@ -116,7 +114,7 @@ const Page1 = () => {
           />
         </div>
       </div>
-      
+
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
@@ -130,13 +128,13 @@ const Page1 = () => {
               className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[65] md:hidden"
               onClick={toggleMobileMenu}
             />
-            
+
             {/* Mobile Menu */}
             <motion.div
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ 
+              transition={{
                 duration: 0.4,
                 type: "spring",
                 stiffness: 300,
@@ -147,7 +145,7 @@ const Page1 = () => {
               <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
                 {/* Decorative top bar */}
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#285192] via-[#55acee] to-[#285192]"></div>
-                
+
                 {/* Menu items */}
                 <div className="px-6 py-4">
                   {navbarData.map((item, index) => (
@@ -172,7 +170,7 @@ const Page1 = () => {
                     </motion.button>
                   ))}
                 </div>
-                
+
                 {/* Bottom decorative element */}
                 <div className="px-6 pb-4">
                   <div className="h-1 bg-gradient-to-r from-transparent via-[#285192]/30 to-transparent rounded-full"></div>
@@ -182,7 +180,7 @@ const Page1 = () => {
           </>
         )}
       </AnimatePresence>
-      
+
       {/* Background image with responsive handling */}
     </motion.div>
   );

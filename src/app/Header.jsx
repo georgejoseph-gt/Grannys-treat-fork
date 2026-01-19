@@ -35,7 +35,7 @@ const Header = () => {
       {/* Spacer to prevent overlap from fixed header */}
 
       <header className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-10  font-[Fredoka] text-[#d2eef9]">
-        <div className="max-w-full mx-auto w-full flex items-center justify-between py-4">
+        <div className="max-w-full mx-auto w-full flex items-center justify-between   ">
           {/* Logo */}
           <div className="flex-shrink-0">
             {/* <img
@@ -45,8 +45,8 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex flex-1 justify-center mt-5">
-            <div className="flex gap-[clamp(4rem,2vw,5rem)] px-20 py-2 bg-[#285192] rounded-full ">
+          <nav className="hidden md:flex flex-1 justify-center mt-6">
+            <div className="flex gap-[clamp(4rem,2vw,5rem)] px-20 py-3 bg-[#285192] rounded-full ">
               {navbarData.map((item, index) => (
                 <button
                   key={index}
@@ -60,7 +60,7 @@ const Header = () => {
           </nav>
 
           {/* Right Section: Desktop Contact & Mobile Hamburger */}
-          <div className="flex items-center">
+          <div className="flex items-center ">
             {/* Desktop "Contact Us" text */}
             <div className="hidden md:block">{/* Optional content */}</div>
 
