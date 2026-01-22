@@ -1,9 +1,11 @@
-import { StrictMode, useEffect } from "react";
+import { StrictMode, useEffect, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import Header from "./app/Header.jsx";
-import Footer from "./app/Footer.jsx";
+
+// Lazy load Footer since it's at the bottom of the page
+const Footer = lazy(() => import("./app/Footer.jsx"));
 
 // Function to set zoom level
 const setZoom = (zoomLevel) => {
@@ -20,7 +22,9 @@ const ZoomWrapper = () => {
     <>
       <Header />
       <App />
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   );
 };

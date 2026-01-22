@@ -7,25 +7,31 @@ const Footer = () => {
             Connect with us
           </h3>
           <div className="flex gap-4 mb-4">
-            <a href="https://www.instagram.com/grannystreat/?hl=en" target="_blank">
+            <a href="https://www.instagram.com/grannystreat/?hl=en" target="_blank" rel="noopener noreferrer">
               <img
                 src="/assets/BG/insta.svg"
                 alt="Instagram"
                 className="h-14 w-14 sm:h-20 sm:w-20 "
+                loading="lazy"
+                decoding="async"
               />
             </a>
-            <a href="https://api.whatsapp.com/send/?phone=917024221305&text&type=phone_number&app_absent=0" target="_blank">
+            <a href="https://api.whatsapp.com/send/?phone=917024221305&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
               <img
                 src="/assets/BG/whatsapp.svg"
                 alt="whatsapp"
                 className="h-14 w-14 sm:h-20 sm:w-20"
+                loading="lazy"
+                decoding="async"
               />
             </a>
-            <a href="https://www.facebook.com/grannystreat/" target="_blank">
+            <a href="https://www.facebook.com/grannystreat/" target="_blank" rel="noopener noreferrer">
               <img
                 src="/assets/BG/facebook.svg"
                 alt="facebook"
                 className="h-14 w-14 sm:h-20 sm:w-20"
+                loading="lazy"
+                decoding="async"
               />
             </a>
           </div>
@@ -42,6 +48,8 @@ const Footer = () => {
               src="/assets/BG/phone.svg"
               alt="Phone"
               className="w-5 h-5 sm:w-6 sm:h-6"
+              loading="lazy"
+              decoding="async"
             />
             <h1 className=" text-[#285192]  px-3 py-1 text-lg sm:text-base font-semibold">
               +91 7024221305
@@ -53,6 +61,8 @@ const Footer = () => {
               src="/assets/BG/gmail.svg"
               alt="Email"
               className="w-5 h-5 sm:w-6 sm:h-6"
+              loading="lazy"
+              decoding="async"
             />
             <h1 className=" text-[#285192]  px-3 py-1 text-lg sm:text-base font-semibold">
               info@grannystreat.in
