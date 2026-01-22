@@ -141,6 +141,8 @@ const Page4 = () => {
                   src={images[currentIndex]}
                   alt={`Slide ${currentIndex + 1}`}
                   className="absolute inset-0 w-full h-full object-cover"
+                  loading={currentIndex === 0 ? "eager" : "lazy"}
+                  decoding="async"
                   custom={direction}
                   initial={{ x: direction === 1 ? 80 : -80, opacity: 0.0 }}
                   animate={{ 
@@ -202,6 +204,8 @@ const Page4 = () => {
               src="/assets/photo2.png"
               alt="Healthy Dairy"
               className="w-full h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] object-cover rounded-lg"
+              loading="lazy"
+              decoding="async"
             />
 
             <p className="font-[Fredoka] text-[#285192] font-normal text-[clamp(1rem,2vw,1.2rem)] leading-relaxed">

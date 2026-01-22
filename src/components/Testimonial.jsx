@@ -15,7 +15,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
     }
   }, [shouldLoad, priority]);
 
-  // Use intersection observer with rootMargin to start loading BEFORE video is visible
+  // Use intersection observer to load video only when near viewport
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -26,17 +26,12 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
           // Start loading if not already loaded
           if (!shouldLoad) {
             setShouldLoad(true);
-            video.load();
           }
-          // Play when visible
-          video.play().catch(() => { });
-        } else {
-          video.pause();
         }
       },
       { 
-        threshold: 0.01, // Very low threshold for faster detection
-        rootMargin: '300px' // Start loading 300px before video enters viewport
+        threshold: 0.01,
+        rootMargin: '200px' // Start loading 200px before video enters viewport
       }
     );
 
@@ -58,11 +53,12 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
     >
       <video
         ref={videoRef}
-        src={story.preview}
+        src={shouldLoad ? story.preview : undefined}
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
+        poster={story.poster || undefined}
         className="h-full w-full object-cover"
       />
 
@@ -176,6 +172,8 @@ const Testimonial = () => {
         top-[18%] sm:top-[12%] md:top-[15%]  
         left-[2%] sm:left-[6%] md:left-[35%] lg:left-[52%]
          opacity-25 pointer-events-none select-none z-0 rotate-40"
+        loading="lazy"
+        decoding="async"
       />
 
       <img
@@ -185,6 +183,8 @@ const Testimonial = () => {
       top-[8%] sm:top-[12%] md:top-[27%]  
       right-[2%] sm:right-[6%] md:right-[10%] lg:right-[0]
        opacity-30 pointer-events-none select-none z-0"
+        loading="lazy"
+        decoding="async"
       />
 
       <img
@@ -194,7 +194,8 @@ const Testimonial = () => {
       top-[15%] sm:top-[12%] md:top-[20%]  
       left-[2%] sm:left-[6%] md:left-[10%] lg:left-[4%]
        opacity-30 pointer-events-none select-none z-0 rotate-30"
-
+        loading="lazy"
+        decoding="async"
       />
       <div className="mx-auto w-[95%] sm:w-[85%] px-4">
         <h2 className="mb-16 text-center text-[clamp(1.5rem,4vw,4rem)]
@@ -250,7 +251,6 @@ const Testimonial = () => {
             <video
               src={activeStory.full}
               controls
-              autoPlay
               playsInline
               preload="none"
               className="max-h-[90vh] w-auto object-contain"

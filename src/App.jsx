@@ -1,15 +1,18 @@
+import { lazy, Suspense, useRef } from 'react';
 import Page1 from "./components/Page1";
-import Page2 from "./components/Page2";
-import Page3 from "./components/Page3";
-import Page4 from "./components/Page4";
-import Page5 from "./components/Page5";
-import Page6 from "./components/Page6";
-import Page7 from "./components/Page7";
-import Page8 from "./components/Page8";
-import Page9 from "./components/Page9";
-import { useRef } from 'react';
-import Testimonial from "./components/Testimonial";
-import ProductsSection from "./components/productsPage/productSection";
+import LazySection from "./components/LazySection";
+
+// Lazy load all sections except Page1 (Hero)
+const Page2 = lazy(() => import("./components/Page2"));
+const Page3 = lazy(() => import("./components/Page3"));
+const Page4 = lazy(() => import("./components/Page4"));
+const Page5 = lazy(() => import("./components/Page5"));
+const Page6 = lazy(() => import("./components/Page6"));
+const Page7 = lazy(() => import("./components/Page7"));
+const Page8 = lazy(() => import("./components/Page8"));
+const Page9 = lazy(() => import("./components/Page9"));
+const Testimonial = lazy(() => import("./components/Testimonial"));
+const ProductsSection = lazy(() => import("./components/productsPage/productSection"));
 
 const App = () => {
   const homeRef = useRef(null);
@@ -24,6 +27,7 @@ const App = () => {
 
   return (
     <div className="overflow-x-hidden w-full select-none">
+      {/* Hero section - loads immediately */}
       <div ref={homeRef}>
         <Page1
           scrollToRef={scrollToRef}
@@ -31,32 +35,35 @@ const App = () => {
         />
       </div>
 
-      <Page2 />
+      {/* All other sections lazy-loaded with IntersectionObserver */}
+      <LazySection Component={Page2} />
+      
       <div id="products">
         <div ref={productsRef}>
-          {/* <ProductsSection /> */}
-             <Page3 /> 
+          <LazySection Component={Page3} />
         </div>
       </div>
+      
       <div id="our-story">
         <div ref={storyRef}>
-          <Page4 />
+          <LazySection Component={Page4} />
         </div>
       </div>
+      
       <div id="benefits">
         <div ref={benefitsRef}>
-          <Page5 />
+          <LazySection Component={Page5} />
         </div>
       </div>
+      
       <div id="testimonials">
         <div ref={testimonialsRef}>
-          <Testimonial />
-          {/* <Page6 /> */}
+          <LazySection Component={Testimonial} />
         </div>
       </div>
-      {/* <Page7 /> */}
-      <Page8 />
-      <Page9 />
+      
+      <LazySection Component={Page8} />
+      <LazySection Component={Page9} />
     </div>
   );
 };

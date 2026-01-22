@@ -110,16 +110,8 @@ const VideoCard = ({
         });
       }
     } else {
-      if (isInView) {
-        // try to autoplay silently when visible
-        video.muted = true;
-        const p = video.play();
-        if (p && typeof p.then === 'function') {
-          p.catch(() => setAutoplayBlocked(true));
-        }
-      } else {
-        video.pause();
-      }
+      // Don't autoplay - wait for user interaction
+      video.pause();
     }
     return undefined;
   }, [isPlaying, isMuted, isInView]);
@@ -252,8 +244,9 @@ const VideoCard = ({
           className={`absolute inset-0 w-full h-full object-cover ${isPlaying ? "z-15" : "z-5"}`}
           playsInline
           onEnded={handleEnd}
-          preload="auto"
+          preload="none"
           controls={false}
+          poster={effectivePoster || undefined}
         />
 
         {/* Subtle Play / Pause button */}

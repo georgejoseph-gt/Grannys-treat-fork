@@ -31,6 +31,8 @@ const Page9 = () => {
         left-[-8%] sm:left-[-5%] md:left-[2%] lg:left-[6%] xl:-left-[5%]
         opacity-30 sm:opacity-40 md:opacity-50 pointer-events-none select-none z-0"
         style={{ scale: leftScale }}
+        loading="lazy"
+        decoding="async"
       />
       
       {/* Right decorative image - positioned behind form */}
@@ -42,6 +44,8 @@ const Page9 = () => {
         right-[-8%] sm:right-[-5%] md:right-[2%] lg:right-[6%] xl:-right-[8%]
         opacity-30 sm:opacity-40 md:opacity-50 pointer-events-none select-none z-0"
         style={{ scale: rightScale }}
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );

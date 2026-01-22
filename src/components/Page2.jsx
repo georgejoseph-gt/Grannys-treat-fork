@@ -97,6 +97,8 @@ const Page2 = () => {
           pointer-events-none
           select-none
         "
+        loading="lazy"
+        decoding="async"
       />
 
       {/* Blueberry */}
@@ -115,6 +117,8 @@ const Page2 = () => {
           select-none
           hidden sm:block
         "
+        loading="lazy"
+        decoding="async"
       />
     </section>
   );

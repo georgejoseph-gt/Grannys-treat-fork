@@ -281,6 +281,8 @@ const Page5 = () => {
         src="/assets/BG/page5_top.png"
         alt="img"
         className="absolute top-0 w-full h-28 sm:h-36 md:h-44 lg:h-52 object-cover"
+        loading="lazy"
+        decoding="async"
       />
 
       {/* Content Container */}
@@ -290,6 +292,8 @@ const Page5 = () => {
           src="/assets/Icons/benefitlabel.svg"
           alt="img"
           className="w-[85%] sm:w-[75%] md:w-[65%] lg:w-[60%] max-w-[380px] sm:max-w-[540px] md:max-w-[700px] lg:max-w-[680px] transition-all duration-300 mb-8 sm:mb-10 md:mb-12"
+          loading="lazy"
+          decoding="async"
         />
 
         {/* Design Image with looping Lassi image overlay */}
@@ -302,11 +306,15 @@ const Page5 = () => {
             src="/assets/Icons/p5-background-benefit.svg"
             alt="Background decoration"
             className="hidden md:block absolute inset-0 w-full h-full object-contain transition-all duration-300 transform origin-center"
+            loading="lazy"
+            decoding="async"
           />
           <img
             src="/assets/Icons/p5-benefit-mobile.svg"
             alt="Background decoration"
             className="block md:hidden absolute inset-0 w-full h-full object-contain object-center transition-all duration-300 transform origin-center scale-105"
+            loading="lazy"
+            decoding="async"
           />
 
           {/* Orbiting images */}

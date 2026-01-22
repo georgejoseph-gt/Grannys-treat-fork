@@ -106,6 +106,8 @@ const Page8 = () => {
                     src={getImageSrc(thumbnails[i])}
                     alt={thumbnails[i]?.caption || "Instagram image"}
                     className="w-full h-full object-cover border-4 border-white rounded-2xl shadow-md"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                   />
                 </a>
@@ -125,6 +127,8 @@ const Page8 = () => {
                   src={getImageSrc(thumbnails[2])}
                   alt={thumbnails[2]?.caption || "Instagram image"}
                   className="w-full h-full object-cover border-4 border-white rounded-2xl shadow-md"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                 />
               </a>
@@ -157,6 +161,8 @@ const Page8 = () => {
                     src={getImageSrc(thumbnails[i])}
                     alt={thumbnails[i]?.caption || "Instagram image"}
                     className="w-full h-full object-cover border-4 border-white rounded-2xl shadow-md"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                   />
                 </a>
@@ -176,6 +182,8 @@ const Page8 = () => {
                   src={getImageSrc(thumbnails[0])}
                   alt={thumbnails[0]?.caption || "Instagram image"}
                   className="w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] xl:h-[516px] border-4 sm:border-6 md:border-8 border-white object-cover rounded-2xl sm:rounded-3xl shadow-lg"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                 />
               </a>
@@ -201,6 +209,8 @@ const Page8 = () => {
                     src={getImageSrc(thumbnails[1])}
                     alt={thumbnails[1]?.caption || "Instagram image"}
                     className="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                   />
                 </a>
@@ -220,6 +230,8 @@ const Page8 = () => {
                     src={getImageSrc(thumbnails[2])}
                     alt={thumbnails[2]?.caption || "Instagram image"}
                     className="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                   />
                 </a>
@@ -246,6 +258,8 @@ const Page8 = () => {
                       src={getImageSrc(thumbnails[i])}
                       alt={thumbnails[i]?.caption || "Instagram image"}
                       className="w-full h-full object-cover border-4 sm:border-6 md:border-8 border-white rounded-2xl sm:rounded-3xl shadow-lg"
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => (e.currentTarget.src = FALLBACK_SVG)}
                     />
                   </a>

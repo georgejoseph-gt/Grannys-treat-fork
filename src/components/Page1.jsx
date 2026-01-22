@@ -52,6 +52,7 @@ const Page1 = () => {
                 width={100}
                 height={100}
                 className="w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] md:w-[145px] md:h-[145px]"
+                priority={true}
               />
             </div>
 
@@ -111,6 +112,8 @@ const Page1 = () => {
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
             className="cursor-pointer hover:scale-105 transition-transform duration-300 mt-2 sm:mt-4 w-[140px] h-auto sm:w-[180px] md:w-[clamp(10rem,20vw,15rem)]"
+            loading="eager"
+            decoding="async"
           />
         </div>
       </div>

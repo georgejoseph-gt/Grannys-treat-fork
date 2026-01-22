@@ -8,16 +8,6 @@ import OptimizedImage from "./OptimizedImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-// Preload all images when the module is imported
-const preloadedImages = new Set();
-productCategories.forEach(cat => {
-  cat.items.forEach(item => {
-    const img = new Image();
-    img.src = item.image;
-    preloadedImages.add(item.image);
-  });
-});
-
 const breakpoints = { xs: 0, sm: 640, md: 768, lg: 1024, xl: 1280 };
 
 function useBreakpoint() {
@@ -153,6 +143,7 @@ const Page3 = () => {
                           display: 'inline-block',
                         }}
                         className="drop-shadow-lg rounded-xl"
+                        priority={idx === currentImageIndex && categoryIndex === 0}
                       />
                     </motion.div>
                   </div>
@@ -219,6 +210,8 @@ const Page3 = () => {
                             src="/assets/page3/page3_locate.png"
                             alt="locate us"
                             className="w-full h-auto"
+                            loading="lazy"
+                            decoding="async"
                           />
                         </div>
                       </div>
@@ -249,6 +242,7 @@ const Page3 = () => {
                               display: 'inline-block',
                             }}
                             className="drop-shadow-lg rounded-xl"
+                            priority={idx === currentImageIndex && categoryIndex === 0}
                           />
                         </motion.div>
                       </span>
@@ -271,6 +265,8 @@ const Page3 = () => {
                             animate={idx === currentImageIndex ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
                             transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
                             className="object-contain max-w-full max-h-full"
+                            loading="lazy"
+                            decoding="async"
                           />
                         )}
                       </div>

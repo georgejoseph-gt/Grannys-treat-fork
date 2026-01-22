@@ -7,8 +7,8 @@ import "./VideoSlider.css";
 const VideoSlider = () => {
   const [playingId, setPlayingId] = useState(null);
   const [previewId, setPreviewId] = useState(null);
-  // Preload all videos immediately instead of just the first 4
-  const [loadedIds, setLoadedIds] = useState(() => new Set(videos.map(v => v.id)));
+  // Only load videos when they're near the viewport
+  const [loadedIds, setLoadedIds] = useState(new Set());
   const sliderRef = useRef(null);
 
   // Optional: center the first card on mount
@@ -64,8 +64,62 @@ const VideoSlider = () => {
     };
   }, []);
 
-   // All videos are preloaded immediately, so no need for intersection observer
-  // Removed lazy loading logic to preload all videos on page load
+  // Lazy load videos when they're near the viewport
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return undefined;
+
+    const updateLoadedVideos = () => {
+      const containerRect = el.getBoundingClientRect();
+      const viewportTop = containerRect.top - 300; // 300px before viewport
+      const viewportBottom = containerRect.bottom + 300; // 300px after viewport
+
+      const wrappers = Array.from(el.querySelectorAll('[data-card-wrapper="true"]'));
+      
+      setLoadedIds((prevLoadedIds) => {
+        const newLoadedIds = new Set(prevLoadedIds);
+        let hasChanges = false;
+
+        wrappers.forEach((w) => {
+          const rect = w.getBoundingClientRect();
+          const idStr = w.getAttribute('data-card-id');
+          const id = idStr ? Number(idStr) : null;
+          
+          if (id != null) {
+            // Load if card is near viewport
+            if (rect.bottom >= viewportTop && rect.top <= viewportBottom) {
+              if (!newLoadedIds.has(id)) {
+                newLoadedIds.add(id);
+                hasChanges = true;
+              }
+            }
+          }
+        });
+
+        return hasChanges ? newLoadedIds : prevLoadedIds;
+      });
+    };
+
+    updateLoadedVideos();
+    const onScroll = () => {
+      if (onScroll._raf) return;
+      onScroll._raf = requestAnimationFrame(() => {
+        onScroll._raf = null;
+        updateLoadedVideos();
+      });
+    };
+    
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateLoadedVideos);
+    const ro = new ResizeObserver(updateLoadedVideos);
+    ro.observe(el);
+    
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updateLoadedVideos);
+      ro.disconnect();
+    };
+  }, []);
 
   const handleTogglePlay = (id) => {
     setPlayingId((prev) => (prev === id ? null : id));

@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import PropTypes from 'prop-types';
 
 const OptimizedImage = ({
@@ -11,6 +9,7 @@ const OptimizedImage = ({
   height,
   onClick,
   style = {},
+  priority = false, // For above-the-fold images
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -50,18 +49,20 @@ const OptimizedImage = ({
         />
       )}
       
-      <LazyLoadImage
+      <img
         src={src}
         alt={alt}
-        effect="blur"
         width={width}
         height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
         className={`transition-opacity duration-300 ${
           isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClick}
         onLoad={handleLoad}
         onError={handleError}
+        style={style}
       />
     </div>
   );
@@ -74,7 +75,8 @@ OptimizedImage.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   onClick: PropTypes.func,
-  style: PropTypes.object
+  style: PropTypes.object,
+  priority: PropTypes.bool,
 };
 
 export default OptimizedImage; 
