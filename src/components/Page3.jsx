@@ -168,6 +168,7 @@ const Page3 = () => {
                       {item.subtext1}
                     </motion.p>
 
+
                     {/*
                      <div className="relative w-[140px] sm:w-[180px] cursor-pointer hover:scale-105 transition-transform mx-auto mt-2 mb-6">
                       <img
@@ -223,8 +224,8 @@ const Page3 = () => {
                       </div>
                     </div>
                     {/* Div 3 - Main Product Image */}
-                    <div className="w-full flex-col md:w-3/8 h-full flex items-center justify-around ">
-                      <span className=" w-fit h-[70%]">
+                    <div className="w-full flex-col md:w-3/8 h-full  flex items-center justify-around ">
+                      <span className=" w-fit h-[70%] flex items-center justify-center">
                         <motion.div
                           key={`${categoryIndex}-${idx}`}
                           initial={{ opacity: 0, scale: 0.9, y: 20 }}

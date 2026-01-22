@@ -34,7 +34,7 @@ const Header = () => {
     <>
       {/* Spacer to prevent overlap from fixed header */}
 
-      <header className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-10  font-[Fredoka] text-[#d2eef9]">
+      <header className="fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-10  font-[Fredoka]  text-[#d2eef9]">
         <div className="max-w-full mx-auto w-full flex items-center justify-between   ">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -60,7 +60,7 @@ const Header = () => {
           </nav>
 
           {/* Right Section: Desktop Contact & Mobile Hamburger */}
-          <div className="flex items-center ">
+          <div className="flex items-center  mt-6">
             {/* Desktop "Contact Us" text */}
             <div className="hidden md:block">{/* Optional content */}</div>
 

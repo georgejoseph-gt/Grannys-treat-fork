@@ -4,14 +4,12 @@ import { PlayIcon, X } from 'lucide-react';
 
 const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
   const videoRef = useRef(null);
-  const [shouldLoad, setShouldLoad] = useState(priority); // Priority videos load immediately
+  const [shouldLoad, setShouldLoad] = useState(priority); 
 
-  // Start loading video immediately on mount (especially for priority videos)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Force immediate loading for faster buffering
     if (shouldLoad || priority) {
       video.load();
     }
@@ -56,7 +54,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
       className="snap-center shrink-0 w-[240px] sm:w-[260px] md:w-[320px]
                  aspect-[9/16] rounded-xl overflow-hidden bg-black relative
                  cursor-pointer select-none transition-transform duration-300
-                 transform hover:scale-105"
+                 transform hover:scale-105 mt-20"
     >
       <video
         ref={videoRef}
@@ -76,7 +74,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
       </div> */}
 
       {/* Play Button */}
-      <div className="absolute inset-0 z-10 flex items-center
+      {/* <div className="absolute inset-0 z-10 flex items-center
                       justify-center pointer-events-none">
         <div className="flex h-12 w-12 items-center justify-center
                         rounded-full bg-white/90 shadow-lg
@@ -85,7 +83,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
                         pointer-events-auto">
           <PlayIcon className="h-5 w-5 text-gray-900 translate-x-[1px]" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -51,7 +51,7 @@ const Page1 = () => {
                 alt="logo"
                 width={100}
                 height={100}
-                className="w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] md:w-[125px] md:h-[125px]"
+                className="w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] md:w-[145px] md:h-[145px]"
               />
             </div>
 

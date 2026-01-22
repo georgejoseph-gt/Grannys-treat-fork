@@ -299,12 +299,12 @@ const Page5 = () => {
         >
           {/* background artwork - Desktop version */}
           <img
-            src="/assets/Icons/p5-background-benefit.png"
+            src="/assets/Icons/p5-background-benefit.svg"
             alt="Background decoration"
             className="hidden md:block absolute inset-0 w-full h-full object-contain transition-all duration-300 transform origin-center"
           />
           <img
-            src="/assets/Icons/p5-benefit-mobile.png"
+            src="/assets/Icons/p5-benefit-mobile.svg"
             alt="Background decoration"
             className="block md:hidden absolute inset-0 w-full h-full object-contain object-center transition-all duration-300 transform origin-center scale-105"
           />
@@ -313,7 +313,6 @@ const Page5 = () => {
           {chosenImages.map((src, i) => {
             const pos = positions[i] || {};
             const opacity = pos.opacity ?? 0;
-            // Add glow effect for teasing (when opacity is between 0.2 and 0.8)
             const isTeasing = opacity > 0.2 && opacity < 0.9;
             const isCentered = opacity >= 0.9;
             

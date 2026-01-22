@@ -400,24 +400,26 @@ export const productCategories = [
         colorbg: "#61b4e1",
         div4_image: '/div4/dahi1.png',
         imgStyle: {
-          width: 300, height: 220, top: 0, marginBottom: 0,
+          width: 450, height: 220, top: -100, marginBottom: 0,
           responsive: {
-            xs: { width: 300, height: 220, top: 40, marginBottom: 0 },
-            md: { width: 400, height: 220, top: 40, marginBottom: 0 },
-            xl: { width: 400, height: 350, top: 40, marginBottom: 0 }
+            xs: { width: 300, height: 220, top: -100, marginBottom: 0 },
+            md: { width: 450, height: 220, top: -100, marginBottom: 0 },
+            xl: { width: 450, height: 220, top: 100, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
-          width: 300, height: 150,
+          width: 280, height: 105,
           responsive: {
-            xs: { width: 250, height: 150 },
-            md: { width: 250, height: 110 },
+            xs: { width: 200, height: 105 },
+            md: { width: 250, height: 105 },
+            xl: { width: 280, height: 105 }
           }
         },
         selectedScale: 1.3,
         responsiveThumbnailNavPosition: {
-          xs: { bottom: 40 },
-          md: { bottom: 100 },
+          xs: { bottom: 30 },
+          md: { bottom: 30 },
+          xl: { bottom: 30 }
         },
         decorativeImages: {
           image1: {
@@ -455,11 +457,11 @@ export const productCategories = [
         colorbg: "#61b4e1",
         div4_image: '/div4/dahi2.png',
         imgStyle: {
-          width: 400, height: 220, top: 40, marginBottom: 0,
+          width: 400, height: 220, top: 0, marginBottom: 0,
           responsive: {
-            xs: { width: 250, height: 220, top: -100, marginBottom: 0 },
-            md: { width: 400, height: 220, top: -100, marginBottom: 0 },
-            xl: { width: 400, height: 220, top: -100, marginBottom: 0 }
+            xs: { width: 250, height: 220, top: 0, marginBottom: 0 },
+            md: { width: 400, height: 220, top: 0, marginBottom: 0 },
+            xl: { width: 400, height: 220, top: 0, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -616,6 +618,7 @@ export const productCategories = [
           }
         }
       },
+     
     ],
   },
   {
@@ -631,11 +634,11 @@ export const productCategories = [
         colorbg: "#9ed1a6",
         div4_image: '/div4/panner1.png',
         imgStyle: {
-          width: 250, height: 120, top: 0, marginBottom: 0,
+          width: 250, height: 120, top: 200, marginBottom: 0,
           responsive: {
             xs: { width: 130, height: 150, top: 0, marginBottom: 0 },
-            md: { width: 300, height: 120, top: 0, marginBottom: 0 },
-            xl: { width: 300, height: 150, top: -60, marginBottom: 0 }
+            md: { width: 250, height: 120, top: 0, marginBottom: 0 },
+            xl: { width: 270, height: 150, top: 0, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -650,7 +653,7 @@ export const productCategories = [
         responsiveThumbnailNavPosition: {
           xs: { bottom: -40 },
           md: { bottom: -90 },
-          xl: { bottom: -90 }
+          xl: { bottom: -100 }
         },
         decorativeImages: {
           image1: {
@@ -703,8 +706,8 @@ export const productCategories = [
           width: 250, height: 150, top: -200, marginBottom: 0,
           responsive: {
             xs: { width: 150, height: 200, top: -60, marginBottom: 0 },
-            md: { width: 250, height: 150, top: -60, marginBottom: 0 },
-            xl: { width: 300, height: 150, top: -60, marginBottom: 0 }
+            md: { width: 280, height: 150, top: -60, marginBottom: 0 },
+            xl: { width: 280, height: 150, top: -60, marginBottom: 0 }
           }
         },
         thumbnailStyle: {
@@ -719,7 +722,7 @@ export const productCategories = [
         responsiveThumbnailNavPosition: {
           xs: { bottom: -10 },
           md: { bottom: -50 },
-          xl: { bottom: -50 }
+          xl: { bottom: -80 }
         },
         decorativeImages: {
           image1: {
