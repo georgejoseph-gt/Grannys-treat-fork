@@ -38,6 +38,37 @@ const Page3 = () => {
   const thumbnailGap = category.thumbnailGap || 8;
   const breakpoint = useBreakpoint();
 
+  // Preload all images of the current category when category changes
+  useEffect(() => {
+    const preloadImages = () => {
+      category.items.forEach((item) => {
+        const img = new Image();
+        img.src = item.image;
+        if (item.div4_image) {
+          const div4Img = new Image();
+          div4Img.src = item.div4_image;
+        }
+      });
+    };
+    preloadImages();
+  }, [categoryIndex, category.items]);
+
+  // Preload next/previous images in current category
+  useEffect(() => {
+    const preloadAdjacentImages = () => {
+      const prevIndex = currentImageIndex === 0 ? category.items.length - 1 : currentImageIndex - 1;
+      const nextIndex = currentImageIndex === category.items.length - 1 ? 0 : currentImageIndex + 1;
+      
+      [prevIndex, nextIndex].forEach((idx) => {
+        if (category.items[idx]) {
+          const img = new Image();
+          img.src = category.items[idx].image;
+        }
+      });
+    };
+    preloadAdjacentImages();
+  }, [currentImageIndex, category.items]);
+
   const prevCategory = () => {
     setCategoryIndex((i) => (i === 0 ? productCategories.length - 1 : i - 1));
     setCurrentImageIndex(0);
@@ -143,7 +174,7 @@ const Page3 = () => {
                           display: 'inline-block',
                         }}
                         className="drop-shadow-lg rounded-xl"
-                        priority={idx === currentImageIndex && categoryIndex === 0}
+                        priority={idx === currentImageIndex}
                       />
                     </motion.div>
                   </div>
@@ -242,7 +273,7 @@ const Page3 = () => {
                               display: 'inline-block',
                             }}
                             className="drop-shadow-lg rounded-xl"
-                            priority={idx === currentImageIndex && categoryIndex === 0}
+                            priority={idx === currentImageIndex}
                           />
                         </motion.div>
                       </span>
@@ -265,7 +296,7 @@ const Page3 = () => {
                             animate={idx === currentImageIndex ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
                             transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
                             className="object-contain max-w-full max-h-full"
-                            loading="lazy"
+                            loading={idx === currentImageIndex ? "eager" : "lazy"}
                             decoding="async"
                           />
                         )}

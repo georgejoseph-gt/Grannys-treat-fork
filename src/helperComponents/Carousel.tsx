@@ -138,6 +138,8 @@ const Carousel = ({
                     width={thumbStyle.width}
                     height={thumbStyle.height}
                     className="rounded h-full object-contain transition-opacity duration-300"
+                    loading={index <= 2 ? "eager" : "lazy"}
+                    decoding="async"
                   />
                 </button>
               );

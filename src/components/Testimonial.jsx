@@ -2,9 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import { stories } from '../lib/testimonialData';
 import { PlayIcon, X } from 'lucide-react';
 
-const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
+const TestimonialCard = ({ story, onClick, isDragging, priority = false, isNearViewport = false }) => {
   const videoRef = useRef(null);
   const [shouldLoad, setShouldLoad] = useState(priority); 
+  const [isInView, setIsInView] = useState(false);
+
+  // Prefetch video source using link prefetch for better performance
+  useEffect(() => {
+    if (priority || isNearViewport) {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.as = 'video';
+      link.href = story.preview;
+      document.head.appendChild(link);
+      
+      return () => {
+        document.head.removeChild(link);
+      };
+    }
+  }, [priority, isNearViewport, story.preview]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -15,15 +31,18 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
     }
   }, [shouldLoad, priority]);
 
-  // Use intersection observer to load video only when near viewport
+  // Use intersection observer with larger margin to load videos earlier
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          // Start loading if not already loaded
+        const intersecting = entry.isIntersecting;
+        setIsInView(intersecting);
+        
+        if (intersecting) {
+          // Start loading immediately when near viewport
           if (!shouldLoad) {
             setShouldLoad(true);
           }
@@ -31,7 +50,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
       },
       { 
         threshold: 0.01,
-        rootMargin: '200px' // Start loading 200px before video enters viewport
+        rootMargin: '400px' // Start loading 400px before video enters viewport
       }
     );
 
@@ -57,7 +76,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
         muted
         loop
         playsInline
-        preload="none"
+        preload={priority || isInView ? "metadata" : "none"}
         poster={story.poster || undefined}
         className="h-full w-full object-cover"
       />
@@ -87,6 +106,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false }) => {
 /* -------------------- Main -------------------- */
 const Testimonial = () => {
   const [activeStory, setActiveStory] = useState(null);
+  const [visibleIndices, setVisibleIndices] = useState(new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]));
 
   const sliderRef = useRef(null);
   const isDown = useRef(false);
@@ -94,6 +114,53 @@ const Testimonial = () => {
   const startX = useRef(0);
   const scrollLeft = useRef(0);
   const velocity = useRef(0);
+
+  // Preload first 10 videos immediately on mount
+  useEffect(() => {
+    stories.slice(0, 10).forEach((story) => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.as = 'video';
+      link.href = story.preview;
+      document.head.appendChild(link);
+    });
+  }, []);
+
+  // Track visible videos and preload adjacent ones
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    const updateVisibleVideos = () => {
+      const rect = slider.getBoundingClientRect();
+      const newVisible = new Set();
+      
+      stories.forEach((story, index) => {
+        const card = slider.querySelector(`[data-story-id="${story.id}"]`);
+        if (card) {
+          const cardRect = card.getBoundingClientRect();
+          // Consider visible if within 500px of viewport
+          if (cardRect.right >= rect.left - 500 && cardRect.left <= rect.right + 500) {
+            newVisible.add(index);
+            // Also preload adjacent videos
+            if (index > 0) newVisible.add(index - 1);
+            if (index < stories.length - 1) newVisible.add(index + 1);
+          }
+        }
+      });
+      
+      setVisibleIndices(newVisible);
+    };
+
+    updateVisibleVideos();
+    slider.addEventListener('scroll', updateVisibleVideos, { passive: true });
+    window.addEventListener('resize', updateVisibleVideos);
+    
+    return () => {
+      slider.removeEventListener('scroll', updateVisibleVideos);
+      window.removeEventListener('resize', updateVisibleVideos);
+    };
+  }, []);
 
   /* -------- Smooth drag with inertia -------- */
   const onMouseDown = (e) => {
@@ -214,13 +281,15 @@ const Testimonial = () => {
           onMouseLeave={onMouseLeave}
         >
           {stories.map((story, index) => (
-            <TestimonialCard
-              key={story.id}
-              story={story}
-              onClick={openModal}
-              isDragging={isDragging}
-              priority={index < 6} // Prioritize first 6 videos for immediate loading
-            />
+            <div key={story.id} data-story-id={story.id}>
+              <TestimonialCard
+                story={story}
+                onClick={openModal}
+                isDragging={isDragging}
+                priority={index < 10} // Prioritize first 10 videos for immediate loading
+                isNearViewport={visibleIndices.has(index)}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -252,7 +321,8 @@ const Testimonial = () => {
               src={activeStory.full}
               controls
               playsInline
-              preload="none"
+              preload="auto"
+              autoPlay
               className="max-h-[90vh] w-auto object-contain"
             />
           </div>
