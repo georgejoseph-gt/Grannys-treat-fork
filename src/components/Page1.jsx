@@ -63,20 +63,18 @@ const Page1 = () => {
 
             {/* Right Section: Desktop Contact & Mobile Hamburger */}
             <div className="flex items-center ">
-              <div className="hidden md:block">
+              <div className="hidden md:block -mt-6">
                 <a
                   href="#contact-form"
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToContact();
                   }}
-                  className="inline-block font-[Fredoka] text-[#285192] font-semibold text-[clamp(1rem,2vw,1.8rem)] cursor-pointer hover:scale-105 transition-transform duration-300 select-none"
+                  className="inline-block font-[Fredoka] text-[#285192] font-semibold text-[clamp(1rem,2vw,1.8rem)] cursor-pointer hover:scale-105 transition-transform duration-300 select-none "
                 >
                   Contact Us
                 </a>
               </div>
-
-              {/* Mobile Hamburger Menu */}
 
             </div>
           </div>

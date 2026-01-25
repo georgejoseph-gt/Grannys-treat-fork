@@ -4,12 +4,18 @@ import { PlayIcon, X } from 'lucide-react';
 
 const TestimonialCard = ({ story, onClick, isDragging, priority = false, isNearViewport = false }) => {
   const videoRef = useRef(null);
+  const hasLoadedRef = useRef(priority); // Track if video has ever been loaded (persists across re-renders)
   const [shouldLoad, setShouldLoad] = useState(priority); 
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(priority); // Assume priority videos are initially in view
 
-  // Prefetch video source using link prefetch for better performance
   useEffect(() => {
     if (priority || isNearViewport) {
+      // Mark as should load if near viewport
+      if (isNearViewport && !hasLoadedRef.current) {
+        hasLoadedRef.current = true;
+        setShouldLoad(true);
+      }
+      
       const link = document.createElement('link');
       link.rel = 'prefetch';
       link.as = 'video';
@@ -26,10 +32,61 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false, isNearV
     const video = videoRef.current;
     if (!video) return;
 
-    if (shouldLoad || priority) {
+    if (shouldLoad || priority || hasLoadedRef.current) {
+      // Mark as loaded if we're loading it
+      if (!hasLoadedRef.current) {
+        hasLoadedRef.current = true;
+      }
       video.load();
+      // For priority videos, try to play immediately once they have enough data
+      if (priority) {
+        const tryPlay = () => {
+          if (video.readyState >= 2) { // HAVE_CURRENT_DATA - enough data to start playing
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {});
+            }
+          }
+        };
+        
+        // Try immediately if already loaded
+        tryPlay();
+        
+        // Also listen for loadeddata (fires earlier than canplay)
+        video.addEventListener('loadeddata', tryPlay, { once: true });
+        return () => video.removeEventListener('loadeddata', tryPlay);
+      }
     }
   }, [shouldLoad, priority]);
+
+  // Auto-play video when it's loaded and in view (using loadeddata for faster response)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+
+    const tryPlay = () => {
+      if (isInView && video.readyState >= 2) { // HAVE_CURRENT_DATA
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
+      }
+    };
+
+    // Use loadeddata (fires earlier) and canplay (more reliable)
+    video.addEventListener('loadeddata', tryPlay, { once: true });
+    video.addEventListener('canplay', tryPlay, { once: true });
+    
+    // If video is already loaded, try immediately
+    if (video.readyState >= 2 && isInView) {
+      tryPlay();
+    }
+
+    return () => {
+      video.removeEventListener('loadeddata', tryPlay);
+      video.removeEventListener('canplay', tryPlay);
+    };
+  }, [shouldLoad, isInView]);
 
   // Use intersection observer with larger margin to load videos earlier
   useEffect(() => {
@@ -42,10 +99,21 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false, isNearV
         setIsInView(intersecting);
         
         if (intersecting) {
-          // Start loading immediately when near viewport
-          if (!shouldLoad) {
+          // Start loading immediately when near viewport - mark as loaded permanently
+          if (!hasLoadedRef.current) {
+            hasLoadedRef.current = true;
             setShouldLoad(true);
           }
+          // Auto-play video when it enters viewport (if it has enough data)
+          if (video.readyState >= 2) {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {});
+            }
+          }
+        } else {
+          // Pause video when it leaves viewport (but keep it loaded)
+          video.pause();
         }
       },
       { 
@@ -55,8 +123,18 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false, isNearV
     );
 
     observer.observe(video);
+    
+    // For priority videos, check immediately if they're in view
+    if (priority) {
+      const rect = video.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight + 400 && rect.bottom > -400;
+      if (isVisible && !isInView) {
+        setIsInView(true);
+      }
+    }
+    
     return () => observer.disconnect();
-  }, [shouldLoad]);
+  }, [shouldLoad, priority, isInView]);
 
   const handleClick = () => {
     if (!isDragging.current) onClick(story);
@@ -72,11 +150,12 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false, isNearV
     >
       <video
         ref={videoRef}
-        src={shouldLoad ? story.preview : undefined}
+        src={hasLoadedRef.current || shouldLoad || priority ? story.preview : undefined}
         muted
         loop
         playsInline
-        preload={priority || isInView ? "metadata" : "none"}
+        autoPlay
+        preload={priority ? "auto" : hasLoadedRef.current || isInView ? "metadata" : "none"}
         poster={story.poster || undefined}
         className="h-full w-full object-cover"
       />

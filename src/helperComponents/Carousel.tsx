@@ -140,6 +140,7 @@ const Carousel = ({
                     className="rounded h-full object-contain transition-opacity duration-300"
                     loading={index <= 2 ? "eager" : "lazy"}
                     decoding="async"
+                    fetchPriority={index <= 2 ? "high" : "auto"}
                   />
                 </button>
               );
