@@ -58,7 +58,7 @@ const Page3 = () => {
     const preloadAdjacentImages = () => {
       const prevIndex = currentImageIndex === 0 ? category.items.length - 1 : currentImageIndex - 1;
       const nextIndex = currentImageIndex === category.items.length - 1 ? 0 : currentImageIndex + 1;
-      
+
       [prevIndex, nextIndex].forEach((idx) => {
         if (category.items[idx]) {
           const img = new Image();
@@ -118,6 +118,7 @@ const Page3 = () => {
       </div>
 
       <Carousel
+        key={`carousel-${categoryIndex}`}
         className="w-full h-[95vh]"
         thumbnails={thumbnails}
         onSlideChange={handleImageChange}
@@ -130,7 +131,7 @@ const Page3 = () => {
           const dimensions = getConsistentDimensions(item);
           return (
             <div
-              key={idx}
+              key={`${categoryIndex}-${item.image}-${idx}`}
               className="w-full h-full flex flex-col items-center justify-start text-white text-lg sm:text-xl md:text-2xl font-bold transition-all duration-500"
               style={{ backgroundColor: item.colorbg }}
             >
@@ -165,6 +166,7 @@ const Page3 = () => {
                       }}
                     >
                       <OptimizedImage
+                        key={item.image}
                         src={item.image}
                         alt={item.title}
                         width={dimensions.width}
@@ -264,6 +266,7 @@ const Page3 = () => {
                           }}
                         >
                           <OptimizedImage
+                            key={item.image}
                             src={item.image}
                             alt={item.title}
                             width={dimensions.width}

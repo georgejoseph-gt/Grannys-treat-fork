@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const OptimizedImage = ({
@@ -13,6 +13,16 @@ const OptimizedImage = ({
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
+
+  // Reset loading state when src changes
+  useEffect(() => {
+    if (src !== currentSrc) {
+      setIsLoaded(false);
+      setError(false);
+      setCurrentSrc(src);
+    }
+  }, [src, currentSrc]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -40,15 +50,15 @@ const OptimizedImage = ({
       {!isLoaded && (
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm"
-          style={{ 
-            width, 
+          style={{
+            width,
             height,
             backgroundImage: `url(${src})`,
             backgroundSize: 'cover'
           }}
         />
       )}
-      
+
       <img
         src={src}
         alt={alt}
@@ -57,9 +67,8 @@ const OptimizedImage = ({
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
         fetchPriority={priority ? 'high' : 'auto'}
-        className={`transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         onClick={onClick}
         onLoad={handleLoad}
         onError={handleError}
