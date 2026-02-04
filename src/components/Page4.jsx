@@ -4,15 +4,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Page4 = () => {
   const images = [
-    "/assets/page4/img5.jpg",
-    "/assets/page4/img6.jpg",
-    "/assets/page4/img7.jpg",
-    "/assets/page4/img8.jpg",
-    // "/assets/page4/photo.png",
-    "/assets/page4/img1.png",
-    "/assets/page4/img2.png",
-    "/assets/page4/img3.png",
-    "/assets/page4/img4.png",
+    "/assets/page4/webp/img5.webp",
+    "/assets/page4/webp/img6.webp",
+    "/assets/page4/webp/img7.webp",
+    "/assets/page4/webp/img8.webp",
+    // "/assets/page4/webp/photo.png",
+    "/assets/page4/webp/img1.webp",
+    "/assets/page4/webp/img2.webp",
+    "/assets/page4/webp/img3.webp",
+    "/assets/page4/webp/img4.webp",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -87,7 +87,7 @@ const Page4 = () => {
                 const deltaX = dragOffset;
                 setIsDragging(false);
                 const threshold = 30; // Lower threshold for easier swiping on mobile
-                
+
                 if (deltaX < -threshold) {
                   // swipe left -> next
                   setDirection(1);
@@ -123,7 +123,7 @@ const Page4 = () => {
                 const deltaX = dragOffset;
                 setIsDragging(false);
                 const threshold = 50;
-                
+
                 if (deltaX < -threshold) {
                   setDirection(1);
                   setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -145,14 +145,14 @@ const Page4 = () => {
                   decoding="async"
                   custom={direction}
                   initial={{ x: direction === 1 ? 80 : -80, opacity: 0.0 }}
-                  animate={{ 
-                    x: isDragging ? dragOffset : 0, 
-                    opacity: isDragging ? Math.max(0.7, 1 - Math.abs(dragOffset) / 200) : 1 
+                  animate={{
+                    x: isDragging ? dragOffset : 0,
+                    opacity: isDragging ? Math.max(0.7, 1 - Math.abs(dragOffset) / 200) : 1
                   }}
                   exit={{ x: direction === 1 ? -80 : 80, opacity: 0.0 }}
-                  transition={{ 
-                    duration: isDragging ? 0 : 0.6, 
-                    ease: "easeInOut" 
+                  transition={{
+                    duration: isDragging ? 0 : 0.6,
+                    ease: "easeInOut"
                   }}
                 />
               </AnimatePresence>
@@ -183,12 +183,11 @@ const Page4 = () => {
               </button>
             </div>
             <div className="flex space-x-2 mt-4 w-full justify-center">
-              {images.map((_, idx) => ( 
+              {images.map((_, idx) => (
                 <button
                   key={idx}
-                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors duration-300 focus:outline-none ${
-                    idx === currentIndex ? "bg-[#285192]" : "bg-[#cbdef3]"
-                  }`}
+                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors duration-300 focus:outline-none ${idx === currentIndex ? "bg-[#285192]" : "bg-[#cbdef3]"
+                    }`}
                   onClick={() => {
                     setDirection(idx > currentIndex ? 1 : -1);
                     setCurrentIndex(idx);
