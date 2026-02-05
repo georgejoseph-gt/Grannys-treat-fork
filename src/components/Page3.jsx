@@ -135,7 +135,6 @@ const Page3 = () => {
               className="w-full h-full flex flex-col items-center justify-start text-white text-lg sm:text-xl md:text-2xl font-bold transition-all duration-500"
               style={{ backgroundColor: item.colorbg }}
             >
-              {/* Responsive order for mobile/tablet vs desktop */}
               {['xs', 'sm', 'md'].includes(breakpoint) ? (
                 <div className="flex flex-col gap-y-5 pt-20">
                   {/* Div 1 - Product Title */}
