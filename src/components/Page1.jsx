@@ -43,9 +43,9 @@ const Page1 = () => {
     >
 
       <div className="relative h-screen w-full overflow-hidden">
-        <header className="absolute top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-10 font-[Fredoka] text-[#d2eef9]">
+        <header className="absolute top-0 left-0 w-full z-[100] px-4 sm:px-6 md:px-10 font-[Fredoka] text-[#d2eef9] pointer-events-none">
           <div className="max-w-full mx-auto w-full flex items-center justify-between">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 pointer-events-auto">
               <OptimizedImage
                 src="/assets/Logo.svg"
                 alt="logo"
@@ -63,7 +63,7 @@ const Page1 = () => {
 
             {/* Right Section: Desktop Contact & Mobile Hamburger */}
             <div className="flex items-center ">
-              <div className="hidden md:block -mt-6">
+              <div className="hidden md:block -mt-6 pointer-events-auto">
                 <a
                   href="#contact-form"
                   onClick={(e) => {
