@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import emailjs from '@emailjs/browser';
 
 const EMAILJS_SERVICE_ID = 'service_jd0vxds';
@@ -24,7 +25,7 @@ const Toast = ({ message, type, onClose }) => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 100 }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      className={`fixed top-6 right-6 z-50 px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3 min-w-[280px] max-w-[400px] ${isSuccess
+      className={`z-[500000] fixed top-6 right-6 px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3 min-w-[280px] max-w-[400px] ${isSuccess
           ? 'bg-gradient-to-r from-green-400 to-emerald-500'
           : 'bg-gradient-to-r from-red-400 to-rose-500'
         }`}
@@ -129,15 +130,18 @@ const ContactForm = () => {
   return (
     <>
       {/* Toast Notification - Top Right */}
-      <AnimatePresence>
-        {toast.show && (
-          <Toast
-            message={toast.message}
-            type={toast.type}
-            onClose={closeToast}
-          />
-        )}
-      </AnimatePresence>
+      {createPortal(
+        <AnimatePresence>
+          {toast.show && (
+            <Toast
+              message={toast.message}
+              type={toast.type}
+              onClose={closeToast}
+            />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
       <div className="mx-auto max-w-3xl rounded-lg bg-[#d2eef9] p-4 sm:p-6 md:p-8 relative z-10">
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
