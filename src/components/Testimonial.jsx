@@ -157,7 +157,7 @@ const TestimonialCard = ({ story, onClick, isDragging, priority = false, queuePo
       className="snap-center shrink-0 w-[240px] sm:w-[260px] md:w-[320px]
                  aspect-[9/16] rounded-xl overflow-hidden relative
                  cursor-pointer select-none transition-transform duration-300
-                 transform hover:scale-105 mt-20"
+                 transform hover:scale-105 mt-16"
       style={{ background: placeholderGradient }}
     >
       {/* Skeleton loader with shimmer effect */}
@@ -321,7 +321,7 @@ const Testimonial = () => {
         <div
           ref={sliderRef}
           className="flex gap-4 overflow-x-auto snap-x snap-mandatory
-                     pb-4 scrollbar-hide cursor-grab"
+                     p-4 scrollbar-hide cursor-grab"
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
